@@ -15,3 +15,7 @@ export const CenterRow = css`
     ${Center}
     flex-direction: row;
 `
+
+export const PropsCard = css`
+    border-radius: 10px;
+`

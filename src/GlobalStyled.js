@@ -59,9 +59,11 @@ export const GlobalStyles = createGlobalStyle`
 
         a {
             text-decoration: none;
+            font-family: ${Fonts.medium};
         }
         
         button, select, input, textarea {
+            font-family: ${Fonts.medium};
             outline: none;
         }
     }

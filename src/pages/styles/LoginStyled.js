@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components'
 
 import Colors from '../../themes/Colors'
-import Fonts from '../../themes/Fonts'
 import { CenterColumn } from '../../themes/StyleConstants'
 
 import background from '../../assets/img/bg-church.jpg'
@@ -19,7 +18,6 @@ export const Container = styled.section`
 
 export const Box = styled.div`
     ${CenterColumn}
-    flex-direction: column;
     position: relative;
     width: 280px;
     height: 280px;
@@ -31,7 +29,6 @@ export const Box = styled.div`
 
 export const HeaderBox = styled.div`
     ${CenterColumn}
-    flex-direction: column;
     position: absolute;
     top: -50px;
     width: 260px;
@@ -86,7 +83,6 @@ export const Button = styled.button.attrs({ type: 'submit' })`
     border: none;
     font-size: 14px;
     color: ${Colors.white};
-    font-family: ${Fonts.regular};
     background-color: ${Colors.primary};
 `
 
