@@ -16,6 +16,14 @@ export const CenterRow = css`
     flex-direction: row;
 `
 
-export const PropsCard = css`
-    border-radius: 10px;
+export const MiddleCenterColumn = css`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+`
+
+export const MiddleCenterRow = css`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
 `

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Colors from '../themes/Colors'
+import { MiddleCenterColumn } from '../themes/StyleConstants'
 
 export default function Header() {
     return (
@@ -15,14 +16,11 @@ export default function Header() {
 }
 
 const NavBar = styled.nav`
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    ${MiddleCenterColumn}
     justify-content: space-between;
-    align-items: center;
+    position: relative;
     width: 100%;
     height: 120px;
-    border: solid 1px red;
     box-sizing: border-box;
 `
 
@@ -30,7 +28,7 @@ const Tab = styled.div`
     width: inherit;
     height: 80px;
     background-color: ${Colors.primary};
-    clip-path: polygon(0 0, 100% 0%, 100% 40%, 50% 100%, 0 40%);
+    clip-path: polygon(0 0, 100% 0%, 100% 60%, 50% 100%, 0 60%);
 `
 
 const Circle = styled.div`
