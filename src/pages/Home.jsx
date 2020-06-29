@@ -10,12 +10,12 @@ export default function Home() {
         <Container>
             <Header />
             <Section>
-                <Card>
+                <Card to="/">
                     <ImageIntegration />
                     <Label>Integração</Label>
                 </Card>
 
-                <Card>
+                <Card to="/">
                     <ImageCap />
                     <Label>Casa de Paz</Label>
                 </Card>
