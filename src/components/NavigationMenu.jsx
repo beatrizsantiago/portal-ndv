@@ -24,9 +24,8 @@ const Menu = styled.div`
     ${MiddleCenterRow}
     justify-content: ${props => props.quantity > 2 ? 'space-between' : 'space-around'};
     width: 100%;
-    margin: 20px 0px;
+    margin: 15px 0px;
     box-sizing: border-box;
-    background-color: pink;
 `
 
 const Box = styled(Link)`
