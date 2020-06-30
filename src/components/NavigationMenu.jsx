@@ -26,6 +26,11 @@ const Menu = styled.div`
     width: 100%;
     margin: 15px 0px;
     box-sizing: border-box;
+
+    @media (max-width: 895px) {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 `
 
 const Box = styled(Link)`

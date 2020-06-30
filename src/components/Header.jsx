@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import Colors from '../themes/Colors'
 import { CenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
@@ -16,7 +17,7 @@ export default function Header() {
                 <Item>Eventos</Item>
                 <Item>Classes</Item>
             </Tab>
-            <Circle>
+            <Circle to="/home">
                 <Logo />
             </Circle>
         </NavBar>
@@ -55,7 +56,7 @@ const Spacing = styled.span`
     width: 100px;
 `
 
-const Circle = styled.div`
+const Circle = styled(Link)`
     ${CenterRow}
     position: absolute;
     width: 90px;

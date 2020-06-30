@@ -18,12 +18,13 @@ export const UsersCog = styled(FaUsersCog)`
 export const Section = styled.section`
     ${CenterColumn}
     width: 100%;
+    padding: 0px 10px;
     box-sizing: border-box;
 `
 
 export const Graph = styled.div`
     position: relative;
-    width: 98.5%;
+    width: 100%;
     /* height: 60vh; */
     padding: 30px;
     border-radius: 5px;
