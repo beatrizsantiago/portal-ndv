@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { Link } from 'react-router-dom'
 
 import Colors from '../../themes/Colors'
 import { MiddleCenterRow } from '../../themes/StyleConstants'
@@ -41,13 +40,14 @@ export const Label = styled.h1`
     flex: 1;
 `
 
-export const Card = styled(Link)`
+export const Card = styled.button`
     ${MiddleCenterRow}
     width: 300px;
     height: 120px;
     margin: 15px;
     padding: 10px;
     cursor: pointer;
+    border: none;
     box-sizing: border-box;
     border-left-color: ${Colors.secondary};
     border-left-style: solid;

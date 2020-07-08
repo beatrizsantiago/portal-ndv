@@ -1,28 +1,75 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
 
 import Colors from '../themes/Colors'
 import { CenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
 
 import LogoImage from '../assets/icons/logo.png'
 
-export default function Header() {
+function Header({ currentNavigation, setCurrentNavigation }) {
+
+    useEffect(() => {
+        let query = window.location.href.split('/')
+        let currentRoute = query[query.length - 1]
+
+        let mainRoutes = ['home', 'integration']
+
+        let findRoute = mainRoutes.find(route => route === currentRoute)
+
+        if (findRoute) {
+            setCurrentNavigation(currentRoute)
+        }
+    }, [setCurrentNavigation])
+
+    let navigate = useNavigate()
+
+    const handlePress = param => {
+        setCurrentNavigation(param)
+        navigate(`/${param}`)
+    }
+
+    const getType = route => {
+        if (route === currentNavigation) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
     return (
         <NavBar>
             <Tab>
-                <Item>Integração</Item>
-                <Item>Casa de Paz</Item>
-                <Spacing />
-                <Item>Eventos</Item>
-                <Item>Classes</Item>
+                {
+                    currentNavigation !== 'home' ?
+                        <>
+                            <Item onClick={() => handlePress('integration')} type={getType('integration')}>Integração</Item>
+                            <Item onClick={() => handlePress('integration')}>Casa de Paz</Item>
+                            <Spacing />
+                            <Item onClick={() => handlePress('integration')}>Eventos</Item>
+                            <Item onClick={() => handlePress('integration')}>Classes</Item>
+                        </> : null
+                }
             </Tab>
-            <Circle to="/home">
+            <Circle onClick={() => handlePress('home')}>
                 <Logo />
             </Circle>
         </NavBar>
     )
 }
+
+const mapStateToProps = state => ({
+    currentNavigation: state.navigation.currentNavigation
+})
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentNavigation: navigation => dispatch(setCurrentNavigation(navigation))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
 
 const NavBar = styled.nav`
     ${MiddleCenterColumn}
@@ -41,30 +88,34 @@ const Tab = styled.div`
     clip-path: polygon(0 0, 100% 0%, 100% 50%, 50% 100%, 0 50%);
 `
 
-const Item = styled.h2`
+const Item = styled.button`
     font-size: 12px;
-    color: ${Colors.white};
+    color: ${props => props.type === 1 ? Colors.secondary : Colors.white};
     text-align: center;
     font-weight: normal;
     letter-spacing: 0.4px;
-    cursor: pointer;
     margin: 4px;
     width: 100px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
 `
 
 const Spacing = styled.span`
     width: 100px;
 `
 
-const Circle = styled(Link)`
+const Circle = styled.button`
     ${CenterRow}
     position: absolute;
     width: 90px;
     height: 90px;
     bottom: 0px;
+    cursor: pointer;
     border-radius: 50%;
     box-sizing: border-box;
     background-color: ${Colors.white};
+    border: none;
 `
 
 const Logo = styled.img.attrs({ src: LogoImage })`
