@@ -4,9 +4,11 @@ const Colors = {
     green: '#00b00c',
     yellow: '#f0d000',
     red: '#ff0000',
+    blue: '#009ee1',
     lightGray: '#b5b5b5',
     smoothGray: '#dedede',
     backgroundGray: '#f5f5f5',
+    iceWhite: '#fafafa',
     white: '#ffffff',
     black: '#000000',
 }

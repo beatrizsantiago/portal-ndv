@@ -6,7 +6,7 @@ import ReactLoading from 'react-loading'
 import Colors from '../themes/Colors'
 import { CenterRow } from '../themes/StyleConstants'
 
-export default function Button({ title, width, height, color, disabled, outlined, type, to, loading }) {
+export default function Button({ onClick, title, width, height, color, disabled, outlined, type, to, loading }) {
 
     if (type === 'link') {
         return (
@@ -17,7 +17,7 @@ export default function Button({ title, width, height, color, disabled, outlined
 
     } else {
         return (
-            <Container width={width} height={height} color={color} disabled={disabled} outlined={outlined}>
+            <Container onClick={onClick} width={width} height={height} color={color} disabled={disabled} outlined={outlined}>
                 {loading ? <ReactLoading type="spinningBubbles" color={Colors.white} height={15} width={15} /> : null}
                 <Text outlined={outlined} loading={loading}>{title}</Text>
             </Container>
@@ -34,12 +34,10 @@ const PropsButton = css`
     box-sizing: border-box;
     border-radius: 5px;
     border: solid ${props => props.outlined ? 1 : 0}px ${props => props.color || Colors.primary};
-    background-color: ${props => props.outlined ? Colors.white : props.color ? props.color : Colors.primary};
+    background-color: ${props => props.outlined ? Colors.white : (props.color ? props.color : Colors.primary)};
 `
 
-const Container = styled.button.attrs(props => ({
-    disabled: props.disabled || false,
-}))`
+const Container = styled.button`
     ${PropsButton}
 `
 
@@ -48,7 +46,7 @@ const ContainerLink = styled(Link)`
 `
 
 const Text = styled.h1`
-    color: ${props => props.outlined ? Colors.primary : props.color ? props.color : Colors.white};
+    color: ${props => props.outlined ? Colors.primary : ( props.color ? props.color : Colors.white)};
     font-size: 15px;
     font-weight: normal;
     ${props => props.loading ? 'margin-left: 5px;' : null}

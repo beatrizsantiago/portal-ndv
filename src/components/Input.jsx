@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import Colors from '../themes/Colors'
 import { MiddleCenterRow } from '../themes/StyleConstants'
 
-export default function Input({ label, required, type, disabled, maxlenght, placeholder, icon, error }) {
+export default function Input({ value, onChange, label, required, type, disabled, maxlenght, placeholder, icon, error }) {
     return (
         <Container>
             <Label>{label} {required ? <TextRed>*</TextRed> : null}</Label>
             <Row>
                 {icon ? <BoxIcon>{icon}</BoxIcon> : null}
-                <DataInput type={type} placeholder={placeholder} disabled={disabled} maxlenght={maxlenght} icon={icon} error={error} />
+                <DataInput value={value} onChange={onChange} type={type} placeholder={placeholder} disabled={disabled} maxlenght={maxlenght} icon={icon} error={error} />
             </Row>
         </Container>
     )
@@ -46,19 +46,14 @@ const BoxIcon = styled.div`
     height: 30px;
 `
 
-const DataInput = styled.input.attrs(props => ({
-    type: props.type || 'text',
-    placeholder: props.placeholder || '',
-    maxlenght: props.maxlenght || 100,
-    disabled: props.disabled,
-}))`
+const DataInput = styled.input`
     width: 100%;
     font-size: 16px;
-    padding: 4px 1px 4px ${props => props.icon ? 32 : 1}px;
+    padding: 4px 4px 4px ${props => props.icon ? 32 : 4}px;
     border: none;
     border-bottom: ${props => props.error ? 2 : 1}px solid ${props => props.error ? Colors.red : Colors.primary};
     box-sizing: border-box;
-    background-color: #fafafa;
+    background-color: ${Colors.iceWhite};
 
     :focus{
         border-bottom: 2px solid ${Colors.primary};

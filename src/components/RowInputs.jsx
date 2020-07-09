@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { MiddleCenterRow } from '../themes/StyleConstants'
+import { MiddleCenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
 
 export default function RowInputs({ inputs = [] }) {
 
@@ -30,6 +30,7 @@ const Row = styled.div`
 `
 
 const Box = styled.div`
+    ${MiddleCenterColumn}
     width: ${props => props.width}%;
     box-sizing: border-box;
     margin-left: ${props => props.index > 0 ? 8 : 0}px;
