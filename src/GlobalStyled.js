@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components"
 
 import Fonts from './themes/Fonts'
+import Colors from './themes/Colors'
 
 import MuliExtraLight from './assets/fonts/Muli-ExtraLight.ttf'
 import MuliLight from './assets/fonts/Muli-Light.ttf'
@@ -56,6 +57,7 @@ export const GlobalStyles = createGlobalStyle`
     body {
         margin: 0px;
         font-family: ${Fonts.medium};
+        background-color: ${Colors.backgroundGray};
 
         a {
             text-decoration: none;
@@ -65,6 +67,10 @@ export const GlobalStyles = createGlobalStyle`
         button, select, input, textarea {
             font-family: ${Fonts.medium};
             outline: none;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0px;
         }
     }
 `

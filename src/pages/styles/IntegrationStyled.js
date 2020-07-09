@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { CenterColumn } from '../../themes/StyleConstants'
 import { FaAddressCard, FaHandHoldingHeart, FaUsersCog } from 'react-icons/fa'
 import { Bar } from 'react-chartjs-2'
 
@@ -13,13 +12,6 @@ export const HandHeart = styled(FaHandHoldingHeart)`
 
 export const UsersCog = styled(FaUsersCog)`
     font-size: 38px;
-`
-
-export const Section = styled.section`
-    ${CenterColumn}
-    width: 100%;
-    padding: 0px 10px;
-    box-sizing: border-box;
 `
 
 export const Graph = styled.div`

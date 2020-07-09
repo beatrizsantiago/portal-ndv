@@ -14,11 +14,11 @@ function Header({ currentNavigation, setCurrentNavigation }) {
 
     useEffect(() => {
         let query = window.location.href.split('/')
-        let currentRoute = query[query.length - 1]
+        let currentRoute = query[3]
 
         let mainRoutes = ['home', 'integration']
 
-        let findRoute = mainRoutes.find(route => route === currentRoute)
+        let findRoute = mainRoutes.includes(currentRoute)
 
         if (findRoute) {
             setCurrentNavigation(currentRoute)
