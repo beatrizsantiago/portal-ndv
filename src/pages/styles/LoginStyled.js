@@ -43,6 +43,7 @@ export const Label = styled.h2`
     color: ${Colors.primary};
     width: 90%;
     font-weight: 500;
+    margin: 10px 0px;
 `
 
 const PropertiesInput = css`
@@ -98,12 +99,12 @@ const PropertiesIcon = css `
 
 export const IconMail = styled.h2`
     ${PropertiesIcon}
-    top: 94px;
+    top: 115px;
 `
 
 export const IconPassword = styled.h2`
     ${PropertiesIcon}
-    top: 158px;
+    top: 175px;
 `
 
 export const Spacing = styled.div`
