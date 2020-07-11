@@ -18,7 +18,7 @@ export default function Button({ onClick, title, width, height, color, disabled,
     } else {
         return (
             <Container onClick={onClick} width={width} height={height} color={color} disabled={disabled} outlined={outlined}>
-                {loading ? <ReactLoading type="spinningBubbles" color={Colors.white} height={15} width={15} /> : null}
+                {loading === true ? <ReactLoading type="spinningBubbles" color={Colors.white} height={15} width={15} /> : null}
                 <Text outlined={outlined} loading={loading}>{title}</Text>
             </Container>
         )

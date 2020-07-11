@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import Colors from '../themes/Colors'
 import { MiddleCenterRow } from '../themes/StyleConstants'
 
-export default function Input({ value, onChange, label, required, type, disabled, maxlenght, placeholder, icon, error }) {
+export default function Input({ value, onChange, label, required, type, disabled, maxLength, placeholder, icon, error }) {
     return (
         <Container>
             <Label>{label} {required ? <TextRed>*</TextRed> : null}</Label>
             <Row>
                 {icon ? <BoxIcon>{icon}</BoxIcon> : null}
-                <DataInput value={value} onChange={onChange} type={type} placeholder={placeholder} disabled={disabled} maxlenght={maxlenght} icon={icon} error={error} />
+                <DataInput value={value} onChange={onChange} type={type} placeholder={placeholder} disabled={disabled} maxLength={maxLength} icon={icon} error={error} />
             </Row>
         </Container>
     )

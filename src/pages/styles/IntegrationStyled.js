@@ -61,6 +61,6 @@ export const BarGraph = styled(Bar).attrs(props => ({
         }]
     },
     width: 200,
-    height: 550,
+    height: 500,
     options: { maintainAspectRatio: false },
 }))``
