@@ -5,10 +5,11 @@ import { MdClose } from 'react-icons/md'
 
 import Colors from '../themes/Colors'
 
-export default function BoxModal({ isOpen = false, width, closedPress, padding = true }) {
+export default function BoxModal({ isOpen = false, width, closedPress, padding = true, children }) {
     return (
         <Modal isOpen={isOpen} width={width} padding={padding}>
             <ButtonClose onClick={closedPress}><Close /></ButtonClose>
+            {children}
         </Modal>
     )
 }

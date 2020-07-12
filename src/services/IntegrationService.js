@@ -82,4 +82,15 @@ export async function GetIntegrators() {
     }
 }
 
-export default { RegisterNewVisitant, GetIntegrators }
+export async function AddIntegrator(email) {
+    try {
+        console.log(email);
+        return true
+
+    } catch (error) {
+        console.log("Error AddIntegrator: ", error);
+        throw error
+    }
+}
+
+export default { RegisterNewVisitant, GetIntegrators, AddIntegrator }
