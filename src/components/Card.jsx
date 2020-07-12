@@ -101,7 +101,9 @@ const Text = styled.h2`
 const RowButtons = styled.div`
     ${CenterRow}
     width: 100%;
-    margin-top: ${props => props.hasButton > 0 ? 10 : 0}px;
+    margin-top: ${props => props.hasButton > 0 ? 6 : 0}px;
+    padding-top: ${props => props.hasButton > 0 ? 6 : 0}px;
+    border-top: solid 1px ${props => props.hasButton > 0 ? Colors.lightGray : Colors.white}
 `
 
 const Box = styled.div`
