@@ -6,8 +6,8 @@ import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
 
 import Header from '../components/Header'
 
-import { Container } from './styles/MainStyled'
-import { Section, Card, ImageIntegration, Label, ImageCap } from './styles/HomeStyled'
+import { Container, SectionWrap } from './styles/MainStyled'
+import { Card, ImageIntegration, Label, ImageCap } from './styles/HomeStyled'
 
 function Home({ currentNavigation, setCurrentNavigation }) {
 
@@ -25,7 +25,7 @@ function Home({ currentNavigation, setCurrentNavigation }) {
     return (
         <Container>
             <Header />
-            <Section>
+            <SectionWrap>
                 <Card onClick={() => handlePress('integration')}>
                     <ImageIntegration />
                     <Label>Integração</Label>
@@ -35,7 +35,7 @@ function Home({ currentNavigation, setCurrentNavigation }) {
                     <ImageCap />
                     <Label>Casa de Paz</Label>
                 </Card>
-            </Section>
+            </SectionWrap>
         </Container>
     )
 }

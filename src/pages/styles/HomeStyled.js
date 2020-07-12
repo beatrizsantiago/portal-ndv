@@ -6,17 +6,6 @@ import { MiddleCenterRow } from '../../themes/StyleConstants'
 import IconIntegration from '../../assets/icons/icon_integração.png'
 import IconCap from '../../assets/icons/icon_cap.png'
 
-export const Section = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px;
-    box-sizing: border-box;
-`
-
 const PropsIcon = css`
     width: 100px;
     transition: all 0.5s;

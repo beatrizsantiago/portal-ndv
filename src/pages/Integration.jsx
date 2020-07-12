@@ -14,7 +14,7 @@ export default function Integration() {
             <NavigationMenu
                 items={[
                     { icon: <AddressCard />, title: 'Cadastrar Visitantes', link: '/integration/register' },
-                    { icon: <UsersCog />, title: 'Gerenciar Integradores', link: '/' },
+                    { icon: <UsersCog />, title: 'Gerenciar Integradores', link: '/integration/manage' },
                     { icon: <HandHeart />, title: 'Acompanhar Vidas', link: '/' },
                 ]}
             />

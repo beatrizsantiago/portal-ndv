@@ -15,3 +15,14 @@ export const Section = styled.section`
     padding: 0px 10px;
     box-sizing: border-box;
 `
+
+export const SectionWrap = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+`
