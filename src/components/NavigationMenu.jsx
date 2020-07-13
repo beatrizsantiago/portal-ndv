@@ -33,6 +33,27 @@ const Menu = styled.div`
     }
 `
 
+const Icon = styled.div`
+    ${CenterRow}
+    width: 25%;
+    height: 70%;
+    text-align: center;
+    color: ${Colors.red};
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-right-color: ${Colors.smoothGray};
+    transition: color 300ms linear;
+`
+
+const Title = styled.h1`
+    font-size: 18px;
+    font-weight: bold;
+    color: ${Colors.primary};
+    width: 70%;
+    padding: 10px;
+    transition: color 300ms linear;
+`
+
 const Box = styled(Link)`
     ${MiddleCenterRow}
     justify-content: space-between;
@@ -47,23 +68,31 @@ const Box = styled(Link)`
     border-left-color: ${Colors.red};
     box-sizing: border-box;
     background-color: ${Colors.white};
-`
-
-const Icon = styled.div`
-    ${CenterRow}
-    width: 25%;
-    height: 70%;
-    text-align: center;
-    color: ${Colors.red};
-    border-right-style: solid;
-    border-right-width: 2px;
-    border-right-color: ${Colors.smoothGray};
-`
-
-const Title = styled.h1`
-    font-size: 18px;
-    font-weight: bold;
-    color: ${Colors.primary};
-    width: 70%;
-    padding: 10px;
+    transform: translateZ(0);
+    
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        z-index: -1;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background: ${Colors.primary};
+        transform: scaleX(0);
+        transition-property: transform;
+        transform-origin: 0% 50%;
+        transition: 300ms linear;
+    }
+    &:hover:before {
+        transform: scaleX(1);
+    }
+    &:hover ${Icon} {
+        color: ${Colors.white};
+    }
+    &:hover ${Title} {
+        color: ${Colors.white};
+    }
 `
