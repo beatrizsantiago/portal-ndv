@@ -157,7 +157,7 @@ export async function GetLifes() {
                 "phone": "+55 (830) 597-2709"
             }
         ]
-        
+
         return data
 
     } catch (error) {
@@ -190,8 +190,89 @@ export async function LifeLost(id) {
 
 export async function GetDetailsLife(id) {
     try {
-        console.log(id);
-        return true
+        let data = {
+            "id": "5f0da90f3194d0d7846cb40c",
+            "name": "Mallory Wilkerson Valdez",
+            "currentStep": 6,
+            "phone": "+55 (812) 461-3563",
+            "email": "malloryvaldez@prowaste.com",
+            "birthday": "2003-12-13",
+            "integrator": "Hardin Watson Leach",
+            "feedbacks": [
+                {
+                    "description": "Nisi nisi minim proident reprehenderit reprehenderit aliquip reprehenderit dolore enim do pariatur nostrud nisi. Laboris id id est aliqua. Consequat irure aute elit deserunt Lorem amet. Nulla ut ullamco aliquip quis ad excepteur. Sit fugiat tempor eiusmod pariatur. Aliqua et reprehenderit voluptate officia laboris eu occaecat in culpa dolor.\r\n",
+                    "integrator": "Whitfield Vance Torres"
+                },
+                {
+                    "description": "Ullamco cupidatat eu anim veniam esse in consequat id enim nisi ea. Laboris ea sunt Lorem sit et nostrud cupidatat in ipsum mollit sint. Adipisicing ipsum laboris fugiat tempor eiusmod reprehenderit adipisicing nulla nisi qui. Ipsum ea et cillum fugiat ut tempor nostrud cupidatat pariatur ullamco duis veniam. Cupidatat eiusmod ex non irure cillum reprehenderit ex velit amet Lorem exercitation dolor.\r\n",
+                    "integrator": "Mcpherson Riddle Richardson"
+                },
+                {
+                    "description": "Ad ut aliqua duis enim dolore ullamco qui deserunt elit est aliqua nostrud nulla. Enim sunt nostrud nostrud incididunt laboris sunt. Excepteur do adipisicing esse proident. Ea Lorem magna sint ex fugiat esse ex incididunt magna aliquip sint. Reprehenderit ea labore ea incididunt fugiat adipisicing laborum magna nisi mollit. Anim exercitation nisi ex magna aliqua ea nulla occaecat commodo laboris exercitation voluptate. Dolore cillum aute ea sunt dolor est laborum non exercitation magna ex sint.\r\n",
+                    "integrator": "Robbins White Benson"
+                },
+                {
+                    "description": "Laboris eu incididunt mollit sint laborum labore dolore consequat exercitation ex officia do aliqua quis. Mollit nulla amet nulla ullamco aliqua esse commodo eiusmod enim esse non occaecat. Tempor occaecat cupidatat amet sit minim minim adipisicing. Eu enim et sint voluptate laboris nisi quis voluptate nulla laboris. Exercitation adipisicing laborum incididunt ipsum excepteur magna exercitation id aliquip esse ipsum. Tempor et in deserunt qui incididunt amet nisi sit dolor velit adipisicing non irure qui.\r\n",
+                    "integrator": "Florence Mendez Travis"
+                },
+                {
+                    "description": "Velit exercitation veniam reprehenderit voluptate eiusmod reprehenderit nisi nisi nostrud non in voluptate cupidatat dolore. Culpa et ipsum ad mollit mollit nulla commodo ut sit occaecat do. Reprehenderit fugiat excepteur sint sunt Lorem magna pariatur ullamco ullamco aliqua sint. In aliquip ex veniam laboris aliqua ut quis laboris ex non aliqua reprehenderit elit. Sit consectetur laborum proident amet consequat sint laboris laboris eu enim pariatur elit mollit.\r\n",
+                    "integrator": "Candice Bush Stephenson"
+                },
+                {
+                    "description": "Adipisicing labore duis sunt minim elit ullamco veniam laboris amet duis mollit magna. Ex do officia magna dolore eu duis fugiat culpa aute nulla. Pariatur Lorem culpa excepteur labore anim. Incididunt qui aliquip deserunt Lorem mollit duis enim voluptate excepteur consectetur nostrud officia quis tempor. Duis sit ipsum tempor enim laborum et.\r\n",
+                    "integrator": "Wagner Bray Allison"
+                },
+                {
+                    "description": "Anim nostrud qui nostrud enim adipisicing labore nostrud ipsum Lorem duis ullamco eiusmod. Proident excepteur sit reprehenderit elit sint pariatur consequat reprehenderit sunt excepteur. Nisi velit velit sunt proident incididunt ut proident dolor reprehenderit eu in. Aliqua ipsum mollit quis commodo sint pariatur magna adipisicing.\r\n",
+                    "integrator": "Navarro Cash Mcclure"
+                },
+                {
+                    "description": "Adipisicing in excepteur mollit exercitation aliquip. Aliquip mollit culpa amet labore deserunt cillum excepteur et ad culpa aute. Minim minim magna esse nostrud nostrud deserunt occaecat eu voluptate magna elit. Ea aliquip irure tempor eu tempor occaecat proident Lorem sit proident. Incididunt eiusmod consectetur culpa ex non in proident aute sunt elit ad duis ullamco. Duis labore nulla officia tempor veniam cillum mollit veniam irure labore ex adipisicing dolore.\r\n",
+                    "integrator": "Alfreda Serrano Mckee"
+                },
+                {
+                    "description": "In nostrud excepteur veniam sunt. Occaecat exercitation mollit ea ea dolor ad. Id dolore exercitation aute ea voluptate qui.\r\n",
+                    "integrator": "Brenda Skinner Bryant"
+                },
+                {
+                    "description": "Pariatur sit est in exercitation in magna sint qui elit consectetur sint id. Eiusmod nulla sint qui laboris consectetur amet nisi do eiusmod. Sint deserunt Lorem duis sunt magna id proident mollit.\r\n",
+                    "integrator": "Decker Shepard Gonzales"
+                }
+            ],
+            "historicPropheticWay": [
+                {
+                    "date": "2019-04-17",
+                    "step": 0
+                },
+                {
+                    "date": "2019-03-24",
+                    "step": 1
+                },
+                {
+                    "date": "2019-07-23",
+                    "step": 3
+                },
+                {
+                    "date": "2019-10-03",
+                    "step": 4
+                },
+                {
+                    "date": "2020-02-05",
+                    "step": 5
+                },
+                {
+                    "date": "2020-06-27",
+                    "step": 6
+                },
+                {
+                    "date": "2019-06-24",
+                    "step": 7
+                }
+            ]
+        }
+
+        return data
 
     } catch (error) {
         console.log("Error GetDetailsLife: ", error);
@@ -199,4 +280,4 @@ export async function GetDetailsLife(id) {
     }
 }
 
-export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, LifeLost, GetDetailsLife }
+export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, SendNewFeedback, LifeLost, GetDetailsLife }

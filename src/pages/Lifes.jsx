@@ -46,7 +46,7 @@ function Lifes() {
     let navigate = useNavigate()
 
     const detailsLife = data => {
-        navigate('/')
+        navigate('/integration/lifes/details')
     }
 
     const declareLifeLost = data => {
@@ -84,6 +84,13 @@ function Lifes() {
         })
     }
 
+    const closeModal = () => {
+        setModalVisible(false)
+        setNewFeedback('')
+        setLifeSelected('')
+        setError(false)
+    }
+
     const sendFeedback = () => {
         setLoadingButton(true)
         setError(false)
@@ -101,7 +108,8 @@ function Lifes() {
                         icon: 'success',
                         text: `O feedback de ${lifeSelected.name} foi enviado!`,
                         confirmButtonColor: Colors.green,
-                    })
+
+                    }).then(() => closeModal())
                 })
                 .catch(error => {
                     setLoadingButton(false)
@@ -113,13 +121,6 @@ function Lifes() {
                     })
                 })
         }
-    }
-
-    const closeModal = () => {
-        setModalVisible(false)
-        setNewFeedback('')
-        setLifeSelected('')
-        setError(false)
     }
 
     const openModal = data => {
