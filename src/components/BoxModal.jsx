@@ -31,6 +31,7 @@ const Modal = styled(ReactModal).attrs(props => ({
         content: {
             display: 'flex',
             flexDirection: 'column',
+            alignItems: 'center',
             position: 'absolute',
             width: `${props.width || 60}%`,
             minWidth: '300px',

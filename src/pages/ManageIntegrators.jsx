@@ -11,8 +11,8 @@ import BoxModal from '../components/BoxModal'
 import Input from '../components/Input'
 import MessageBox from '../components/MessageBox'
 
-import { Container, SectionWrap } from './styles/MainStyled'
-import { CardAdd, IconAdd, Title, TitleModal, Row } from './styles/ManageIntegratorsStyled'
+import { Container, SectionWrap, TitleModal } from './styles/MainStyled'
+import { CardAdd, IconAdd, Title } from './styles/ManageIntegratorsStyled'
 
 import Colors from '../themes/Colors'
 
@@ -118,9 +118,7 @@ export default function ManageIntegrators() {
                 <TitleModal>Novo integrador</TitleModal>
                 <MessageBox text={error ? 'Insira um E-mail válido!' : 'É necessário que o usuário esteja cadastrado no sistema.'} type={error ? 'error' : 'info'} />
                 <Input label="Insira um e-mail" value={email} onChange={event => setEmail(event.target.value)} disabled={loadingButton} error={error} maxLength="200" required />
-                <Row>
-                    <Button title="Adicionar" onClick={() => pressAddIntegrator()} loading={loadingButton ? 1 : 0} />
-                </Row>
+                <Button title="Adicionar" onClick={() => pressAddIntegrator()} loading={loadingButton ? 1 : 0} />
             </BoxModal>
         </Container>
     )

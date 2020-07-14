@@ -93,4 +93,110 @@ export async function AddIntegrator(email) {
     }
 }
 
-export default { RegisterNewVisitant, GetIntegrators, AddIntegrator }
+export async function GetLifes() {
+    try {
+        let data = [
+            {
+                "id": "5f0c9c2dbac81ab64a727b82",
+                "name": "Odom Hendrix Peterson",
+                "legend": 0,
+                "phone": "+55 (850) 530-2375"
+            },
+            {
+                "id": "5f0c9c2d266907d2abdffc5f",
+                "name": "Tami Franklin Glass",
+                "legend": 1,
+                "phone": "+55 (844) 425-2245"
+            },
+            {
+                "id": "5f0c9c2d0e1674be757c8a27",
+                "name": "Cummings Park Rivera",
+                "legend": 1,
+                "phone": "+55 (958) 476-2635"
+            },
+            {
+                "id": "5f0c9c2d062174507f4604b4",
+                "name": "Powers Valdez Christensen",
+                "legend": 0,
+                "phone": "+55 (849) 496-3821"
+            },
+            {
+                "id": "5f0c9c2d321a76b0ce3040c7",
+                "name": "Georgia Gibson Fowler",
+                "legend": 3,
+                "phone": "+55 (988) 551-3907"
+            },
+            {
+                "id": "5f0c9c2dc4614bd76af7848c",
+                "name": "Richmond Black Mcmillan",
+                "legend": 0,
+                "phone": "+55 (856) 493-3821"
+            },
+            {
+                "id": "5f0c9c2d85241337f725e522",
+                "name": "Bernice Cotton Hudson",
+                "legend": 2,
+                "phone": "+55 (854) 513-2705"
+            },
+            {
+                "id": "5f0c9c2db40b1e338d747859",
+                "name": "Robyn Fleming Simpson",
+                "legend": 2,
+                "phone": "+55 (957) 486-3336"
+            },
+            {
+                "id": "5f0c9c2d8886f1b4c7b0f73b",
+                "name": "Tamera Callahan Osborn",
+                "legend": 0,
+                "phone": "+55 (846) 422-3346"
+            },
+            {
+                "id": "5f0c9c2dd583fad9b0cd803d",
+                "name": "Delacruz Poole Walls",
+                "legend": 3,
+                "phone": "+55 (830) 597-2709"
+            }
+        ]
+        
+        return data
+
+    } catch (error) {
+        console.log("Error GetLifes: ", error);
+        throw error
+    }
+}
+
+export async function SendNewFeedback(id, text) {
+    try {
+        console.log(id, text);
+        return true
+
+    } catch (error) {
+        console.log("Error SendNewFeedback: ", error);
+        throw error
+    }
+}
+
+export async function LifeLost(id) {
+    try {
+        console.log(id);
+        return true
+
+    } catch (error) {
+        console.log("Error LifeLost: ", error);
+        throw error
+    }
+}
+
+export async function GetDetailsLife(id) {
+    try {
+        console.log(id);
+        return true
+
+    } catch (error) {
+        console.log("Error GetDetailsLife: ", error);
+        throw error
+    }
+}
+
+export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, LifeLost, GetDetailsLife }

@@ -29,13 +29,3 @@ export const Title = styled.h1`
     font-size: 20px;
     margin-left: 20px;
 `
-
-export const TitleModal = styled.h1`
-    width: 100%;
-    text-align: center;
-    font-size: 20px;
-`
-
-export const Row = styled.div`
-    ${CenterRow}
-`

@@ -4,13 +4,15 @@ import styled from 'styled-components'
 import Colors from '../themes/Colors'
 import { MiddleCenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
 
-export default function Table({ colunsSize = [], alignColuns = [], namesColumns = [], datas = [] }) {
+export default function Table({ colunsSize = [], alignColuns = [], namesColumns = [], datas = [], buttons, sizeCellButton }) {
 
     const renderCells = data => {
         let keys = Object.keys(data)
-        return keys.map((key, index) => (
-            <Cell key={index} size={colunsSize[index]} align={alignColuns[index]}>{data[key]}</Cell>
-        ))
+        return keys.map((key, index) =>
+            key !== 'id' ? (
+                <Cell key={index} size={colunsSize[index]} align={alignColuns[index]}>{data[key]}</Cell>
+            ) : null
+        )
     }
 
     return (
@@ -18,6 +20,7 @@ export default function Table({ colunsSize = [], alignColuns = [], namesColumns 
             <Header>
                 <LineHeader>
                     {namesColumns.map((name, index) => <Cell key={index} size={colunsSize[index]} align={alignColuns[index]}>{name}</Cell>)}
+                    {buttons !== undefined ? <Cell size={sizeCellButton} align="center" /> : null}
                 </LineHeader>
             </Header>
 
@@ -28,6 +31,7 @@ export default function Table({ colunsSize = [], alignColuns = [], namesColumns 
                             {
                                 renderCells(data)
                             }
+                            {buttons !== undefined ? <Cell key={index} size={sizeCellButton} align="center">{buttons(data)}</Cell> : null}
                         </Row>
                     ))
                 }
@@ -52,8 +56,7 @@ const Header = styled.thead`
     height: 32px;
     margin-bottom: 5px;
     padding: 5px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-radius: 4px;
     box-sizing: border-box;
     background-color: ${Colors.smoothGray};
 `
@@ -61,6 +64,8 @@ const Header = styled.thead`
 const LineHeader = styled.tr`
     ${MiddleCenterRow}
     width: 100%;
+    font-weight: bold;
+    font-size: 16px;
 `
 
 const Body = styled.tbody`
@@ -73,6 +78,7 @@ const Row = styled.tr`
     ${MiddleCenterRow}
     width: 100%;
     padding: 5px;
+    font-size: 16px;
     border-top-width: ${props => props.index === 0 ? 0 : 1}px;
     border-top-color: ${Colors.smoothGray};
     border-top-style: solid;

@@ -26,3 +26,9 @@ export const SectionWrap = styled.div`
     padding: 10px;
     box-sizing: border-box;
 `
+
+export const TitleModal = styled.h1`
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+`

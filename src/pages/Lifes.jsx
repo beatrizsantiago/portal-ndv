@@ -1,28 +1,164 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import SweetAlert from 'sweetalert2'
+
+import IntegrationService from '../services/IntegrationService'
 
 import Header from '../components/Header'
 import Table from '../components/Table'
+import Button from '../components/Button'
+import Loading from '../components/Loading'
+import BoxModal from '../components/BoxModal'
+import MessageBox from '../components/MessageBox'
 
-import { Container, Section } from './styles/MainStyled'
+import { Container, Section, TitleModal } from './styles/MainStyled'
+import { OutlineFileSync, LostUser, ListDetails, RowButtons, Textarea } from './styles/LifesStyled'
+
+import Colors from '../themes/Colors'
 
 function Lifes() {
+
+    const [allLifes, setAllLifes] = useState([])
+    const [modalVisible, setModalVisible] = useState(false)
+    const [newFeedback, setNewFeedback] = useState('')
+    const [lifeSelected, setLifeSelected] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [loadingButton, setLoadingButton] = useState(false)
+    const [error, setError] = useState(false)
+
+    useEffect(() => {
+        listLifes()
+    }, [])
+
+    const listLifes = () => {
+        setLoading(true)
+        IntegrationService.GetLifes()
+            .then(resp => {
+                setAllLifes(resp)
+
+                setTimeout(() => {
+                    setLoading(false)
+                }, 1000);
+            })
+    }
+
+    let navigate = useNavigate()
+
+    const detailsLife = data => {
+        navigate('/')
+    }
+
+    const declareLifeLost = data => {
+        SweetAlert.fire({
+            icon: 'question',
+            title: 'Atenção!',
+            text: `Realmente deseja declarar ${data.name} como uma vida perdida?`,
+            confirmButtonColor: Colors.red,
+            confirmButtonText: 'Sim',
+            showCancelButton: true,
+            cancelButtonColor: Colors.green,
+            cancelButtonText: 'Não',
+
+        }).then((result) => {
+            if (result.value) {
+                IntegrationService.LifeLost(data.id)
+                    .then(() => {
+                        SweetAlert.fire({
+                            icon: 'warning',
+                            title: 'Vida perdida!',
+                            text: `Não desanime, vamos continuar orando por ${data.name}.`,
+                            confirmButtonColor: Colors.yellow,
+                            confirmButtonText: 'Tamo junto',
+                        })
+                    })
+                    .catch(error => {
+                        SweetAlert.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Não foi possível declarar a vida como perdida. Tente novamente mais tarde!',
+                            confirmButtonColor: Colors.primary,
+                        })
+                    })
+            }
+        })
+    }
+
+    const sendFeedback = () => {
+        setLoadingButton(true)
+        setError(false)
+
+        if (newFeedback.length < 50) {
+            setLoadingButton(false)
+            setError(true)
+
+        } else {
+            IntegrationService.SendNewFeedback(lifeSelected.id, newFeedback)
+                .then(() => {
+                    setLoadingButton(false)
+                    setNewFeedback('')
+                    SweetAlert.fire({
+                        icon: 'success',
+                        text: `O feedback de ${lifeSelected.name} foi enviado!`,
+                        confirmButtonColor: Colors.green,
+                    })
+                })
+                .catch(error => {
+                    setLoadingButton(false)
+                    SweetAlert.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Não foi possível enviar este feedback. Tente novamente mais tarde!',
+                        confirmButtonColor: Colors.primary,
+                    })
+                })
+        }
+    }
+
+    const closeModal = () => {
+        setModalVisible(false)
+        setNewFeedback('')
+        setLifeSelected('')
+        setError(false)
+    }
+
+    const openModal = data => {
+        setLifeSelected(data)
+        setModalVisible(true)
+    }
+
     return (
         <Container>
             <Header />
 
-            <Section>
-                <Table
-                    colunsSize={['medium', 'small', 'small']}
-                    alignColuns={['start', 'center', 'center']}
-                    namesColumns={['Nome', 'Telefone', '']}
-                    datas={[
-                        {name: 'asd', phone: 'asd', day: 'asd'},
-                        {name: 'asd', phone: 'asd', day: 'asd'},
-                    ]}
-                />
-            </Section>
+            {
+                loading ?
+                    <Loading />
+                    :
+                    <Section>
+                        <Table
+                            colunsSize={['medium', 'small']}
+                            alignColuns={['start', 'center']}
+                            namesColumns={['Nome', 'Telefone']}
+                            datas={allLifes.map(life => ({ name: life.name, phone: life.phone, id: life.id }))}
+                            buttons={data =>
+                                <RowButtons>
+                                    <Button key={1} title={<OutlineFileSync />} onClick={() => openModal(data)} outlined color={Colors.green} width={38} />
+                                    <Button key={2} title={<ListDetails />} onClick={() => detailsLife(data)} outlined color={Colors.blue} width={38} />
+                                    <Button key={3} title={<LostUser />} onClick={() => declareLifeLost(data)} outlined color={Colors.red} width={38} />
+                                </RowButtons>
+                            }
+                            sizeCellButton="small"
+                        />
+                    </Section>
+            }
+
+            <BoxModal isOpen={modalVisible} closedPress={() => closeModal()}>
+                <TitleModal>{`Novo feedback para ${lifeSelected.name}`}</TitleModal>
+                {error ? <MessageBox text="É necessário que o feedback possua mais de 50 caracteres." /> : null}
+                <Textarea value={newFeedback} onChange={event => setNewFeedback(event.target.value)} disabled={loadingButton} />
+                <Button title="Enviar" onClick={() => sendFeedback()} loading={loadingButton ? 1 : 0} />
+            </BoxModal>
         </Container>
     )
 }
