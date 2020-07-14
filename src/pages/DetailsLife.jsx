@@ -1,32 +1,36 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
+import { connect } from 'react-redux'
 
 import IntegrationService from '../services/IntegrationService'
 
 import Header from '../components/Header'
 import Loading from '../components/Loading'
+import BoxModal from '../components/BoxModal'
+import MessageBox from '../components/MessageBox'
+import Button from '../components/Button'
 
 import { Container, SectionWrap } from './styles/MainStyled'
 import {
     BoxColumn, InfoProfile, Row, Name, BigLabel, SmallLabel, Bold, Title, Feedbacks, ListFeedback, Item, Feedback, NameIntegrator, Timeline,
-    ColumnWidth, StepBox, Circle, Triangle, Box, Line, Date, Body, IconVisitor, IconWelcome, IconBaptism,
-    IconExperience, IconActivation, IconClass, IconCap
+    ColumnWidth, StepBox, Circle, Triangle, Box, SpacingBox, Line, Date, Body, IconVisitor, IconWelcome, IconBaptism, IconExperience,
+    IconActivation, IconClass, IconCap
 } from './styles/DetailsLifeStyled'
 
-export default function DetailsLife() {
+function DetailsLife({ currentLife }) {
 
     const [details, setDetails] = useState({})
     const [loading, setLoading] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
-        listDetails()
-    }, [])
+        listDetails(currentLife)
+    }, [currentLife])
 
-    const listDetails = () => {
+    const listDetails = (lifeId) => {
         setLoading(true)
-        IntegrationService.GetDetailsLife()
+        IntegrationService.GetDetailsLife(lifeId)
             .then(resp => {
-                console.log(resp.feedbacks);
                 setDetails(resp)
 
                 setTimeout(() => {
@@ -35,25 +39,35 @@ export default function DetailsLife() {
             })
     }
 
-    const getDatasStep = (step) => {
+    const closeModal = () => {
+        setModalVisible(false)
+    }
+
+    const newStep = date => {
+        if (date === null) {
+            setModalVisible(true)
+        }
+    }
+
+    const getDatasStep = step => {
         switch (step) {
             case 0:
-                return {icon: <IconVisitor />, nameStep: 'Visitou a igreja'}
+                return { icon: <IconVisitor />, nameStep: 'Visitou a igreja' }
             case 1:
-                return {icon: <IconWelcome />, nameStep: 'Boas Vindas (conversão)'}
+                return { icon: <IconWelcome />, nameStep: 'Boas Vindas (conversão)' }
             case 2:
-                return {icon: <IconWelcome />, nameStep: 'Boas Vindas (reconciliação)'}
+                return { icon: <IconWelcome />, nameStep: 'Boas Vindas (reconciliação)' }
             case 3:
-                return {icon: <IconBaptism />, nameStep: 'Batismo'}
+                return { icon: <IconBaptism />, nameStep: 'Batismo' }
             case 4:
-                return {icon: <IconExperience />, nameStep: 'Experiência com Deus'}
+                return { icon: <IconExperience />, nameStep: 'Experiência com Deus' }
             case 5:
-                return {icon: <IconActivation />, nameStep: 'Ativação da Paternidade'}
+                return { icon: <IconActivation />, nameStep: 'Ativação da Paternidade' }
             case 6:
-                return {icon: <IconClass />, nameStep: 'Classe Vida Cristã'}
+                return { icon: <IconClass />, nameStep: 'Classe Vida Cristã' }
             case 7:
-                return {icon: <IconCap />, nameStep: 'Classe Líderes de Casa de Paz'}
-        
+                return { icon: <IconCap />, nameStep: 'Classe Líderes de Casa de Paz' }
+
             default:
                 break
         }
@@ -77,7 +91,7 @@ export default function DetailsLife() {
                                 </Row>
                                 <Row>
                                     <BigLabel>Integrador: <Bold>{details.integrator}</Bold></BigLabel>
-                                    <SmallLabel>Idade: <Bold>{details.birthday}</Bold></SmallLabel>
+                                    <SmallLabel>Idade: <Bold>{moment(details.birthday, "YYYY-MM-DD").fromNow().replace('há ', '')}</Bold></SmallLabel>
                                 </Row>
                             </InfoProfile>
 
@@ -103,14 +117,19 @@ export default function DetailsLife() {
                                 {
                                     details.historicPropheticWay?.map((historic, index) => (
                                         <StepBox key={index} index={index}>
-                                            <Circle>
+                                            <Circle stepDone={historic.date} onClick={() => newStep(historic.date)}>
                                                 {getDatasStep(historic.step).icon}
                                             </Circle>
-                                            <Triangle index={index} />
-                                            <Box>
-                                                <Date>{moment(historic.date).format('L')}</Date>
-                                                <Body>{getDatasStep(historic.step).nameStep}</Body>
-                                            </Box>
+                                            <Triangle index={index} stepDone={historic.date} />
+                                            {
+                                                historic.date == null ?
+                                                    <SpacingBox />
+                                                    :
+                                                    <Box>
+                                                        <Date>{moment(historic.date).format('L')}</Date>
+                                                        <Body>{getDatasStep(historic.step).nameStep}</Body>
+                                                    </Box>
+                                            }
                                         </StepBox>
                                     ))
                                 }
@@ -118,6 +137,19 @@ export default function DetailsLife() {
                         </Timeline>
                     </SectionWrap>
             }
+
+            <BoxModal isOpen={modalVisible} closedPress={() => closeModal()} width={40}>
+                {/* <TitleModal>{`Novo feedback para ${lifeSelected.name}`}</TitleModal>
+                {error ? <MessageBox text="É necessário que o feedback possua mais de 50 caracteres." /> : null}
+                <Textarea value={newFeedback} onChange={event => setNewFeedback(event.target.value)} disabled={loadingButton} />
+                <Button title="Enviar" onClick={() => sendFeedback()} loading={loadingButton ? 1 : 0} /> */}
+            </BoxModal>
         </Container>
     )
 }
+
+const mapStateToProps = state => ({
+    currentLife: state.life.currentLife
+})
+
+export default connect(mapStateToProps)(DetailsLife)

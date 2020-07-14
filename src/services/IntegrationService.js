@@ -266,7 +266,7 @@ export async function GetDetailsLife(id) {
                     "step": 6
                 },
                 {
-                    "date": "2019-06-24",
+                    "date": null,
                     "step": 7
                 }
             ]

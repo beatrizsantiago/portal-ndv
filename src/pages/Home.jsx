@@ -9,7 +9,7 @@ import Header from '../components/Header'
 import { Container, SectionWrap } from './styles/MainStyled'
 import { Card, ImageIntegration, Label, ImageCap } from './styles/HomeStyled'
 
-function Home({ currentNavigation, setCurrentNavigation }) {
+function Home({ setCurrentNavigation }) {
 
     useEffect(() => {
         setCurrentNavigation('home')
@@ -40,12 +40,8 @@ function Home({ currentNavigation, setCurrentNavigation }) {
     )
 }
 
-const mapStateToProps = state => ({
-    currentNavigation: state.navigation.currentNavigation
-})
-
 const mapDispatchToProps = dispatch => ({
     setCurrentNavigation: navigation => dispatch(setCurrentNavigation(navigation))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(null, mapDispatchToProps)(Home)

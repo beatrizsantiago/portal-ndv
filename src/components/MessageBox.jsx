@@ -20,13 +20,13 @@ export default function MessageBox({ type = 'error', text }) {
 
     const getRgba = () => {
         if (type === 'success') {
-            return 'rgba(0, 176, 12, 0.1)'
+            return Colors.greenTransparent1
         } else if (type === 'warn') {
-            return 'rgba(240, 208, 0, 0.1)'
+            return Colors.yellowTransparent1
         } else if (type === 'error') {
-            return 'rgba(255, 0, 0, 0.1)'
+            return Colors.redTransparent1
         } else if (type === 'info') {
-            return 'rgba(0, 158, 225, 0.1)'
+            return Colors.blueTransparent1
         }
     }
 

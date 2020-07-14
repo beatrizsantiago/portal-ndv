@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { FaAddressCard, FaHandHoldingHeart, FaUsersCog } from 'react-icons/fa'
 import { Bar } from 'react-chartjs-2'
 
+import Colors from '../../themes/Colors'
+
 export const AddressCard = styled(FaAddressCard)`
     font-size: 38px;
 `
@@ -21,7 +23,8 @@ export const Graph = styled.div`
     padding: 30px;
     border-radius: 5px;
     box-sizing: border-box;
-    background-color: white;
+    background-color: ${Colors.white};
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 `
 
 export const BarGraph = styled(Bar).attrs(props => ({

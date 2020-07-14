@@ -5,6 +5,8 @@ import SweetAlert from 'sweetalert2'
 
 import IntegrationService from '../services/IntegrationService'
 
+import { setCurrentLife } from '../redux/life/life.actions'
+
 import Header from '../components/Header'
 import Table from '../components/Table'
 import Button from '../components/Button'
@@ -13,11 +15,11 @@ import BoxModal from '../components/BoxModal'
 import MessageBox from '../components/MessageBox'
 
 import { Container, Section, TitleModal } from './styles/MainStyled'
-import { OutlineFileSync, LostUser, ListDetails, RowButtons, Textarea } from './styles/LifesStyled'
+import { BoxLegends, LegendBox, LegendColor, Legend, OutlineFileSync, LostUser, ListDetails, RowButtons, Textarea } from './styles/LifesStyled'
 
 import Colors from '../themes/Colors'
 
-function Lifes() {
+function Lifes({ setCurrentLife }) {
 
     const [allLifes, setAllLifes] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
@@ -46,6 +48,7 @@ function Lifes() {
     let navigate = useNavigate()
 
     const detailsLife = data => {
+        setCurrentLife(data.id)
         navigate('/integration/lifes/details')
     }
 
@@ -137,11 +140,30 @@ function Lifes() {
                     <Loading />
                     :
                     <Section>
+                        <BoxLegends>
+                            <LegendBox>
+                                <LegendColor type={0} />
+                                <Legend>Sem legenda</Legend>
+                            </LegendBox>
+                            <LegendBox>
+                                <LegendColor type={1} />
+                                <Legend>Está nas classes</Legend>
+                            </LegendBox>
+                            <LegendBox>
+                                <LegendColor type={2} />
+                                <Legend>Uma criança</Legend>
+                            </LegendBox>
+                            <LegendBox>
+                                <LegendColor type={3} />
+                                <Legend>Vida Perdida</Legend>
+                            </LegendBox>
+                        </BoxLegends>
+
                         <Table
                             colunsSize={['medium', 'small']}
                             alignColuns={['start', 'center']}
                             namesColumns={['Nome', 'Telefone']}
-                            datas={allLifes.map(life => ({ name: life.name, phone: life.phone, id: life.id }))}
+                            datas={allLifes.map(life => ({ name: life.name, phone: life.phone, id: life.id, legend: life.legend }))}
                             buttons={data =>
                                 <RowButtons>
                                     <Button key={1} title={<OutlineFileSync />} onClick={() => openModal(data)} outlined color={Colors.green} width={38} />
@@ -164,4 +186,9 @@ function Lifes() {
     )
 }
 
-export default Lifes
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentLife: life => dispatch(setCurrentLife(life))
+})
+
+export default connect(null, mapDispatchToProps)(Lifes)

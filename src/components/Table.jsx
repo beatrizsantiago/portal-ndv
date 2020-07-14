@@ -9,7 +9,7 @@ export default function Table({ colunsSize = [], alignColuns = [], namesColumns 
     const renderCells = data => {
         let keys = Object.keys(data)
         return keys.map((key, index) =>
-            key !== 'id' ? (
+            key !== 'id' && key !== 'legend' ? (
                 <Cell key={index} size={colunsSize[index]} align={alignColuns[index]}>{data[key]}</Cell>
             ) : null
         )
@@ -27,7 +27,7 @@ export default function Table({ colunsSize = [], alignColuns = [], namesColumns 
             <Body>
                 {
                     datas.map((data, index) => (
-                        <Row key={index} index={index}>
+                        <Row key={index} index={index} legend={data.legend}>
                             {
                                 renderCells(data)
                             }
@@ -42,7 +42,7 @@ export default function Table({ colunsSize = [], alignColuns = [], namesColumns 
 
 const Container = styled.table`
     width: 100%;
-    margin: 20px 0px;
+    margin: 10px 0px;
     padding: 10px;
     border-radius: 5px;
     box-sizing: border-box;
@@ -83,6 +83,7 @@ const Row = styled.tr`
     border-top-color: ${Colors.smoothGray};
     border-top-style: solid;
     box-sizing: border-box;
+    background-color: ${props => props.legend === 3 ? Colors.redTransparent1 : (props.legend === 2 ? Colors.yellowTransparent1 : (props.legend === 1 ? Colors.greenTransparent1 : Colors.white))};
 `
 
 const Cell = styled.td`

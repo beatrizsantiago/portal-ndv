@@ -5,6 +5,10 @@ import { FaStar, FaHandshake, FaPray, FaPrayingHands, FaBible, FaHome } from "re
 import { CenterColumn, MiddleCenterRow, MiddleCenterColumn } from '../../themes/StyleConstants'
 import Colors from '../../themes/Colors'
 
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
+import './stylesDatePicker.css'
+
 const PropertiesBox = css`
     display: flex;
     align-items: center;
@@ -12,6 +16,7 @@ const PropertiesBox = css`
     border-radius: 5px;
     box-sizing: border-box;
     background-color: ${Colors.white};
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 `
 
 export const BoxColumn = styled.div`
@@ -144,7 +149,7 @@ export const Circle = styled.button`
     border-radius: 40px;
     border: none;
     cursor: pointer;
-    background-color: ${Colors.primary};
+    background-color: ${props => props.stepDone === null ? Colors.lightGray : Colors.primary};
     z-index: 2;
 `
 
@@ -152,7 +157,7 @@ export const Triangle = styled.div`
     width: 18px;
     height: 30px;
     margin: 10px;
-    background-color: ${Colors.primary};
+    background-color: ${props => props.stepDone === null ? Colors.white : Colors.primary};
     clip-path: ${props => props.index % 2 === 0 ? 'polygon(100% 0, 0 50%, 100% 100%)' : 'polygon(0 0, 100% 50%, 0 100%)' };
 `
 
@@ -165,6 +170,10 @@ export const Box = styled.div`
     background-color: ${Colors.white};
     border: solid 4px ${Colors.primary};
     box-sizing: border-box;
+`
+
+export const SpacingBox = styled.div`
+    width: 144px;
 `
 
 const PropsTextBox = css`
@@ -221,3 +230,8 @@ export const IconClass = styled(FaBible)`
 export const IconCap = styled(FaHome)`
     ${PropsIcon}
 `
+
+export const InputDate = styled(DatePicker).attrs({
+    dateFormat: 'dd/MM/yyyy',
+    className: 'input-date'
+})``
