@@ -1,0 +1,7 @@
+.select-day {
+    background-color: #f51423;
+}
+
+.select-day:hover {
+    background-color: rgba(245, 20, 35, 0.8);
+}

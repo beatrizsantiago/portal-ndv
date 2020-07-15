@@ -1,13 +1,9 @@
 import styled, { css } from 'styled-components'
 import { GiSwirlString } from "react-icons/gi"
-import { FaStar, FaHandshake, FaPray, FaPrayingHands, FaBible, FaHome } from "react-icons/fa"
+import { FaStar, FaHandshake, FaPray, FaPrayingHands, FaBible, FaHome, FaEdit } from "react-icons/fa"
 
 import { CenterColumn, MiddleCenterRow, MiddleCenterColumn } from '../../themes/StyleConstants'
 import Colors from '../../themes/Colors'
-
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
-import './stylesDatePicker.css'
 
 const PropertiesBox = css`
     display: flex;
@@ -29,6 +25,7 @@ export const BoxColumn = styled.div`
 
 export const InfoProfile = styled.div`
     ${PropertiesBox}
+    position: relative;
     flex-direction: column;
     justify-content: center;
     width: 100%;
@@ -140,6 +137,7 @@ export const StepBox = styled.div`
     ${props => props.index % 2 === 0 ? null : 'flex-direction: row-reverse;' };
     justify-content: flex-end;
     width: 100%;
+    height: 90px;
 `
 
 export const Circle = styled.button`
@@ -182,7 +180,7 @@ const PropsTextBox = css`
     padding: 2px 0px;
 `
 
-export const Date = styled.h2`
+export const DateStep = styled.h2`
     ${PropsTextBox}
     width: 90%;
     font-size: 18px;
@@ -231,7 +229,24 @@ export const IconCap = styled(FaHome)`
     ${PropsIcon}
 `
 
-export const InputDate = styled(DatePicker).attrs({
-    dateFormat: 'dd/MM/yyyy',
-    className: 'input-date'
-})``
+export const ButtonEdit = styled.button`
+    position: absolute;
+    top: 3px;
+    right: 0px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+`
+
+export const IconEdit = styled(FaEdit)`
+    color: ${Colors.secondary};
+    font-size: 22px;
+    margin: 0px;
+    padding: 0px;
+`
+
+export const BoxDate = styled.div`
+    width: 100%;
+    height: 330px;
+    margin-top: 10px;
+`

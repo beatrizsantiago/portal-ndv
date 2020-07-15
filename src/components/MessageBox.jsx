@@ -50,4 +50,5 @@ const Container = styled.div`
 const Text = styled.h2`
     color: ${props => props.color};
     font-size: 16px;
+    text-align: center;
 `

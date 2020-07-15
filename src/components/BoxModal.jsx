@@ -5,9 +5,9 @@ import { MdClose } from 'react-icons/md'
 
 import Colors from '../themes/Colors'
 
-export default function BoxModal({ isOpen = false, width, closedPress, padding = true, children }) {
+export default function BoxModal({ isOpen = false, width, closedPress, padding = true, children, widthWithPixel = false }) {
     return (
-        <Modal isOpen={isOpen} width={width} padding={padding}>
+        <Modal isOpen={isOpen} width={width} padding={padding} widthWithPixel={widthWithPixel}>
             <ButtonClose onClick={closedPress}><Close /></ButtonClose>
             {children}
         </Modal>
@@ -33,8 +33,8 @@ const Modal = styled(ReactModal).attrs(props => ({
             flexDirection: 'column',
             alignItems: 'center',
             position: 'absolute',
-            width: `${props.width || 60}%`,
-            minWidth: '300px',
+            width: `${props.width || 60}${props.widthWithPixel === true ? 'px' : '%'}`,
+            minWidth: `${props.widthWithPixel === true ? `${props.width}px` : '300px'}`,
             padding: props.padding ? 20 : 0,
             backgroundColor: Colors.white,
             overflow: 'auto',

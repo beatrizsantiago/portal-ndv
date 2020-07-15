@@ -262,7 +262,7 @@ export async function GetDetailsLife(id) {
                     "step": 5
                 },
                 {
-                    "date": "2020-06-27",
+                    "date": null,
                     "step": 6
                 },
                 {
@@ -280,4 +280,15 @@ export async function GetDetailsLife(id) {
     }
 }
 
-export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, SendNewFeedback, LifeLost, GetDetailsLife }
+export async function NewStepLife(idLife, step, date, user) {
+    try {
+        console.log(idLife, step, date, user);
+        return true
+
+    } catch (error) {
+        console.log("Error NewStepLife: ", error);
+        throw error
+    }
+}
+
+export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, SendNewFeedback, LifeLost, GetDetailsLife, NewStepLife }

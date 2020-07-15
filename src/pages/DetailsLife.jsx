@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import { connect } from 'react-redux'
+import SweetAlert from 'sweetalert2'
 
 import IntegrationService from '../services/IntegrationService'
 
@@ -9,19 +10,27 @@ import Loading from '../components/Loading'
 import BoxModal from '../components/BoxModal'
 import MessageBox from '../components/MessageBox'
 import Button from '../components/Button'
+import InputDate from '../components/InputDate'
 
 import { Container, SectionWrap } from './styles/MainStyled'
 import {
     BoxColumn, InfoProfile, Row, Name, BigLabel, SmallLabel, Bold, Title, Feedbacks, ListFeedback, Item, Feedback, NameIntegrator, Timeline,
-    ColumnWidth, StepBox, Circle, Triangle, Box, SpacingBox, Line, Date, Body, IconVisitor, IconWelcome, IconBaptism, IconExperience,
-    IconActivation, IconClass, IconCap
+    ColumnWidth, StepBox, Circle, Triangle, Box, SpacingBox, Line, DateStep, Body, IconVisitor, IconWelcome, IconBaptism, IconExperience,
+    IconActivation, IconClass, IconCap, ButtonEdit, IconEdit, BoxDate
 } from './styles/DetailsLifeStyled'
+
+import Colors from '../themes/Colors'
 
 function DetailsLife({ currentLife }) {
 
     const [details, setDetails] = useState({})
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
+    const [startDate, setStartDate] = useState(new Date())
+    const [selectedStep, setSelectedStep] = useState({})
+    const [errorDate, setErrorDate] = useState(false)
+    const [messageErrorDate, setMessageErrorDate] = useState('')
+    const [loadingButton, setLoadingButton] = useState(false)
 
     useEffect(() => {
         listDetails(currentLife)
@@ -41,10 +50,65 @@ function DetailsLife({ currentLife }) {
 
     const closeModal = () => {
         setModalVisible(false)
+        setErrorDate(false)
+        setMessageErrorDate('')
     }
 
-    const newStep = date => {
-        if (date === null) {
+    const sendNewStep = () => {
+        IntegrationService.NewStepLife(currentLife, selectedStep.step, startDate)
+        .then(() => {
+            setLoadingButton(false)
+            SweetAlert.fire({
+                icon: 'success',
+                text: `${details.name} agora está em ${getDatasStep(selectedStep.step).nameStep}.`,
+                confirmButtonColor: Colors.green,
+            }).then((result) => {
+                if (result.value) {
+                    listDetails()
+                    closeModal()
+                }
+            })
+        })
+        .catch(error => {
+            setLoadingButton(false)
+            SweetAlert.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Não foi possível adicionar este integrador. Tente novamente mais tarde!',
+                confirmButtonColor: Colors.primary,
+            })
+        })
+    }
+
+    const insertStep = () => {
+        let today = moment(new Date()).format('DD/MM/YYYY')
+        let past = moment(new Date()).subtract(30, 'days').format('DD/MM/YYYY')
+        let selectDate = moment(startDate).format('DD/MM/YYYY')
+
+        let lastStep = details.historicPropheticWay[selectedStep.step - 2]
+        console.log(lastStep);
+
+        setErrorDate(false)
+        if (selectDate < past || selectDate > today) {
+            setMessageErrorDate(`Selecione uma data entre ${past} e ${today}`)
+            setErrorDate(true)
+            
+        } else if (lastStep.date == null) {
+            setMessageErrorDate(`É necessário primeiro concluir ${getDatasStep(lastStep.step).nameStep}.`)
+            setErrorDate(true)
+            
+        } else if (selectDate <= moment(lastStep.date).format('DD/MM/YYYY')) {
+            setMessageErrorDate(`A data deste passo deve ser maior que do passo ${getDatasStep(lastStep.step).nameStep}.`)
+            setErrorDate(true)
+            
+        } else {
+            sendNewStep()
+        }
+    }
+
+    const newStep = data => {
+        if (data.date === null) {
+            setSelectedStep(data)
             setModalVisible(true)
         }
     }
@@ -84,6 +148,9 @@ function DetailsLife({ currentLife }) {
                     <SectionWrap>
                         <BoxColumn>
                             <InfoProfile>
+                                <ButtonEdit>
+                                    <IconEdit />
+                                </ButtonEdit>
                                 <Name>{details.name}</Name>
                                 <Row>
                                     <BigLabel>E-mail: <Bold>{details.email}</Bold></BigLabel>
@@ -117,7 +184,7 @@ function DetailsLife({ currentLife }) {
                                 {
                                     details.historicPropheticWay?.map((historic, index) => (
                                         <StepBox key={index} index={index}>
-                                            <Circle stepDone={historic.date} onClick={() => newStep(historic.date)}>
+                                            <Circle stepDone={historic.date} onClick={() => newStep(historic)}>
                                                 {getDatasStep(historic.step).icon}
                                             </Circle>
                                             <Triangle index={index} stepDone={historic.date} />
@@ -126,7 +193,7 @@ function DetailsLife({ currentLife }) {
                                                     <SpacingBox />
                                                     :
                                                     <Box>
-                                                        <Date>{moment(historic.date).format('L')}</Date>
+                                                        <DateStep>{moment(historic.date).format('L')}</DateStep>
                                                         <Body>{getDatasStep(historic.step).nameStep}</Body>
                                                     </Box>
                                             }
@@ -138,11 +205,17 @@ function DetailsLife({ currentLife }) {
                     </SectionWrap>
             }
 
-            <BoxModal isOpen={modalVisible} closedPress={() => closeModal()} width={40}>
-                {/* <TitleModal>{`Novo feedback para ${lifeSelected.name}`}</TitleModal>
-                {error ? <MessageBox text="É necessário que o feedback possua mais de 50 caracteres." /> : null}
-                <Textarea value={newFeedback} onChange={event => setNewFeedback(event.target.value)} disabled={loadingButton} />
-                <Button title="Enviar" onClick={() => sendFeedback()} loading={loadingButton ? 1 : 0} /> */}
+            <BoxModal isOpen={modalVisible} closedPress={() => closeModal()} width={280} widthWithPixel={true}>
+                {errorDate ? <MessageBox text={messageErrorDate} /> : null}
+                <BoxDate>
+                    <InputDate
+                        label={`Selecione a data para o passo ${getDatasStep(selectedStep.step)?.nameStep}`}
+                        selected={startDate}
+                        onChange={date => setStartDate(date)}
+                        inline={true}
+                    />
+                </BoxDate>
+                <Button title="Inserir Passo" onClick={() => insertStep()} loading={loadingButton ? 1 : 0} />
             </BoxModal>
         </Container>
     )
