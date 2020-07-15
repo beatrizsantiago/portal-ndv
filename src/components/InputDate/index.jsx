@@ -8,7 +8,7 @@ import moment from 'moment'
 import Colors from '../../themes/Colors'
 import { MiddleCenterRow } from '../../themes/StyleConstants'
 
-export default function InputDate({ selected, onChange, label, required, disabled, maxLength, icon, error, inline }) {
+export default function InputDate({ selected, onChange, label, required, disabled, maxLength, icon, error, inline, withPortal, minDate, maxDate }) {
 
     const customDate = (date, currentDate) => {
         if (moment(date).format('DD/MM/YYYY') === moment(currentDate).format('DD/MM/YYYY')) {
@@ -19,7 +19,7 @@ export default function InputDate({ selected, onChange, label, required, disable
     return (
         <Container>
             <Label>{label} {required ? <TextRed>*</TextRed> : null}</Label>
-            <Row>
+            <Row inline={inline}>
                 {icon ? <BoxIcon>{icon}</BoxIcon> : null}
                 <DateInput
                     selected={selected}
@@ -29,8 +29,9 @@ export default function InputDate({ selected, onChange, label, required, disable
                     icon={icon}
                     error={error}
                     inline={inline}
-                    minDate={new Date().setDate(new Date().getDate() - 30)}
-                    maxDate={new Date()}
+                    withPortal={withPortal}
+                    minDate={minDate}
+                    maxDate={maxDate}
                     dayClassName={date => customDate(date, selected)}
                 />
             </Row>
@@ -48,7 +49,7 @@ const Container = styled.div`
 const Label = styled.h2`
     color: ${Colors.primary};
     font-size: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     text-align: center;
     width: 100%;
 `
@@ -61,6 +62,12 @@ const Row = styled.div`
     ${MiddleCenterRow}
     width: 100%;
     box-sizing: border-box;
+    border-bottom: ${props => props.error ? 2 : 1}px solid ${props => props.error ? Colors.red : (props.inline === true ? Colors.white : Colors.primary)};
+    background-color: ${props => props.inline === true ? Colors.white : Colors.iceWhite};
+
+    :focus{
+        border-bottom: 2px solid ${Colors.primary};
+    }
 `
 
 const BoxIcon = styled.div`
@@ -77,11 +84,11 @@ const DateInput = styled(DatePicker).attrs({
     font-size: 16px;
     padding: 4px 4px 4px ${props => props.icon ? 32 : 4}px;
     border: none;
-    border-bottom: ${props => props.error ? 2 : 1}px solid ${props => props.error ? Colors.red : Colors.primary};
-    box-sizing: border-box;
     background-color: ${Colors.iceWhite};
-
-    :focus{
+    box-sizing: border-box;
+    
+    /* border-bottom: ${props => props.error ? 2 : 1}px solid ${props => props.error ? Colors.red : Colors.primary};
+     :focus{
         border-bottom: 2px solid ${Colors.primary};
-    }
+    } */
 `

@@ -43,10 +43,10 @@ export async function GetIntegrators() {
                 "numberNet": 1
             },
             {
-                "id": "5f0b0e88a23e8200a3164b55",
+                "id": "5f0da90f3194d0d7846cb55b",
                 "isActive": false,
                 "profile": "https://picsum.photos/500",
-                "name": "Ina Cameron Duran",
+                "name": "Hardin Watson Leach",
                 "mentor": "Kitty Hampton Carver",
                 "quantityFeedbacks": 20,
                 "accompanyLifes": 5,
@@ -193,11 +193,13 @@ export async function GetDetailsLife(id) {
         let data = {
             "id": "5f0da90f3194d0d7846cb40c",
             "name": "Mallory Wilkerson Valdez",
-            "currentStep": 6,
             "phone": "+55 (812) 461-3563",
             "email": "malloryvaldez@prowaste.com",
             "birthday": "2003-12-13",
-            "integrator": "Hardin Watson Leach",
+            "integrator": {
+                "id": "5f0da90f3194d0d7846cb55b",
+                "name": "Hardin Watson Leach"
+            },
             "feedbacks": [
                 {
                     "description": "Nisi nisi minim proident reprehenderit reprehenderit aliquip reprehenderit dolore enim do pariatur nostrud nisi. Laboris id id est aliqua. Consequat irure aute elit deserunt Lorem amet. Nulla ut ullamco aliquip quis ad excepteur. Sit fugiat tempor eiusmod pariatur. Aliqua et reprehenderit voluptate officia laboris eu occaecat in culpa dolor.\r\n",
@@ -291,4 +293,15 @@ export async function NewStepLife(idLife, step, date, user) {
     }
 }
 
-export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, SendNewFeedback, LifeLost, GetDetailsLife, NewStepLife }
+export async function AlterLife(idLife, name, email, phone, birthday, integratorId) {
+    try {
+        console.log(idLife, name, email, phone, birthday, integratorId);
+        return true
+
+    } catch (error) {
+        console.log("Error AlterLife: ", error);
+        throw error
+    }
+}
+
+export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, SendNewFeedback, LifeLost, GetDetailsLife, NewStepLife, AlterLife }
