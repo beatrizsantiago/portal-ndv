@@ -8,7 +8,7 @@ import moment from 'moment'
 import Colors from '../../themes/Colors'
 import { MiddleCenterRow } from '../../themes/StyleConstants'
 
-export default function InputDate({ selected, onChange, label, required, disabled, maxLength, icon, error, inline, withPortal, minDate, maxDate }) {
+export default function InputDate({ selected, onChange, label, required, disabled, maxLength, icon, error, inline, withPortal, minDate, maxDate, labelCenter }) {
 
     const customDate = (date, currentDate) => {
         if (moment(date).format('DD/MM/YYYY') === moment(currentDate).format('DD/MM/YYYY')) {
@@ -18,7 +18,7 @@ export default function InputDate({ selected, onChange, label, required, disable
 
     return (
         <Container>
-            <Label>{label} {required ? <TextRed>*</TextRed> : null}</Label>
+            <Label labelCenter={labelCenter}>{label} {required ? <TextRed>*</TextRed> : null}</Label>
             <Row inline={inline}>
                 {icon ? <BoxIcon>{icon}</BoxIcon> : null}
                 <DateInput
@@ -50,7 +50,7 @@ const Label = styled.h2`
     color: ${Colors.primary};
     font-size: 16px;
     margin-bottom: 5px;
-    text-align: center;
+    text-align: ${props => props.labelCenter ? 'center' : 'left'};
     width: 100%;
 `
 

@@ -14,8 +14,8 @@ import Loading from '../components/Loading'
 import BoxModal from '../components/BoxModal'
 import MessageBox from '../components/MessageBox'
 
-import { Container, Section, TitleModal } from './styles/MainStyled'
-import { BoxLegends, LegendBox, LegendColor, Legend, OutlineFileSync, LostUser, ListDetails, RowButtons, Textarea } from './styles/LifesStyled'
+import { Container, Section, TitleModal, LargeBox } from './styles/MainStyled'
+import { LegendBox, LegendColor, Legend, OutlineFileSync, LostUser, ListDetails, RowButtons, Textarea } from './styles/LifesStyled'
 
 import Colors from '../themes/Colors'
 
@@ -140,7 +140,7 @@ function Lifes({ setCurrentLife }) {
                     <Loading />
                     :
                     <Section>
-                        <BoxLegends>
+                        <LargeBox>
                             <LegendBox>
                                 <LegendColor type={0} />
                                 <Legend>Sem legenda</Legend>
@@ -157,7 +157,7 @@ function Lifes({ setCurrentLife }) {
                                 <LegendColor type={3} />
                                 <Legend>Vida Perdida</Legend>
                             </LegendBox>
-                        </BoxLegends>
+                        </LargeBox>
 
                         <Table
                             colunsSize={['medium', 'small']}

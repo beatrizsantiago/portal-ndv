@@ -30,6 +30,10 @@ const Label = styled.h2`
     color: ${Colors.primary};
     font-size: 16px;
     margin-bottom: 5px;
+    
+    @media (max-width: 600px) {
+        font-size: 14px;
+    }
 `
 
 const TextRed = styled.span`

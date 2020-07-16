@@ -66,6 +66,10 @@ const LineHeader = styled.tr`
     width: 100%;
     font-weight: bold;
     font-size: 16px;
+
+    @media (max-width: 700px) {
+        font-size: 14px;
+    }
 `
 
 const Body = styled.tbody`
@@ -84,6 +88,10 @@ const Row = styled.tr`
     border-top-style: solid;
     box-sizing: border-box;
     background-color: ${props => props.legend === 3 ? Colors.redTransparent1 : (props.legend === 2 ? Colors.yellowTransparent1 : (props.legend === 1 ? Colors.greenTransparent1 : Colors.white))};
+
+    @media (max-width: 700px) {
+        font-size: 14px;
+    }
 `
 
 const Cell = styled.td`
@@ -92,4 +100,12 @@ const Cell = styled.td`
     width: ${props => props.size === 'small' ? 20 : (props.size === 'medium' ? 60 : 100)}%;
     padding-right: 5px;
     box-sizing: border-box;
+
+    @media (max-width: 1000px) {
+        width: ${props => props.size === 'small' ? 25 : (props.size === 'medium' ? 50 : 100)}%;
+    }
+
+    @media (max-width: 420px) {
+        width: ${props => props.size === 'small' ? 30 : (props.size === 'medium' ? 40 : 100)}%;
+    }
 `

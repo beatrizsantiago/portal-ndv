@@ -1,23 +1,10 @@
 import styled from 'styled-components'
-import { AiOutlineFileSync } from 'react-icons/ai' //AiOutlineUser
+import { AiOutlineFileSync } from 'react-icons/ai'
 import { FiUserX, FiList } from 'react-icons/fi'
 
 import { CenterRow, MiddleCenterRow } from '../../themes/StyleConstants'
 
 import Colors from '../../themes/Colors'
-
-export const BoxLegends = styled.div`
-    ${MiddleCenterRow}
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    box-sizing: border-box;
-    background-color: ${Colors.white};
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-`
 
 export const LegendBox = styled.div`
     ${CenterRow}
@@ -25,6 +12,20 @@ export const LegendBox = styled.div`
     height: 30px;
     padding: 0px 8px;
     margin: 5px;
+
+    @media (max-width: 800px) {
+        width: 45%;
+    }
+
+    @media (max-width: 550px) {
+        width: 38%;
+        justify-content: flex-start;
+    }
+
+    @media (max-width: 400px) {
+        width: 100%;
+        justify-content: flex-start;
+    }
 `
 
 export const LegendColor = styled.div`
@@ -46,6 +47,10 @@ export const RowButtons = styled.div`
     ${MiddleCenterRow}
     width: 100%;
     justify-content: space-around;
+
+    @media (max-width: 550px) {
+        flex-direction: column;
+    }
 ` 
 
 export const OutlineFileSync = styled(AiOutlineFileSync)`

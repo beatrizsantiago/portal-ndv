@@ -18,6 +18,18 @@ export const CardAdd = styled.button`
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     background-color: ${Colors.white};
     box-sizing: border-box;
+
+    @media (max-width: 1520px) {
+        width: 48%;
+    }
+
+    @media (max-width: 1040px) {
+        width: 70%;
+    }
+
+    @media (max-width: 700px) {
+        width: 95%;
+    }
 `
 
 export const IconAdd = styled.img.attrs({ src: ImageAdd })`

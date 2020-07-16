@@ -78,6 +78,10 @@ const NavBar = styled.nav`
     width: 100%;
     height: 112px;
     box-sizing: border-box;
+
+    @media (max-width: 750px) {
+        height: 80px;
+    }
 `
 
 const Tab = styled.div`
@@ -86,6 +90,10 @@ const Tab = styled.div`
     height: 75px;
     background-color: ${Colors.primary};
     clip-path: polygon(0 0, 100% 0%, 100% 50%, 50% 100%, 0 50%);
+
+    @media (max-width: 750px) {
+        height: 50px;
+    }
 `
 
 const Item = styled.button`
@@ -99,6 +107,10 @@ const Item = styled.button`
     cursor: pointer;
     background-color: transparent;
     border: none;
+
+    @media (max-width: 750px) {
+        display: none;
+    }
 `
 
 const Spacing = styled.span`
@@ -116,9 +128,19 @@ const Circle = styled.button`
     box-sizing: border-box;
     background-color: ${Colors.white};
     border: none;
+
+    @media (max-width: 750px) {
+        width: 70px;
+        height: 70px;
+    }
 `
 
 const Logo = styled.img.attrs({ src: LogoImage })`
     width: 84px;
     height: 84px;
+
+    @media (max-width: 750px) {
+        width: 64px;
+        height: 64px;
+    }
 `

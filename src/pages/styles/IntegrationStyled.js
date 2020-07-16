@@ -19,8 +19,10 @@ export const UsersCog = styled(FaUsersCog)`
 export const Graph = styled.div`
     position: relative;
     width: 100%;
+    min-width: 300px;
     /* height: 60vh; */
     padding: 30px;
+    margin-top: 10px;
     border-radius: 5px;
     box-sizing: border-box;
     background-color: ${Colors.white};

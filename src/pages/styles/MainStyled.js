@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { CenterColumn } from '../../themes/StyleConstants'
+import { CenterColumn, MiddleCenterRow } from '../../themes/StyleConstants'
 
 import Colors from '../../themes/Colors'
 
@@ -31,4 +31,22 @@ export const TitleModal = styled.h1`
     width: 100%;
     text-align: center;
     font-size: 20px;
+
+    @media (max-width: 900px) {
+        font-size: 18px;
+        width: 80%;
+    }
+`
+
+export const LargeBox = styled.div`
+    ${MiddleCenterRow}
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: ${Colors.white};
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 `

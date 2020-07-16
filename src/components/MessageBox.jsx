@@ -51,4 +51,8 @@ const Text = styled.h2`
     color: ${props => props.color};
     font-size: 16px;
     text-align: center;
+
+    @media (max-width: 900px) {
+        font-size: 14px;
+    }
 `

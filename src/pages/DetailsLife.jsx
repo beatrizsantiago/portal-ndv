@@ -317,6 +317,7 @@ function DetailsLife({ currentLife }) {
                 <BoxDate>
                     <InputDate
                         label={`Selecione a data para o passo ${getDatasStep(selectedStep.step)?.nameStep}`}
+                        labelCenter={true}
                         selected={startDate}
                         onChange={date => setStartDate(date)}
                         minDate={new Date().setDate(new Date().getDate() - 30)}

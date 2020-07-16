@@ -24,7 +24,7 @@ const Menu = styled.div`
     ${MiddleCenterRow}
     justify-content: ${props => props.quantity > 2 ? 'space-between' : 'space-around'};
     width: 100%;
-    margin: 15px 0px;
+    margin-top: 10px;
     box-sizing: border-box;
 
     @media (max-width: 895px) {
@@ -70,6 +70,10 @@ const Box = styled(Link)`
     background-color: ${Colors.white};
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     transform: translateZ(0);
+
+    @media (max-width: 600px) {
+        width: 100%;
+    }
     
     &:before {
         content: "";

@@ -27,6 +27,10 @@ const Row = styled.div`
     ${MiddleCenterRow}
     justify-content: space-between;
     width: 100%;
+
+    @media (max-width: 900px) {
+        flex-wrap: wrap;
+    }
 `
 
 const Box = styled.div`
@@ -34,4 +38,9 @@ const Box = styled.div`
     width: ${props => props.width}%;
     box-sizing: border-box;
     margin-left: ${props => props.index > 0 ? 8 : 0}px;
+
+    @media (max-width: 900px) {
+        width: 100%;
+        margin-left: 0px;
+    }
 `

@@ -37,6 +37,14 @@ const Form = styled.div`
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     background-color: ${Colors.white};
+
+    @media (max-width: 1000px) {
+        width: 85%;
+    }
+
+    @media (max-width: 600px) {
+        width: 92%;
+    }
 `
 
 const LabelTitle = styled.div`
@@ -55,6 +63,10 @@ const Title = styled.h1`
     color: ${Colors.white};
     font-weight: normal;
     font-size: 20px;
+
+    @media (max-width: 400px) {
+        font-size: 16px;
+    }
 `
 
 const RowButtons = styled.div`

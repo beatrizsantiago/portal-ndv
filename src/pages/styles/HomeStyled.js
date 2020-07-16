@@ -32,6 +32,7 @@ export const Label = styled.h1`
 export const Card = styled.button`
     ${MiddleCenterRow}
     width: 300px;
+    min-width: 280px;
     height: 120px;
     margin: 15px;
     padding: 10px;

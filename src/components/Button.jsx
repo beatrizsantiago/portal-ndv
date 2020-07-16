@@ -35,6 +35,10 @@ const PropsButton = css`
     border-radius: 5px;
     border: solid ${props => props.outlined ? 1 : 0}px ${props => props.color || Colors.primary};
     background-color: ${props => props.outlined ? Colors.white : (props.color ? props.color : Colors.primary)};
+
+    @media (max-width: 560px) {
+        margin: 2px;
+    }
 `
 
 const Container = styled.button`
@@ -50,4 +54,8 @@ const Text = styled.h1`
     font-size: 15px;
     font-weight: normal;
     ${props => props.loading ? 'margin-left: 5px;' : null}
+
+    @media (max-width: 520px) {
+        font-size: 13px;
+    }
 `

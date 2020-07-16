@@ -17,4 +17,8 @@ const Container = styled.div`
     ${CenterRow}
     width: 100%;
     height: 300px;
+
+    @media (max-width: 750px) {
+        height: 200px;
+    }
 `

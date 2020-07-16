@@ -29,15 +29,22 @@ export default function RegisterVisitant() {
         IntegrationService.RegisterNewVisitant(fullName, phone, otherChurch, companion)
             .then(() => {
                 setLoading(false)
-                return SweetAlert.fire({
+                SweetAlert.fire({
                     icon: 'success',
                     text: 'Cadastro realizado com sucesso!',
                     confirmButtonColor: Colors.green,
+                }).then(result => {
+                    if (result.value) {
+                        setFullName('')
+                        setPhone('')
+                        setOtherChurch('')
+                        setCompanion('')
+                    }
                 })
             })
             .catch(error => {
                 setLoading(false)
-                return SweetAlert.fire({
+                SweetAlert.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Não foi possível realizar o cadastro. Tente novamente mais tarde!',

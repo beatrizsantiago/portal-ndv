@@ -18,9 +18,15 @@ const PropertiesBox = css`
 export const BoxColumn = styled.div`
     ${MiddleCenterColumn}
     width: 60%;
-    min-width: 320px;
+    min-width: 300px;
     padding-right: 10px;
     box-sizing: border-box;
+
+    @media (max-width: 1150px) {
+        width: 100%;
+        padding-right: 0px;
+        margin-bottom: 10px;
+    }
 `
 
 export const InfoProfile = styled.div`
@@ -35,6 +41,11 @@ export const Row = styled.div`
     ${MiddleCenterRow}
     margin-top: 10px;
     width: 100%;
+
+    @media (max-width: 630px) {
+        flex-wrap: wrap;
+        margin-top: 0px;
+    }
 `
 
 const PropertiesText = css`
@@ -47,16 +58,44 @@ export const Name = styled.h1`
     color: ${Colors.primary};
     font-size: 22px;
     text-align: center;
+
+    @media (max-width: 1100px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 400px) {
+        font-size: 16px;
+    }
 `
 
 export const BigLabel = styled.h2`
     ${PropertiesText}
     width: 65%;
+    font-size: 16px;
+
+    @media (max-width: 1100px) {
+        width: 60%;
+    }
+
+    @media (max-width: 630px) {
+        width: 100%;
+        margin-top: 5px;
+    }
 `
 
 export const SmallLabel = styled.h2`
     ${PropertiesText}
     width: 35%;
+    font-size: 16px;
+
+    @media (max-width: 1100px) {
+        width: 40%;
+    }
+
+    @media (max-width: 630px) {
+        width: 100%;
+        margin-top: 5px;
+    }
 `
 
 export const Bold = styled.strong``
@@ -68,6 +107,14 @@ export const Title = styled.h1`
     text-align: center;
     margin-bottom: 15px;
     border-bottom: solid 1px ${Colors.smoothGray};
+
+    @media (max-width: 1100px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 400px) {
+        font-size: 16px;
+    }
 `
 
 export const Feedbacks = styled.div`
@@ -98,6 +145,10 @@ export const Item = styled.div`
 export const Feedback = styled.h2`
     ${PropertiesText}
     width: 100%;
+
+    @media (max-width: 630px) {
+        font-size: 14px;
+    }
 `
 
 export const NameIntegrator = styled.h2`
@@ -106,6 +157,10 @@ export const NameIntegrator = styled.h2`
     font-size: 14px;
     text-align: right;
     margin-top: 5px;
+
+    @media (max-width: 630px) {
+        font-size: 12px;
+    }
 `
 
 export const Timeline = styled.div`
@@ -114,6 +169,10 @@ export const Timeline = styled.div`
     flex: 1;
     width: 40%;
     min-width: 420px;
+
+    @media (max-width: 480px) {
+        min-width: 300px;
+    }
 `
 
 export const ColumnWidth = styled.div`
@@ -121,6 +180,10 @@ export const ColumnWidth = styled.div`
     position: relative;
     flex: 1;
     width: 420px;
+
+    @media (max-width: 480px) {
+        width: 290px;
+    }
 `
 
 export const Line = styled.div`
@@ -149,6 +212,11 @@ export const Circle = styled.button`
     cursor: pointer;
     background-color: ${props => props.stepDone === null ? Colors.lightGray : Colors.primary};
     z-index: 2;
+
+    @media (max-width: 480px) {
+        width: 40px;
+        height: 40px;
+    }
 `
 
 export const Triangle = styled.div`
@@ -157,6 +225,12 @@ export const Triangle = styled.div`
     margin: 10px;
     background-color: ${props => props.stepDone === null ? Colors.white : Colors.primary};
     clip-path: ${props => props.index % 2 === 0 ? 'polygon(100% 0, 0 50%, 100% 100%)' : 'polygon(0 0, 100% 50%, 0 100%)' };
+
+    @media (max-width: 480px) {
+        width: 16px;
+        height: 26px;
+        margin: 5px;
+    }
 `
 
 export const Box = styled.div`
@@ -168,10 +242,18 @@ export const Box = styled.div`
     background-color: ${Colors.white};
     border: solid 4px ${Colors.primary};
     box-sizing: border-box;
+
+    @media (max-width: 480px) {
+        width: 100px;
+    }
 `
 
 export const SpacingBox = styled.div`
     width: 144px;
+
+    @media (max-width: 480px) {
+        width: 100px;
+    }
 `
 
 const PropsTextBox = css`
@@ -186,12 +268,20 @@ export const DateStep = styled.h2`
     font-size: 18px;
     font-weight: bold;
     border-bottom: solid 1px ${Colors.smoothGray};
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
 `
 
 export const Body = styled.h2`
     ${PropsTextBox}
     font-size: 16px;
     font-weight: 500;
+
+    @media (max-width: 480px) {
+        font-size: 13px;
+    }
 `
 
 const PropsIcon = css`
@@ -199,6 +289,10 @@ const PropsIcon = css`
     font-size: 30px;
     margin: 0px;
     padding: 0px;
+
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
 `
 
 export const IconVisitor = styled(FaStar)`
