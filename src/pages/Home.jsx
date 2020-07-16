@@ -46,7 +46,7 @@ function Home({ setCurrentNavigation }) {
                     <Label>Classes</Label>
                 </Card>
 
-                <Card>
+                <Card onClick={() => handlePress('profile')}>
                     <ImageProfile />
                     <Label>Meu Perfil</Label>
                 </Card>

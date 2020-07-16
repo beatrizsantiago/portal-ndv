@@ -8,6 +8,7 @@ import RegisterVisitant from './pages/RegisterVisitant'
 import ManageIntegrators from './pages/ManageIntegrators'
 import Lifes from './pages/Lifes'
 import DetailsLife from './pages/DetailsLife'
+import UserProfile from './pages/UserProfile'
 
 export default function MainRoutes() {
     return (
@@ -19,6 +20,7 @@ export default function MainRoutes() {
             <Route path="/integration/integrators" element={<ManageIntegrators />} />
             <Route path="/integration/lifes" element={<Lifes />} />
             <Route path="/integration/lifes/details" element={<DetailsLife />} />
+            <Route path="/profile" element={<UserProfile />} />
         </Routes>
     )
 }
