@@ -3,8 +3,11 @@ import styled, { css } from 'styled-components'
 import Colors from '../../themes/Colors'
 import { MiddleCenterRow } from '../../themes/StyleConstants'
 
-import IconIntegration from '../../assets/icons/icon_integração.png'
+import IconIntegration from '../../assets/icons/icon_integracao.png'
 import IconCap from '../../assets/icons/icon_cap.png'
+import IconProfile from '../../assets/icons/icon_woman_profile.png'
+import IconEvent from '../../assets/icons/icon_event.png'
+import IconClass from '../../assets/icons/icon_class.png'
 
 const PropsIcon = css`
     width: 100px;
@@ -17,6 +20,21 @@ export const ImageIntegration = styled.img.attrs({ src: IconIntegration })`
 `
 
 export const ImageCap = styled.img.attrs({ src: IconCap })`
+    ${PropsIcon}
+    height: 102px;
+`
+
+export const ImageProfile = styled.img.attrs({ src: IconProfile })`
+    ${PropsIcon}
+    height: 102px;
+`
+
+export const ImageEvent = styled.img.attrs({ src: IconEvent })`
+    ${PropsIcon}
+    height: 102px;
+`
+
+export const ImageClass = styled.img.attrs({ src: IconClass })`
     ${PropsIcon}
     height: 102px;
 `
@@ -55,6 +73,15 @@ export const Card = styled.button`
         transform: scale(1.5);
     }
     &:hover ${ImageCap} {
+        transform: scale(1.5);
+    }
+    &:hover ${ImageProfile} {
+        transform: scale(1.5);
+    }
+    &:hover ${ImageEvent} {
+        transform: scale(1.5);
+    }
+    &:hover ${ImageClass} {
         transform: scale(1.5);
     }
     &:hover ${Label} {

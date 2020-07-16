@@ -7,7 +7,7 @@ import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
 import Header from '../components/Header'
 
 import { Container, SectionWrap } from './styles/MainStyled'
-import { Card, ImageIntegration, Label, ImageCap } from './styles/HomeStyled'
+import { Card, ImageIntegration, ImageProfile, ImageCap, ImageEvent, ImageClass, Label } from './styles/HomeStyled'
 
 function Home({ setCurrentNavigation }) {
 
@@ -31,9 +31,24 @@ function Home({ setCurrentNavigation }) {
                     <Label>Integração</Label>
                 </Card>
 
-                <Card to="/">
+                <Card>
                     <ImageCap />
                     <Label>Casa de Paz</Label>
+                </Card>
+
+                <Card>
+                    <ImageEvent />
+                    <Label>Eventos</Label>
+                </Card>
+
+                <Card>
+                    <ImageClass />
+                    <Label>Classes</Label>
+                </Card>
+
+                <Card>
+                    <ImageProfile />
+                    <Label>Meu Perfil</Label>
                 </Card>
             </SectionWrap>
         </Container>
