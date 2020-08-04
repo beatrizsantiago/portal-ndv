@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import SweetAlert from 'sweetalert2'
+import ReactExport from "react-export-excel"
 
 import IntegrationService from '../services/IntegrationService'
 
@@ -18,6 +19,10 @@ import { Container, Section, TitleModal, LargeBox } from './styles/MainStyled'
 import { LegendBox, LegendColor, Legend, OutlineFileSync, LostUser, ListDetails, RowButtons, Textarea, Div } from './styles/LifesStyled'
 
 import Colors from '../themes/Colors'
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 function Lifes({ setCurrentLife }) {
 
@@ -144,7 +149,12 @@ function Lifes({ setCurrentLife }) {
                             <Button title="Cadastrar Nova Vida" onClick={() => navigate('/integration/lifes/register')} width={240} />
                             <Div>
                                 <Button title="Exportar em Pdf" onClick={() => openModal()} width={150} color={Colors.yellow} />
-                                <Button title="Exportar em Xls" onClick={() => openModal()} width={150} color={Colors.green} />
+                                <ExcelFile element={<Button title="Exportar em Xls" width={150} color={Colors.green} />} filename={`lista_integracao_${Date.now()}`}>
+                                    <ExcelSheet data={allLifes} name="Listagem de Vidas">
+                                        <ExcelColumn label="Nome" value="name" />
+                                        <ExcelColumn label="Telefone" value="phone" />
+                                    </ExcelSheet>
+                                </ExcelFile>
                             </Div>
                         </LargeBox>
                         <LargeBox>

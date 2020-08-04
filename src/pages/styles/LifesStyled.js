@@ -86,5 +86,5 @@ export const Div = styled.div`
     ${MiddleCenterRow}
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 305px;
+    width: 310px;
 `
