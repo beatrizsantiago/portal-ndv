@@ -166,6 +166,17 @@ export async function GetLifes() {
     }
 }
 
+export async function RegisterNewLife(fullName, phone, typeConversion, email, birthday, baptismOtherChurch, baptismToday, baptismMinister) {
+    try {
+        console.log(fullName, phone, typeConversion, email, birthday, baptismOtherChurch, baptismToday, baptismMinister);
+        return true
+
+    } catch (error) {
+        console.log("Error RegisterNewLife: ", error);
+        throw error
+    }
+}
+
 export async function SendNewFeedback(id, text) {
     try {
         console.log(id, text);
@@ -304,4 +315,4 @@ export async function AlterLife(idLife, name, email, phone, birthday, integrator
     }
 }
 
-export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, SendNewFeedback, LifeLost, GetDetailsLife, NewStepLife, AlterLife }
+export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, RegisterNewLife, SendNewFeedback, LifeLost, GetDetailsLife, NewStepLife, AlterLife }

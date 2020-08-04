@@ -22,6 +22,7 @@ export const SectionWrap = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     width: 100%;
+    ${props => props.type === 1 ? 'max-width: 1100px;' : ''}
     margin-top: 10px;
     padding: 10px;
     box-sizing: border-box;
@@ -40,11 +41,11 @@ export const TitleModal = styled.h1`
 
 export const LargeBox = styled.div`
     ${MiddleCenterRow}
-    justify-content: space-around;
+    justify-content: ${props => props.type === 'buttons' ? 'space-between' : 'space-around'};
     flex-wrap: wrap;
     width: 100%;
     margin-top: 10px;
-    padding: 5px;
+    padding: ${props => props.type === 'buttons' ? 10 : 5}px;
     border-radius: 5px;
     box-sizing: border-box;
     background-color: ${Colors.white};

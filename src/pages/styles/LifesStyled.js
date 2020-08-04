@@ -81,3 +81,10 @@ export const Textarea = styled.textarea.attrs({ placeholder: 'Digite aqui...' })
     box-sizing: border-box;
     border: solid 1px ${Colors.lightGray};
 `
+
+export const Div = styled.div`
+    ${MiddleCenterRow}
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 305px;
+`

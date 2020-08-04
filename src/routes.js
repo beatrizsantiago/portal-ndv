@@ -7,6 +7,7 @@ import Integration from './pages/Integration'
 import RegisterVisitant from './pages/RegisterVisitant'
 import ManageIntegrators from './pages/ManageIntegrators'
 import Lifes from './pages/Lifes'
+import RegisterLife from './pages/RegisterLife'
 import DetailsLife from './pages/DetailsLife'
 import UserProfile from './pages/UserProfile'
 
@@ -19,6 +20,7 @@ export default function MainRoutes() {
             <Route path="/integration/register" element={<RegisterVisitant />} />
             <Route path="/integration/integrators" element={<ManageIntegrators />} />
             <Route path="/integration/lifes" element={<Lifes />} />
+            <Route path="/integration/lifes/register" element={<RegisterLife />} />
             <Route path="/integration/lifes/details" element={<DetailsLife />} />
             <Route path="/profile" element={<UserProfile />} />
         </Routes>

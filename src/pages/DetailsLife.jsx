@@ -118,7 +118,7 @@ function DetailsLife({ currentLife }) {
             setError('phone')
             setLoadingButton(false)
 
-        } else if (!newBirthday) {
+        } else if (newBirthday.length < 10) {
             setMessageError('Insira uma data de nascimento.')
             setError('birthday')
             setLoadingButton(false)

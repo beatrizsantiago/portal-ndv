@@ -15,7 +15,7 @@ import BoxModal from '../components/BoxModal'
 import MessageBox from '../components/MessageBox'
 
 import { Container, Section, TitleModal, LargeBox } from './styles/MainStyled'
-import { LegendBox, LegendColor, Legend, OutlineFileSync, LostUser, ListDetails, RowButtons, Textarea } from './styles/LifesStyled'
+import { LegendBox, LegendColor, Legend, OutlineFileSync, LostUser, ListDetails, RowButtons, Textarea, Div } from './styles/LifesStyled'
 
 import Colors from '../themes/Colors'
 
@@ -140,6 +140,13 @@ function Lifes({ setCurrentLife }) {
                     <Loading />
                     :
                     <Section>
+                        <LargeBox type="buttons">
+                            <Button title="Cadastrar Nova Vida" onClick={() => navigate('/integration/lifes/register')} width={240} />
+                            <Div>
+                                <Button title="Exportar em Pdf" onClick={() => openModal()} width={150} color={Colors.yellow} />
+                                <Button title="Exportar em Xls" onClick={() => openModal()} width={150} color={Colors.green} />
+                            </Div>
+                        </LargeBox>
                         <LargeBox>
                             <LegendBox>
                                 <LegendColor type={0} />

@@ -6,7 +6,7 @@ import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
 
 import Header from '../components/Header'
 
-import { Container, SectionWrap } from './styles/MainStyled'
+import { Container, SectionWrap, Section } from './styles/MainStyled'
 import { Card, ImageIntegration, ImageProfile, ImageCap, ImageEvent, ImageClass, Label } from './styles/HomeStyled'
 
 function Home({ setCurrentNavigation }) {
@@ -25,32 +25,34 @@ function Home({ setCurrentNavigation }) {
     return (
         <Container>
             <Header />
-            <SectionWrap>
-                <Card onClick={() => handlePress('integration')}>
-                    <ImageIntegration />
-                    <Label>Integração</Label>
-                </Card>
+            <Section>
+                <SectionWrap type={1}>
+                    <Card onClick={() => handlePress('integration')}>
+                        <ImageIntegration />
+                        <Label>Integração</Label>
+                    </Card>
 
-                <Card>
-                    <ImageCap />
-                    <Label>Casa de Paz</Label>
-                </Card>
+                    {/* <Card>
+                        <ImageCap />
+                        <Label>Casa de Paz</Label>
+                    </Card>
 
-                <Card>
-                    <ImageEvent />
-                    <Label>Eventos</Label>
-                </Card>
+                    <Card>
+                        <ImageEvent />
+                        <Label>Eventos</Label>
+                    </Card>
 
-                <Card>
-                    <ImageClass />
-                    <Label>Classes</Label>
-                </Card>
+                    <Card>
+                        <ImageClass />
+                        <Label>Classes</Label>
+                    </Card> */}
 
-                <Card onClick={() => handlePress('profile')}>
-                    <ImageProfile />
-                    <Label>Meu Perfil</Label>
-                </Card>
-            </SectionWrap>
+                    <Card onClick={() => handlePress('profile')}>
+                        <ImageProfile />
+                        <Label>Meu Perfil</Label>
+                    </Card>
+                </SectionWrap>
+            </Section>
         </Container>
     )
 }
