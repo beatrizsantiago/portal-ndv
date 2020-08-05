@@ -7,7 +7,7 @@ import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
 import Header from '../components/Header'
 
 import { Container, SectionWrap, Section } from './styles/MainStyled'
-import { Card, ImageIntegration, ImageProfile, ImageCap, ImageEvent, ImageClass, Label } from './styles/HomeStyled'
+import { Card, ImageIntegration, ImageProfile, Label } from './styles/HomeStyled'
 
 function Home({ setCurrentNavigation }) {
 

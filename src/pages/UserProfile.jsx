@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 import { Container, Section } from './styles/MainStyled'
 import { Circle, ImageProfile, ButtonCircle, IconPen, Box } from './styles/UserProfileStyled'

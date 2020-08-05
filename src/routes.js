@@ -10,6 +10,7 @@ import Lifes from './pages/Lifes'
 import RegisterLife from './pages/RegisterLife'
 import DetailsLife from './pages/DetailsLife'
 import UserProfile from './pages/UserProfile'
+import NotFound from './pages/NotFound'
 
 export default function MainRoutes() {
     return (
@@ -23,6 +24,7 @@ export default function MainRoutes() {
             <Route path="/integration/lifes/register" element={<RegisterLife />} />
             <Route path="/integration/lifes/details" element={<DetailsLife />} />
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     )
 }
