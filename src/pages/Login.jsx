@@ -11,8 +11,8 @@ import Colors from '../themes/Colors'
 
 export default function Login() {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('beatriz.santiago@ndv.com')
+    const [password, setPassword] = useState('Admin@123')
 
     const alertError = (message) => {
         return SweetAlert.fire({
@@ -37,6 +37,7 @@ export default function Login() {
         } else {
             UserService.Login(email, password)
                 .then(token => {
+                    console.log("T -> ", token);
                     setEmail('')
                     setPassword('')
                     navigate('/home')
