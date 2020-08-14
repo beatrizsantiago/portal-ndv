@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import SweetAlert from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
+
+import UserService from '../services/UserService'
 
 import IntegrationService from '../services/IntegrationService'
 
@@ -43,6 +46,17 @@ function DetailsLife({ currentLife }) {
     const [messageError, setMessageError] = useState('')
     const [error, setError] = useState('')
     const [allIntegrators, setAllIntegrators] = useState([])
+
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        UserService.GetSession()
+            .then(isAuth => {
+                if (isAuth === false) {
+                    navigate('/')
+                }
+            })
+    })
 
     useEffect(() => {
         listDetails(currentLife)

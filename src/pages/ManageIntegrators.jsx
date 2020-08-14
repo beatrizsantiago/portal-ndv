@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import SweetAlert from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
+import UserService from '../services/UserService'
 import IntegrationService from '../services/IntegrationService'
 
 import Header from '../components/Header'
@@ -24,6 +26,17 @@ export default function ManageIntegrators() {
     const [loading, setLoading] = useState(false)
     const [loadingButton, setLoadingButton] = useState(false)
     const [error, setError] = useState(false)
+
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        UserService.GetSession()
+            .then(isAuth => {
+                if (isAuth === false) {
+                    navigate('/')
+                }
+            })
+    })
 
     useEffect(() => {
         listIntegrators()

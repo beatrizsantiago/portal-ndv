@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import UserService from '../services/UserService'
 
 import Header from '../components/Header'
 import NavigationMenu from '../components/NavigationMenu'
@@ -7,6 +10,18 @@ import { Container, Section } from './styles/MainStyled'
 import { AddressCard, HandHeart, UsersCog, Graph, BarGraph } from './styles/IntegrationStyled'
 
 export default function Integration() {
+
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        UserService.GetSession()
+            .then(isAuth => {
+                if (isAuth === false) {
+                    navigate('/')
+                }
+            })
+    })
+
     return (
         <Container>
             <Header />

@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SweetAlert from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
+import UserService from '../services/UserService'
 import IntegrationService from '../services/IntegrationService'
 
 import Header from '../components/Header'
@@ -23,6 +25,17 @@ export default function RegisterVisitant() {
     const [messageError, setMessageError] = useState('')
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        UserService.GetSession()
+            .then(isAuth => {
+                if (isAuth === false) {
+                    navigate('/')
+                }
+            })
+    })
 
     const sendDatas = () => {
         setLoading(true)

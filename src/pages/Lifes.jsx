@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import SweetAlert from 'sweetalert2'
 import ReactExport from "react-export-excel"
 
+import UserService from '../services/UserService'
 import IntegrationService from '../services/IntegrationService'
 
 import { setCurrentLife } from '../redux/life/life.actions'
@@ -33,6 +34,17 @@ function Lifes({ setCurrentLife }) {
     const [loading, setLoading] = useState(false)
     const [loadingButton, setLoadingButton] = useState(false)
     const [error, setError] = useState(false)
+    
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        UserService.GetSession()
+            .then(isAuth => {
+                if (isAuth === false) {
+                    navigate('/')
+                }
+            })
+    })
 
     useEffect(() => {
         listLifes()
@@ -49,8 +61,6 @@ function Lifes({ setCurrentLife }) {
                 }, 1000);
             })
     }
-
-    let navigate = useNavigate()
 
     const detailsLife = data => {
         setCurrentLife(data.id)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { GoLock, GoMail } from 'react-icons/go'
 import SweetAlert from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
@@ -11,8 +11,19 @@ import Colors from '../themes/Colors'
 
 export default function Login() {
 
-    const [email, setEmail] = useState('beatriz.santiago@ndv.com')
-    const [password, setPassword] = useState('Admin@123')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        UserService.GetSession()
+            .then(isAuth => {
+                if (isAuth === true) {
+                    navigate('/home')
+                }
+            })
+    })
 
     const alertError = (message) => {
         return SweetAlert.fire({
@@ -22,8 +33,6 @@ export default function Login() {
             confirmButtonColor: Colors.primary,
         })
     }
-
-    let navigate = useNavigate()
 
     const sendDatas = () => {
         const regexEmail = /[A-Za-z0-9][\w.]+@[a-z]+\.[a-z]{2}/
@@ -37,7 +46,6 @@ export default function Login() {
         } else {
             UserService.Login(email, password)
                 .then(token => {
-                    console.log("T -> ", token);
                     setEmail('')
                     setPassword('')
                     navigate('/home')

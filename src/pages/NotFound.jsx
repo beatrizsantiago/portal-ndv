@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+
+import UserService from '../services/UserService'
 
 import Button from '../components/Button'
 
@@ -12,6 +14,15 @@ import ImgNotFound from '../assets/img/bg-not-found.png'
 export default function UserProfile() {
 
     let navigate = useNavigate()
+
+    useEffect(() => {
+        UserService.GetSession()
+            .then(isAuth => {
+                if (isAuth === false) {
+                    navigate('/')
+                }
+            })
+    })
 
     return (
         <Container>

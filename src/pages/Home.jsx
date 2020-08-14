@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import UserService from '../services/UserService'
+
 import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
 
 import Header from '../components/Header'
@@ -16,6 +18,15 @@ function Home({ setCurrentNavigation }) {
     }, [setCurrentNavigation])
 
     let navigate = useNavigate()
+
+    useEffect(() => {
+        UserService.GetSession()
+            .then(isAuth => {
+                if (isAuth === false) {
+                    navigate('/')
+                }
+            })
+    })
 
     const handlePress = param => {
         setCurrentNavigation(param)
