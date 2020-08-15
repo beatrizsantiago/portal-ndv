@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import UserService from '../services/UserService'
+
 import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
 
 import Colors from '../themes/Colors'
@@ -32,6 +34,13 @@ function Header({ currentNavigation, setCurrentNavigation }) {
         navigate(`/${param}`)
     }
 
+    const logout = () => {
+        UserService.LogOut()
+            .then(() => {
+                navigate('/')
+            })
+    }
+
     const getType = route => {
         if (route === currentNavigation) {
             return 1
@@ -42,6 +51,7 @@ function Header({ currentNavigation, setCurrentNavigation }) {
 
     return (
         <NavBar>
+            <Logout onClick={() => logout()}>Sair</Logout>
             <Tab>
                 {
                     currentNavigation !== 'home' ?
@@ -143,4 +153,16 @@ const Logo = styled.img.attrs({ src: LogoImage })`
         width: 64px;
         height: 64px;
     }
+`
+
+const Logout = styled.button`
+    position: absolute;
+    right: 0px;
+    font-size: 15px;
+    color: ${Colors.white};
+    margin: 5px 4px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    z-index: 100;
 `

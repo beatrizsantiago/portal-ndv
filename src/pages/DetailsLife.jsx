@@ -67,10 +67,7 @@ function DetailsLife({ currentLife }) {
         IntegrationService.GetDetailsLife(lifeId)
             .then(resp => {
                 setDetails(resp)
-
-                setTimeout(() => {
-                    setLoading(false)
-                }, 1000);
+                setLoading(false)
             })
     }
 
@@ -245,7 +242,7 @@ function DetailsLife({ currentLife }) {
                 return { icon: <IconCap />, nameStep: 'Classe Líderes de Casa de Paz' }
 
             default:
-                break
+                return
         }
     }
 
@@ -345,19 +342,12 @@ function DetailsLife({ currentLife }) {
             <BoxModal isOpen={showModalEdit} closedPress={() => closeModalEdit()}>
                 <TitleModal>Editar informações de {details.name}</TitleModal>
                 {error.length > 0 ? <MessageBox text={messageError} /> : null}
+
                 <Input label="Nome" value={newName} onChange={event => setNewName(event.target.value)} disabled={loadingButton} error={findError('name')} maxLength="300" required />
                 <Input label="E-mail" value={newEmail} onChange={event => setNewEmail(event.target.value)} disabled={loadingButton} error={findError('email')} maxLength="200" required />
                 <RowInputs inputs={[
                     <Input label="Telefone" value={newPhone} onChange={event => setNewPhone(maskPhone(event.target.value))} disabled={loadingButton} error={findError('phone')} maxLength="15" required />,
-                    <InputDate
-                        label="Data de Nascimento"
-                        selected={newBirthday}
-                        onChange={date => setNewBirthday(date)}
-                        withPortal={true}
-                        disabled={loadingButton}
-                        error={findError('birthday')}
-                        required
-                    />
+                    <Input label="Data de Nascimento" value={newBirthday} onChange={event => setNewBirthday(event.target.value)} type="date" disabled={loadingButton} error={findError('birthday')} required />
                 ]} />
                 <Select
                     label="Integrador"
@@ -368,6 +358,7 @@ function DetailsLife({ currentLife }) {
                     error={findError('integrator')}
                     required
                 />
+                
                 <Button title="Alterar" onClick={() => alterDatas()} loading={loadingButton ? 1 : 0} />
             </BoxModal>
         </Container>

@@ -11,6 +11,7 @@ import Button from '../components/Button'
 import Loading from '../components/Loading'
 import BoxModal from '../components/BoxModal'
 import Input from '../components/Input'
+import RowInputs from '../components/RowInputs'
 import MessageBox from '../components/MessageBox'
 
 import { Container, SectionWrap, TitleModal } from './styles/MainStyled'
@@ -23,9 +24,13 @@ export default function ManageIntegrators() {
     const [allIntegrators, setAllIntegrators] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
     const [email, setEmail] = useState('')
+    const [mentor, setMentor] = useState('')
+    const [numberNet, setNumberNet] = useState()
     const [loading, setLoading] = useState(false)
     const [loadingButton, setLoadingButton] = useState(false)
     const [error, setError] = useState(false)
+    const [labelError, setLabelError] = useState('')
+    const [messageError, setMessageError] = useState('')
 
     let navigate = useNavigate()
 
@@ -56,19 +61,37 @@ export default function ManageIntegrators() {
 
     const pressAddIntegrator = () => {
         setError(false)
+        setMessageError('')
+        setLabelError('')
         setLoadingButton(true)
 
         const regexEmail = /[A-Za-z0-9][\w.]+@[a-z]+\.[a-z]{2}/
 
         if (!email || !regexEmail.test(email)) {
+            setLabelError('email')
+            setMessageError("Insira um e-mail válido.")
+            setError(true)
+            setLoadingButton(false)
+
+        } else if (mentor.length < 3) {
+            setLabelError('mentor')
+            setMessageError("O nome do mentor deve ter no mínimo 3 caracteres.")
+            setError(true)
+            setLoadingButton(false)
+
+        } else if (!numberNet || numberNet > 4) {
+            setLabelError('numberNet')
+            setMessageError("Insira um número válido para a Rede.")
             setError(true)
             setLoadingButton(false)
 
         } else {
-            IntegrationService.AddIntegrator(email)
+            IntegrationService.AddIntegrator(email, mentor, numberNet)
                 .then(() => {
                     setLoadingButton(false)
                     setEmail('')
+                    setMentor('')
+                    setNumberNet('')
                     return SweetAlert.fire({
                         icon: 'success',
                         text: 'Novo integrador adicionado!',
@@ -90,7 +113,18 @@ export default function ManageIntegrators() {
     const closeModal = () => {
         setError(false)
         setEmail('')
+        setMentor('')
+        setNumberNet('')
         setModalVisible(false)
+    }
+
+    const findError = label => {
+        let isError = labelError.indexOf(label)
+        if (isError > -1) {
+            return true
+        } else {
+            return false
+        }
     }
 
     return (
@@ -129,8 +163,17 @@ export default function ManageIntegrators() {
 
             <BoxModal isOpen={modalVisible} closedPress={() => closeModal()}>
                 <TitleModal>Novo integrador</TitleModal>
-                <MessageBox text={error ? 'Insira um E-mail válido!' : 'É necessário que o usuário esteja cadastrado no sistema.'} type={error ? 'error' : 'info'} />
-                <Input label="Insira um e-mail" value={email} onChange={event => setEmail(event.target.value)} disabled={loadingButton} error={error} maxLength="200" required />
+                {
+                    error ?
+                        <MessageBox text={messageError} type="error" />
+                        :
+                        <MessageBox text="É necessário que o usuário esteja cadastrado no sistema." type="info" />
+                }
+                <Input label="Insira um e-mail" value={email} onChange={event => setEmail(event.target.value)} disabled={loadingButton} error={findError('email')} maxLength="200" required />
+                <RowInputs inputs={[
+                    <Input label="Mentor" value={mentor} onChange={event => setMentor(event.target.value)} disabled={loadingButton} error={findError('mentor')} maxLength="200" required />,
+                    <Input label="Rede" value={numberNet} onChange={event => setNumberNet(event.target.value)} disabled={loadingButton} error={findError('numberNet')} maxLength="1" type="number" required />
+                ]} />
                 <Button title="Adicionar" onClick={() => pressAddIntegrator()} loading={loadingButton ? 1 : 0} />
             </BoxModal>
         </Container>

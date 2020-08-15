@@ -30,8 +30,6 @@ export async function GetSession() {
         const token = Cookies.get('token')
         const expirationToken = Cookies.get('expirationToken')
 
-        console.log(expirationToken);
-
         let dateNow = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
 
         if (token && expirationToken > dateNow) {

@@ -12,7 +12,6 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import Select from '../components/Select'
 import MessageBox from '../components/MessageBox'
-import InputDate from '../components/InputDate'
 
 import { Container, Section } from './styles/MainStyled'
 import Colors from '../themes/Colors'
@@ -44,7 +43,7 @@ export default function RegisterLife() {
 
     const sendDatas = () => {
         setLoading(true)
-        IntegrationService.RegisterNewLife(fullName, phone, typeConversion, email, birthday, baptismOtherChurch, baptismToday, baptismMinister)
+        IntegrationService.RegisterNewLife(fullName, phone, typeConversion, email, birthday, baptismOtherChurch === 0 ? false : true, baptismToday === 0 ? false : true, baptismMinister)
             .then(() => {
                 setLoading(false)
                 SweetAlert.fire({
@@ -61,6 +60,7 @@ export default function RegisterLife() {
                         setBaptismOtherChurch('')
                         setBaptismToday('')
                         setBaptismMinister('')
+                        navigate('/integration/lifes')
                     }
                 })
             })
@@ -146,13 +146,7 @@ export default function RegisterLife() {
                     ]} />
                     <Input label="E-mail" value={email} onChange={event => setEmail(event.target.value)} disabled={loading} maxLength="200" />
                     <RowInputs inputs={[
-                        <InputDate
-                            label="Data de Nascimento"
-                            selected={birthday}
-                            onChange={date => setBirthday(date)}
-                            withPortal={true}
-                            disabled={loading}
-                        />,
+                        <Input label="Data de Nascimento" value={birthday} onChange={event => setBirthday(event.target.value)} disabled={loading} type="date" />,
                         <Select
                             label="Batizado em Outra Igreja?"
                             value={baptismOtherChurch}

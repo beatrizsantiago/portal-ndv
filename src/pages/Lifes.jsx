@@ -34,7 +34,7 @@ function Lifes({ setCurrentLife }) {
     const [loading, setLoading] = useState(false)
     const [loadingButton, setLoadingButton] = useState(false)
     const [error, setError] = useState(false)
-    
+
     let navigate = useNavigate()
 
     useEffect(() => {
@@ -55,10 +55,7 @@ function Lifes({ setCurrentLife }) {
         IntegrationService.GetLifes()
             .then(resp => {
                 setAllLifes(resp)
-
-                setTimeout(() => {
-                    setLoading(false)
-                }, 1000);
+                setLoading(false)
             })
     }
 
@@ -190,7 +187,7 @@ function Lifes({ setCurrentLife }) {
                             colunsSize={['medium', 'small']}
                             alignColuns={['start', 'center']}
                             namesColumns={['Nome', 'Telefone']}
-                            datas={allLifes.map(life => ({ name: life.name, phone: life.phone, id: life.id, legend: life.legend }))}
+                            datas={allLifes.map(life => ({ name: life.fullName, phone: life.phone, id: life.id, legend: 0 }))}
                             buttons={data =>
                                 <RowButtons>
                                     <Button key={1} title={<OutlineFileSync />} onClick={() => openModal(data)} outlined color={Colors.green} width={38} />
