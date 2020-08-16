@@ -165,4 +165,8 @@ const Logout = styled.button`
     border: none;
     background-color: transparent;
     z-index: 100;
+
+    @media (max-width: 750px) {
+        margin: 1px;
+    }
 `
