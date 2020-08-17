@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import SweetAlert from 'sweetalert2'
 
 import UserService from '../services/UserService'
 
 import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
 
 import Header from '../components/Header'
+
+import Colors from '../themes/Colors'
 
 import { Container, SectionWrap, Section } from './styles/MainStyled'
 import { Card, ImageIntegration, ImageProfile, Label } from './styles/HomeStyled'
@@ -23,7 +26,13 @@ function Home({ setCurrentNavigation }) {
         UserService.GetSession()
             .then(isAuth => {
                 if (isAuth === false) {
-                    navigate('/')
+                    SweetAlert.fire({
+                        icon: 'warning',
+                        title: 'Atenção!',
+                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+                        confirmButtonColor: Colors.yellow,
+                    })
+                    .then(() => navigate('/'))
                 }
             })
     })

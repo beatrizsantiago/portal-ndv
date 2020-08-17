@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { BsEye, BsEyeSlash } from 'react-icons/bs'
 
 import Colors from '../../themes/Colors'
 import { CenterColumn } from '../../themes/StyleConstants'
@@ -68,7 +69,7 @@ export const InputEmail = styled.input.attrs({ type: 'email', placeholder: 'usua
     ${PropertiesInput};
 `
 
-export const InputPassword = styled.input.attrs({ type: 'password', placeholder: '**********' })`
+export const InputPassword = styled.input.attrs({ placeholder: '**********' })`
     ${PropertiesInput};
 `
 
@@ -109,4 +110,28 @@ export const IconPassword = styled.h2`
 
 export const Spacing = styled.div`
     height: 40px;
+`
+const PropsEyes = css`
+    font-size: 25px;
+    text-align: center;
+    line-height: 0px;
+    color: ${Colors.lightGray};
+`
+
+export const IconEye = styled(BsEye)`
+    ${PropsEyes}
+`
+
+export const IconEyeOff = styled(BsEyeSlash)`
+    ${PropsEyes}
+`
+
+export const ButtonEye = styled.button`
+    position: absolute;
+    top: 175px;
+    right: 36px;
+    background-color: transparent;
+    margin: 0px;
+    padding: 0px;
+    border: none;
 `

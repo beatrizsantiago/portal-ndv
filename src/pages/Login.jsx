@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import UserService from '../services/UserService'
 
-import { Container, Box, HeaderBox, Label, InputEmail, InputPassword, ImageLogin, Button, IconMail, IconPassword, Spacing } from './styles/LoginStyled'
+import { Container, Box, HeaderBox, Label, InputEmail, InputPassword, ImageLogin, Button, IconMail, IconPassword, Spacing, IconEye, IconEyeOff, ButtonEye } from './styles/LoginStyled'
 
 import Colors from '../themes/Colors'
 
@@ -13,7 +13,8 @@ export default function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    
+    const [typePassword, setTypePassword] = useState('password')
+
     let navigate = useNavigate()
 
     useEffect(() => {
@@ -71,7 +72,17 @@ export default function Login() {
 
                 <Label>Senha</Label>
                 <IconPassword><GoLock /></IconPassword>
-                <InputPassword value={password} onChange={event => setPassword(event.target.value)} />
+                <InputPassword value={password} onChange={event => setPassword(event.target.value)} type={typePassword} />
+                {
+                    typePassword === 'password' ?
+                        <ButtonEye onClick={() => setTypePassword('text')}>
+                            <IconEye />
+                        </ButtonEye>
+                        :
+                        <ButtonEye onClick={() => setTypePassword('password')}>
+                            <IconEyeOff />
+                        </ButtonEye>
+                }
 
                 <Button onClick={() => sendDatas()}>Entrar</Button>
             </Box>

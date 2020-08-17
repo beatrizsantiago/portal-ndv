@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import SweetAlert from 'sweetalert2'
 
 import UserService from '../services/UserService'
 
@@ -19,7 +20,13 @@ export default function UserProfile() {
         UserService.GetSession()
             .then(isAuth => {
                 if (isAuth === false) {
-                    navigate('/')
+                    SweetAlert.fire({
+                        icon: 'warning',
+                        title: 'Atenção!',
+                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+                        confirmButtonColor: Colors.green,
+                    })
+                    .then(() => navigate('/'))
                 }
             })
     })

@@ -38,7 +38,13 @@ export default function ManageIntegrators() {
         UserService.GetSession()
             .then(isAuth => {
                 if (isAuth === false) {
-                    navigate('/')
+                    SweetAlert.fire({
+                        icon: 'warning',
+                        title: 'Atenção!',
+                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+                        confirmButtonColor: Colors.green,
+                    })
+                    .then(() => navigate('/'))
                 }
             })
     })

@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SweetAlert from 'sweetalert2'
 
 import UserService from '../services/UserService'
 
 import Header from '../components/Header'
 import NavigationMenu from '../components/NavigationMenu'
+
+import Colors from '../themes/Colors'
 
 import { Container, Section } from './styles/MainStyled'
 import { AddressCard, HandHeart, UsersCog, Graph, BarGraph } from './styles/IntegrationStyled'
@@ -15,11 +18,17 @@ export default function Integration() {
 
     useEffect(() => {
         UserService.GetSession()
-            .then(isAuth => {
-                if (isAuth === false) {
-                    navigate('/')
-                }
-            })
+        .then(isAuth => {
+            if (isAuth === false) {
+                SweetAlert.fire({
+                    icon: 'warning',
+                    title: 'Atenção!',
+                    text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+                    confirmButtonColor: Colors.green,
+                })
+                .then(() => navigate('/'))
+            }
+        })
     })
 
     return (
