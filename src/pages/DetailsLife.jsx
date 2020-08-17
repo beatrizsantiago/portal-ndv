@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
-import { connect } from 'react-redux'
 import SweetAlert from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 
 import UserService from '../services/UserService'
-
 import IntegrationService from '../services/IntegrationService'
 
 import Header from '../components/Header'
@@ -18,7 +16,7 @@ import Input from '../components/Input'
 import RowInputs from '../components/RowInputs'
 import Select from '../components/Select'
 
-import { Container, SectionWrap, TitleModal } from './styles/MainStyled'
+import { Container, SectionWrap, TitleModal, TextEmpty } from './styles/MainStyled'
 import {
     BoxColumn, InfoProfile, Row, Name, BigLabel, SmallLabel, Bold, Title, Feedbacks, ListFeedback, Item, Feedback, NameIntegrator, Timeline,
     ColumnWidth, StepBox, Circle, Triangle, Box, SpacingBox, Line, DateStep, Body, IconVisitor, IconWelcome, IconBaptism, IconExperience,
@@ -27,8 +25,9 @@ import {
 
 import Colors from '../themes/Colors'
 
-function DetailsLife({ currentLife }) {
+export default function DetailsLife() {
 
+    const [currentLife, setCurrentLife] = useState(1)
     const [details, setDetails] = useState({})
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
@@ -59,7 +58,13 @@ function DetailsLife({ currentLife }) {
     })
 
     useEffect(() => {
-        listDetails(currentLife)
+        let url_string = window.location.href
+        let splitUrl = url_string.split('/')
+        let id = splitUrl[splitUrl.length - 1]
+        setCurrentLife(id)
+
+        listDetails(id)
+
     }, [currentLife])
 
     const listDetails = (lifeId) => {
@@ -77,7 +82,7 @@ function DetailsLife({ currentLife }) {
     }
 
     const sendDatas = () => {
-        IntegrationService.AlterLife()
+        IntegrationService.AlterLife(currentLife, newName, newEmail, newPhone, moment(newBirthday).format(), newIntegrator)
             .then(() => {
                 setLoadingButton(false)
                 SweetAlert.fire({
@@ -148,10 +153,10 @@ function DetailsLife({ currentLife }) {
         IntegrationService.GetIntegrators()
             .then(resp => {
                 setAllIntegrators(resp)
-                setNewName(details.name)
+                setNewName(details.fullName)
                 setNewEmail(details.email)
                 setNewPhone(details.phone)
-                setNewBirthday(new Date())
+                setNewBirthday(moment(details.birthday).format('YYYY-MM-DD'))
                 setNewIntegrator(details.integrator.id)
                 setShowModalEdit(true)
             })
@@ -164,7 +169,7 @@ function DetailsLife({ currentLife }) {
     }
 
     const sendNewStep = () => {
-        IntegrationService.NewStepLife(currentLife, selectedStep.step, startDate)
+        IntegrationService.NewStepLife(currentLife, selectedStep.step, moment(startDate).format())
             .then(() => {
                 setLoadingButton(false)
                 SweetAlert.fire({
@@ -190,12 +195,11 @@ function DetailsLife({ currentLife }) {
     }
 
     const insertStep = () => {
-        let today = moment(new Date()).format('DD/MM/YYYY')
-        let past = moment(new Date()).subtract(30, 'days').format('DD/MM/YYYY')
-        let selectDate = moment(startDate).format('DD/MM/YYYY')
+        let today = moment(new Date()).format()
+        let past = moment(new Date()).subtract(30, 'days').format()
+        let selectDate = moment(startDate).format()
 
-        let lastStep = details.historicPropheticWay[selectedStep.step - 2]
-        console.log(lastStep);
+        let lastStep = details.historicPropheticWay[selectedStep.step - 1]
 
         setErrorDate(false)
         if (selectDate < past || selectDate > today) {
@@ -206,7 +210,7 @@ function DetailsLife({ currentLife }) {
             setMessageErrorDate(`É necessário primeiro concluir ${getDatasStep(lastStep.step).nameStep}.`)
             setErrorDate(true)
 
-        } else if (selectDate <= moment(lastStep.date).format('DD/MM/YYYY')) {
+        } else if (selectDate <= moment(lastStep.date).format()) {
             setMessageErrorDate(`A data deste passo deve ser maior que do passo ${getDatasStep(lastStep.step).nameStep}.`)
             setErrorDate(true)
 
@@ -284,12 +288,15 @@ function DetailsLife({ currentLife }) {
                                 <Title>Últimos Feedbacks</Title>
                                 <ListFeedback>
                                     {
-                                        details.feedbacks?.map((feedback, index) => (
-                                            <Item key={index}>
-                                                <Feedback>{feedback.description}</Feedback>
-                                                <NameIntegrator>- {feedback.integrator}</NameIntegrator>
-                                            </Item>
-                                        ))
+                                        details.feedbacks?.length === 0 ?
+                                            <TextEmpty>Não há feedbacks para listar.</TextEmpty>
+                                            :
+                                            details.feedbacks?.map((feedback, index) => (
+                                                <Item key={index}>
+                                                    <Feedback>{feedback.content}</Feedback>
+                                                    <NameIntegrator>- {feedback.integrator}</NameIntegrator>
+                                                </Item>
+                                            ))
                                     }
                                 </ListFeedback>
                             </Feedbacks>
@@ -358,15 +365,9 @@ function DetailsLife({ currentLife }) {
                     error={findError('integrator')}
                     required
                 />
-                
+
                 <Button title="Alterar" onClick={() => alterDatas()} loading={loadingButton ? 1 : 0} />
             </BoxModal>
         </Container>
     )
 }
-
-const mapStateToProps = state => ({
-    currentLife: state.life.currentLife
-})
-
-export default connect(mapStateToProps)(DetailsLife)

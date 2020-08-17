@@ -98,7 +98,6 @@ export async function AddIntegrator(email) {
 export async function GetLifes() {
     try {
         let lifes = await axios.get('lifes')
-
         return lifes.data
 
     } catch (error) {
@@ -130,9 +129,9 @@ export async function SendNewFeedback(lifeId, content) {
     }
 }
 
-export async function LifeLost(idLife) {
+export async function LifeLost(lifeId) {
     try {
-        await axios.post('lifes/life-lost', { idLife })
+        await axios.post(`lifes/life-lost/${lifeId}`)
         return true
 
     } catch (error) {
@@ -141,9 +140,9 @@ export async function LifeLost(idLife) {
     }
 }
 
-export async function GetDetailsLife(idLife) {
+export async function GetDetailsLife(lifeId) {
     try {
-        let life = await axios.get(`lifes/${idLife}`)
+        let life = await axios.get(`lifes/${lifeId}`)
         return life.data
 
     } catch (error) {
@@ -152,9 +151,9 @@ export async function GetDetailsLife(idLife) {
     }
 }
 
-export async function NewStepLife(idLife, step, date) {
+export async function NewStepLife(lifeId, step, date) {
     try {
-        await axios.put('lifes/add-life-step', { idLife, step, date })
+        await axios.put('lifes/add-life-step', { lifeId, step, date })
         return true
 
     } catch (error) {
@@ -163,9 +162,9 @@ export async function NewStepLife(idLife, step, date) {
     }
 }
 
-export async function AlterLife(idLife, fullName, email, phone, birthday, integratorId) {
+export async function AlterLife(lifeId, fullName, email, phone, birthday, integratorId) {
     try {
-        await axios.put('lifes/add-life-step', { idLife, fullName, email, phone, birthday, integratorId })
+        await axios.put('lifes/add-life-step', { lifeId, fullName, email, phone, birthday, integratorId })
         return true
 
     } catch (error) {

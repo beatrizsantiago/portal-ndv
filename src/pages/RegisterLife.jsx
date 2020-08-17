@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import SweetAlert from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
 
 import UserService from '../services/UserService'
 import IntegrationService from '../services/IntegrationService'
@@ -43,7 +44,7 @@ export default function RegisterLife() {
 
     const sendDatas = () => {
         setLoading(true)
-        IntegrationService.RegisterNewLife(fullName, phone, typeConversion, email, birthday, baptismOtherChurch === 0 ? false : true, baptismToday === 0 ? false : true, baptismMinister)
+        IntegrationService.RegisterNewLife(fullName, phone, typeConversion, email, moment(birthday).format(), baptismOtherChurch === 0 ? false : true, baptismToday === 0 ? false : true, baptismMinister)
             .then(() => {
                 setLoading(false)
                 SweetAlert.fire({

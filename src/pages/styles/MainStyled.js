@@ -53,3 +53,11 @@ export const LargeBox = styled.div`
 
     ${props => props.type === 'buttons' ? '@media (max-width: 600px) {flex-direction: column; align-items: center;}' : ''}
 `
+
+export const TextEmpty = styled.h2`
+    width: 90%;
+    text-align: center;
+    color: ${Colors.lightGray};
+    font-size: 16px;
+    font-weight: normal;
+`

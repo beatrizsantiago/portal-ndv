@@ -22,7 +22,7 @@ export default function MainRoutes() {
             <Route path="/integration/integrators" element={<ManageIntegrators />} />
             <Route path="/integration/lifes" element={<Lifes />} />
             <Route path="/integration/lifes/register" element={<RegisterLife />} />
-            <Route path="/integration/lifes/details" element={<DetailsLife />} />
+            <Route path="/integration/lifes/details/:lifeId" element={<DetailsLife />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="*" element={<NotFound />} />
         </Routes>

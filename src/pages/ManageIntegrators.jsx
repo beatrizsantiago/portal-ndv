@@ -52,10 +52,7 @@ export default function ManageIntegrators() {
         IntegrationService.GetIntegrators()
             .then(resp => {
                 setAllIntegrators(resp)
-
-                setTimeout(() => {
-                    setLoading(false)
-                }, 2000);
+                setLoading(false)
             })
     }
 

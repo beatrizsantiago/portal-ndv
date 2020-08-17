@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import SweetAlert from 'sweetalert2'
 import ReactExport from "react-export-excel"
 
 import UserService from '../services/UserService'
 import IntegrationService from '../services/IntegrationService'
-
-import { setCurrentLife } from '../redux/life/life.actions'
 
 import Header from '../components/Header'
 import Table from '../components/Table'
@@ -25,7 +22,7 @@ const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
-function Lifes({ setCurrentLife }) {
+export default function Lifes() {
 
     const [allLifes, setAllLifes] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
@@ -60,8 +57,7 @@ function Lifes({ setCurrentLife }) {
     }
 
     const detailsLife = data => {
-        setCurrentLife(data.id)
-        navigate('/integration/lifes/details')
+        navigate(`/integration/lifes/details/${data.id}`)
     }
 
     const declareLifeLost = data => {
@@ -203,16 +199,9 @@ function Lifes({ setCurrentLife }) {
             <BoxModal isOpen={modalVisible} closedPress={() => closeModal()}>
                 <TitleModal>{`Novo feedback para ${lifeSelected.name}`}</TitleModal>
                 {error ? <MessageBox text="É necessário que o feedback possua mais de 50 caracteres." /> : null}
-                <Textarea value={newFeedback} onChange={event => setNewFeedback(event.target.value)} disabled={loadingButton} />
+                <Textarea value={newFeedback} onChange={event => setNewFeedback(event.target.value)} disabled={loadingButton} maxLength={499} />
                 <Button title="Enviar" onClick={() => sendFeedback()} loading={loadingButton ? 1 : 0} />
             </BoxModal>
         </Container>
     )
 }
-
-
-const mapDispatchToProps = dispatch => ({
-    setCurrentLife: life => dispatch(setCurrentLife(life))
-})
-
-export default connect(null, mapDispatchToProps)(Lifes)
