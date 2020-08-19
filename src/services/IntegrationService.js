@@ -153,7 +153,7 @@ export async function GetDetailsLife(lifeId) {
 
 export async function NewStepLife(lifeId, step, date) {
     try {
-        await axios.put('lifes/add-life-step', { lifeId, step, date })
+        await axios.put('lifes/add-life-step', { idLife: lifeId, step, date })
         return true
 
     } catch (error) {
@@ -164,7 +164,7 @@ export async function NewStepLife(lifeId, step, date) {
 
 export async function AlterLife(lifeId, fullName, email, phone, birthday, integratorId) {
     try {
-        await axios.put('lifes/add-life-step', { lifeId, fullName, email, phone, birthday, integratorId })
+        await axios.put('lifes/add-life-step', { id: lifeId, fullName, email, phone, birthday, integratorId })
         return true
 
     } catch (error) {

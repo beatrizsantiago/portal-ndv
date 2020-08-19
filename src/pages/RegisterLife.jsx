@@ -50,7 +50,7 @@ export default function RegisterLife() {
 
     const sendDatas = () => {
         setLoading(true)
-        IntegrationService.RegisterNewLife(fullName, phone, typeConversion, email, moment(birthday).format(), baptismOtherChurch === 0 ? false : true, baptismToday === 0 ? false : true, baptismMinister)
+        IntegrationService.RegisterNewLife(fullName, phone, parseInt(typeConversion), email, moment(birthday).format(), baptismOtherChurch === '0' ? false : true, baptismToday === '0' ? false : true, baptismMinister)
             .then(() => {
                 setLoading(false)
                 SweetAlert.fire({

@@ -27,7 +27,7 @@ import Colors from '../themes/Colors'
 
 export default function DetailsLife() {
 
-    const [currentLife, setCurrentLife] = useState(1)
+    const [currentLife, setCurrentLife] = useState('')
     const [details, setDetails] = useState({})
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
@@ -64,18 +64,17 @@ export default function DetailsLife() {
     })
 
     useEffect(() => {
+        listDetails()
+    }, [])
+
+    const listDetails = () => {
         let url_string = window.location.href
         let splitUrl = url_string.split('/')
         let id = splitUrl[splitUrl.length - 1]
         setCurrentLife(id)
 
-        listDetails(id)
-
-    }, [currentLife])
-
-    const listDetails = (lifeId) => {
         setLoading(true)
-        IntegrationService.GetDetailsLife(lifeId)
+        IntegrationService.GetDetailsLife(id)
             .then(resp => {
                 setDetails(resp)
                 setLoading(false)
@@ -88,7 +87,7 @@ export default function DetailsLife() {
     }
 
     const sendDatas = () => {
-        IntegrationService.AlterLife(currentLife, newName, newEmail, newPhone, moment(newBirthday).format(), newIntegrator)
+        IntegrationService.AlterLife(parseInt(currentLife), newName, newEmail, newPhone, moment(newBirthday).format(), newIntegrator)
             .then(() => {
                 setLoadingButton(false)
                 SweetAlert.fire({
@@ -175,12 +174,12 @@ export default function DetailsLife() {
     }
 
     const sendNewStep = () => {
-        IntegrationService.NewStepLife(currentLife, selectedStep.step, moment(startDate).format())
+        IntegrationService.NewStepLife(parseInt(currentLife), selectedStep.step, moment(startDate).format())
             .then(() => {
                 setLoadingButton(false)
                 SweetAlert.fire({
                     icon: 'success',
-                    text: `${details.name} agora está em ${getDatasStep(selectedStep.step).nameStep}.`,
+                    text: `${details.fullName} agora está em ${getDatasStep(selectedStep.step).nameStep}.`,
                     confirmButtonColor: Colors.green,
                 }).then((result) => {
                     if (result.value) {
@@ -279,7 +278,7 @@ export default function DetailsLife() {
                                 <ButtonEdit onClick={() => openModalEdit()}>
                                     <IconEdit />
                                 </ButtonEdit>
-                                <Name>{details.name}</Name>
+                                <Name>{details.fullName}</Name>
                                 <Row>
                                     <BigLabel>E-mail: <Bold>{details.email}</Bold></BigLabel>
                                     <SmallLabel>Telefone: <Bold>{details.phone}</Bold></SmallLabel>
