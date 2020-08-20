@@ -97,12 +97,12 @@ const Row = styled.tr`
 const Cell = styled.td`
     ${MiddleCenterRow}
     justify-content: ${props => props.align};
-    width: ${props => props.size === 'small' ? 20 : (props.size === 'medium' ? 60 : 100)}%;
+    width: ${props => props.size === 'small' ? 20 : (props.size === 'middleSmall' ? 30 : (props.size === 'medium' ? 60 : 100))}%;
     padding-right: 5px;
     box-sizing: border-box;
 
     @media (max-width: 1000px) {
-        width: ${props => props.size === 'small' ? 25 : (props.size === 'medium' ? 50 : 100)}%;
+        width: ${props => props.size === 'small' || props.size === 'middleSmall' ? 25 : (props.size === 'medium' ? 50 : 100)}%;
     }
 
     @media (max-width: 420px) {

@@ -216,7 +216,7 @@ export default function Lifes() {
                                 <RowButtons>
                                     <Button key={1} title={<OutlineFileSync />} onClick={() => openModal(data)} outlined color={Colors.green} width={38} />
                                     <Button key={2} title={<ListDetails />} onClick={() => detailsLife(data)} outlined color={Colors.blue} width={38} />
-                                    <Button key={3} title={<LostUser />} onClick={() => declareLifeLost(data)} outlined color={Colors.red} width={38} />
+                                    <Button key={3} title={<LostUser disabled={data.legend === 3 ? true : false} />} onClick={() => declareLifeLost(data)} disabled={data.legend === 3 ? true : false} outlined color={Colors.red} width={38} />
                                 </RowButtons>
                             }
                             sizeCellButton="small"

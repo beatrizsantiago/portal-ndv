@@ -1,13 +1,25 @@
 import axios from 'axios'
 
-export async function RegisterNewVisitant(fullName, phone, otherChurch, companion) {
+export async function RegisterNewVisitant(fullName, phone, frequentOtherChurch, companion) {
     try {
-        console.log(fullName, phone, otherChurch, companion);
+        console.log(fullName, phone, frequentOtherChurch, companion);
+        await axios.post('lifes/create-visitant', { fullName, phone, frequentOtherChurch, companion })
         return true
 
     } catch (error) {
         console.log("Error RegisterNewVisitant: ", error);
         throw error
+    }
+}
+
+export async function GetVisitants() {
+    try {
+        let visitants = await axios.get('lifes/list-visitants')
+        return visitants.data
+
+    } catch (error) {
+        console.log("Error GetVisitants: ", error.response);
+        throw error.response
     }
 }
 
@@ -173,4 +185,4 @@ export async function AlterLife(lifeId, fullName, email, phone, birthday, integr
     }
 }
 
-export default { RegisterNewVisitant, GetIntegrators, AddIntegrator, GetLifes, RegisterNewLife, SendNewFeedback, LifeLost, GetDetailsLife, NewStepLife, AlterLife }
+export default { RegisterNewVisitant, GetVisitants, GetIntegrators, AddIntegrator, GetLifes, RegisterNewLife, SendNewFeedback, LifeLost, GetDetailsLife, NewStepLife, AlterLife }

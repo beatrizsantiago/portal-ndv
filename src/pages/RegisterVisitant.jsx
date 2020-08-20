@@ -12,6 +12,8 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import Select from '../components/Select'
 import MessageBox from '../components/MessageBox'
+import Loading from '../components/Loading'
+import Table from '../components/Table'
 
 import { Container, Section } from './styles/MainStyled'
 import Colors from '../themes/Colors'
@@ -22,30 +24,55 @@ export default function RegisterVisitant() {
     const [phone, setPhone] = useState('')
     const [otherChurch, setOtherChurch] = useState('')
     const [companion, setCompanion] = useState('')
+    const [allVisitants, setAllVisitants] = useState([])
     const [messageError, setMessageError] = useState('')
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loadingList, setLoadingList] = useState(false)
 
     let navigate = useNavigate()
+
+    const alertExpiredSession = () => {
+        SweetAlert.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+            confirmButtonColor: Colors.yellow,
+        })
+            .then(() => navigate('/'))
+    }
 
     useEffect(() => {
         UserService.GetSession()
             .then(isAuth => {
                 if (isAuth === false) {
-                    SweetAlert.fire({
-                        icon: 'warning',
-                        title: 'Atenção!',
-                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
-                        confirmButtonColor: Colors.yellow,
-                    })
-                    .then(() => navigate('/'))
+                    alertExpiredSession()
                 }
             })
     })
 
+    useEffect(() => {
+        listVititants()
+    }, [])
+
+    const listVititants = () => {
+        setLoadingList(true)
+        IntegrationService.GetVisitants()
+            .then(resp => {
+                setAllVisitants(resp)
+                setLoadingList(false)
+            })
+            .catch(error => {
+                if (error.status === 401) {
+                    UserService.LogOut()
+                    alertExpiredSession()
+                }
+            })
+    }
+
     const sendDatas = () => {
         setLoading(true)
-        IntegrationService.RegisterNewVisitant(fullName, phone, otherChurch, companion)
+        IntegrationService.RegisterNewVisitant(fullName, phone, otherChurch === "1" ? true : false, companion)
             .then(() => {
                 setLoading(false)
                 SweetAlert.fire({
@@ -58,6 +85,7 @@ export default function RegisterVisitant() {
                         setPhone('')
                         setOtherChurch('')
                         setCompanion('')
+                        listVititants()
                     }
                 })
             })
@@ -125,6 +153,18 @@ export default function RegisterVisitant() {
                         <Input label="Quem trouxe?" value={companion} onChange={event => setCompanion(event.target.value)} disabled={loading} maxLength="100" />
                     ]} />
                 </BoxForm>
+
+                {
+                    loadingList ?
+                        <Loading />
+                        :
+                        <Table
+                            colunsSize={['middleSmall', 'small', 'middleSmall', 'small']}
+                            alignColuns={['center', 'center', 'center', 'center']}
+                            namesColumns={['Nome', 'Telefone', 'Acompanhante', 'Frequenta outra igreja?']}
+                            datas={allVisitants.map(visitant => ({ name: visitant.fullName, phone: visitant.phone, companion: visitant.companion || '-----', otherChurch: visitant.frequentOtherChurch ? 'sim' : 'não', id: visitant.id }))}
+                        />
+                }
             </Section>
 
         </Container>

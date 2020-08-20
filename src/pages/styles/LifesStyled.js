@@ -60,7 +60,7 @@ export const OutlineFileSync = styled(AiOutlineFileSync)`
 `
 
 export const LostUser = styled(FiUserX)`
-    color: ${Colors.red};
+    color: ${props => props.disabled ? Colors.lightGray : Colors.red};
     font-size: 24px;
     margin-top: 4px;
 `

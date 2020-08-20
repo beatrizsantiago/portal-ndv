@@ -33,8 +33,8 @@ const PropsButton = css`
     cursor: pointer;
     box-sizing: border-box;
     border-radius: 5px;
-    border: solid ${props => props.outlined ? 1 : 0}px ${props => props.color || Colors.primary};
-    background-color: ${props => props.outlined ? Colors.white : (props.color ? props.color : Colors.primary)};
+    border: solid ${props => props.outlined ? 1 : 0}px ${props => props.disabled ? Colors.lightGray : (props.color ? props.color : Colors.primary)};
+    background-color: ${props => props.disabled ? Colors.lightGray : (props.outlined ? Colors.white : (props.color ? props.color : Colors.primary))};
 
     @media (max-width: 560px) {
         margin: 2px;
@@ -50,7 +50,7 @@ const ContainerLink = styled(Link)`
 `
 
 const Text = styled.h1`
-    color: ${props => props.outlined ? Colors.primary : ( props.color ? props.color : Colors.white)};
+    color: ${props => props.outlined ? Colors.primary : (props.color ? props.color : Colors.white)};
     font-size: 15px;
     font-weight: normal;
     ${props => props.loading ? 'margin-left: 5px;' : null}
