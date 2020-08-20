@@ -34,7 +34,7 @@ const PropsButton = css`
     box-sizing: border-box;
     border-radius: 5px;
     border: solid ${props => props.outlined ? 1 : 0}px ${props => props.disabled ? Colors.lightGray : (props.color ? props.color : Colors.primary)};
-    background-color: ${props => props.disabled ? Colors.lightGray : (props.outlined ? Colors.white : (props.color ? props.color : Colors.primary))};
+    background-color: ${props => props.outlined ? Colors.white : (props.disabled ? Colors.lightGray : (props.color ? props.color : Colors.primary))};
 
     @media (max-width: 560px) {
         margin: 2px;

@@ -118,10 +118,9 @@ export async function GetLifes() {
     }
 }
 
-export async function RegisterNewLife(fullName, phone, typeConversion, email, birthday, baptismOtherChurch, baptismToday, baptismMinister) {
+export async function RegisterNewLife(fullName, phone, typeConversion, email, age, baptismOtherChurch, baptismToday, baptismMinister) {
     try {
-        console.log(fullName, phone, typeConversion, email, birthday, baptismOtherChurch, baptismToday, baptismMinister);
-        await axios.post('lifes', { fullName, phone, typeConversion, email, birthday, baptismOtherChurch, baptismToday, baptismMinister })
+        await axios.post('lifes', { fullName, phone, typeConversion, email, age, baptismOtherChurch, baptismToday, baptismMinister })
         return true
 
     } catch (error) {
@@ -174,9 +173,9 @@ export async function NewStepLife(lifeId, step, date) {
     }
 }
 
-export async function AlterLife(lifeId, fullName, email, phone, birthday, integratorId) {
+export async function AlterLife(lifeId, fullName, email, phone, age, integratorId) {
     try {
-        await axios.put('lifes/add-life-step', { id: lifeId, fullName, email, phone, birthday, integratorId })
+        await axios.put('lifes/add-life-step', { id: lifeId, fullName, email, phone, age, integratorId })
         return true
 
     } catch (error) {

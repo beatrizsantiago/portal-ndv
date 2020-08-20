@@ -40,7 +40,7 @@ export default function DetailsLife(props) {
     const [newName, setNewName] = useState('')
     const [newEmail, setNewEmail] = useState('')
     const [newPhone, setNewPhone] = useState('')
-    const [newBirthday, setNewBirthday] = useState('')
+    const [newAge, setNewAge] = useState('')
     const [newIntegrator, setNewIntegrator] = useState('')
     const [messageError, setMessageError] = useState('')
     const [error, setError] = useState('')
@@ -84,7 +84,7 @@ export default function DetailsLife(props) {
                 setLoading(false)
             })
             .catch(error => {
-                if (error.status === 401) {
+                if (error?.status === 401) {
                     UserService.LogOut()
                     alertExpiredSession()
                 }
@@ -97,7 +97,7 @@ export default function DetailsLife(props) {
     }
 
     const sendDatas = () => {
-        IntegrationService.AlterLife(parseInt(currentLife), newName, newEmail, newPhone, moment(newBirthday).format(), newIntegrator)
+        IntegrationService.AlterLife(parseInt(currentLife), newName, newEmail, newPhone, parseInt(newAge), newIntegrator)
             .then(() => {
                 setLoadingButton(false)
                 SweetAlert.fire({
@@ -113,7 +113,7 @@ export default function DetailsLife(props) {
             })
             .catch(error => {
                 setLoadingButton(false)
-                if (error.status === 401) {
+                if (error?.status === 401) {
                     UserService.LogOut()
                     alertExpiredSession()
 
@@ -139,25 +139,14 @@ export default function DetailsLife(props) {
         setLoadingButton(true)
         setError('')
 
-        const regexEmail = /[A-Za-z0-9][\w.]+@[a-z]+\.[a-z]{2}/
         if (newName.length < 3) {
             setMessageError('O campo Nome precisa ter mais que 3 caracteres.')
             setError('name')
             setLoadingButton(false)
 
-        } else if (!regexEmail.test(newEmail)) {
-            setMessageError('Insira um E-mail válido.')
-            setError('email')
-            setLoadingButton(false)
-
         } else if (!newPhone) {
             setMessageError('Insira um telefone válido.')
             setError('phone')
-            setLoadingButton(false)
-
-        } else if (newBirthday.length < 10) {
-            setMessageError('Insira uma data de nascimento.')
-            setError('birthday')
             setLoadingButton(false)
 
         } else if (!newIntegrator) {
@@ -177,7 +166,7 @@ export default function DetailsLife(props) {
                 setNewName(details.fullName)
                 setNewEmail(details.email)
                 setNewPhone(details.phone)
-                setNewBirthday(moment(details.birthday).format('YYYY-MM-DD'))
+                setNewAge(moment(details.age))
                 setNewIntegrator(details.integrator.id)
                 setShowModalEdit(true)
             })
@@ -206,7 +195,7 @@ export default function DetailsLife(props) {
             })
             .catch(error => {
                 setLoadingButton(false)
-                if (error.status === 401) {
+                if (error?.status === 401) {
                     UserService.LogOut()
                     alertExpiredSession()
 
@@ -302,12 +291,12 @@ export default function DetailsLife(props) {
                                 </ButtonEdit>
                                 <Name>{details.fullName}</Name>
                                 <Row>
-                                    <BigLabel>E-mail: <Bold>{details.email}</Bold></BigLabel>
+                                    <BigLabel>E-mail: <Bold>{details.email || 'Não informado'}</Bold></BigLabel>
                                     <SmallLabel>Telefone: <Bold>{details.phone}</Bold></SmallLabel>
                                 </Row>
                                 <Row>
                                     <BigLabel>Integrador: <Bold>{details.integrator?.name}</Bold></BigLabel>
-                                    <SmallLabel>Idade: <Bold>{moment(details.birthday, "YYYY-MM-DD").fromNow().replace('há ', '')}</Bold></SmallLabel>
+                                    <SmallLabel>Idade: <Bold>{details.age || 'Não informada'}</Bold></SmallLabel>
                                 </Row>
                             </InfoProfile>
 
@@ -378,10 +367,10 @@ export default function DetailsLife(props) {
                 {error.length > 0 ? <MessageBox text={messageError} /> : null}
 
                 <Input label="Nome" value={newName} onChange={event => setNewName(event.target.value)} disabled={loadingButton} error={findError('name')} maxLength="300" required />
-                <Input label="E-mail" value={newEmail} onChange={event => setNewEmail(event.target.value)} disabled={loadingButton} error={findError('email')} maxLength="200" required />
+                <Input label="E-mail" value={newEmail} onChange={event => setNewEmail(event.target.value)} disabled={loadingButton} error={findError('email')} maxLength="200" />
                 <RowInputs inputs={[
                     <Input label="Telefone" value={newPhone} onChange={event => setNewPhone(maskPhone(event.target.value))} disabled={loadingButton} error={findError('phone')} maxLength="15" required />,
-                    <Input label="Data de Nascimento" value={newBirthday} onChange={event => setNewBirthday(event.target.value)} type="date" disabled={loadingButton} error={findError('birthday')} required />
+                    <Input label="Idade" value={newAge} onChange={event => setNewAge(event.target.value)} type="number" disabled={loadingButton} error={findError('age')} />
                 ]} />
                 <Select
                     label="Integrador"

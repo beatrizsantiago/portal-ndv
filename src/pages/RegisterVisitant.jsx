@@ -63,7 +63,7 @@ export default function RegisterVisitant() {
                 setLoadingList(false)
             })
             .catch(error => {
-                if (error.status === 401) {
+                if (error?.status === 401) {
                     UserService.LogOut()
                     alertExpiredSession()
                 }

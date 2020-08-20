@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SweetAlert from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-import moment from 'moment'
 
 import UserService from '../services/UserService'
 import IntegrationService from '../services/IntegrationService'
@@ -23,7 +22,7 @@ export default function RegisterLife() {
     const [typeConversion, setTypeConversion] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
-    const [birthday, setBirthday] = useState('')
+    const [age, setAge] = useState('')
     const [baptismOtherChurch, setBaptismOtherChurch] = useState('')
     const [baptismToday, setBaptismToday] = useState('')
     const [baptismMinister, setBaptismMinister] = useState('')
@@ -50,7 +49,7 @@ export default function RegisterLife() {
 
     const sendDatas = () => {
         setLoading(true)
-        IntegrationService.RegisterNewLife(fullName, phone, parseInt(typeConversion), email, moment(birthday).format(), baptismOtherChurch === '0' ? false : true, baptismToday === '0' ? false : true, baptismMinister)
+        IntegrationService.RegisterNewLife(fullName, phone, parseInt(typeConversion), email, parseInt(age), baptismOtherChurch === '0' ? false : true, baptismToday === '0' ? false : true, baptismMinister)
             .then(() => {
                 setLoading(false)
                 SweetAlert.fire({
@@ -63,7 +62,7 @@ export default function RegisterLife() {
                         setTypeConversion('')
                         setPhone('')
                         setEmail('')
-                        setBirthday('')
+                        setAge('')
                         setBaptismOtherChurch('')
                         setBaptismToday('')
                         setBaptismMinister('')
@@ -153,7 +152,7 @@ export default function RegisterLife() {
                     ]} />
                     <Input label="E-mail" value={email} onChange={event => setEmail(event.target.value)} disabled={loading} maxLength="200" />
                     <RowInputs inputs={[
-                        <Input label="Data de Nascimento" value={birthday} onChange={event => setBirthday(event.target.value)} disabled={loading} type="date" />,
+                        <Input label="Idade" value={age} onChange={event => setAge(event.target.value)} disabled={loading} type="number" />,
                         <Select
                             label="Batizado em Outra Igreja?"
                             value={baptismOtherChurch}

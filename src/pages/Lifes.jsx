@@ -65,7 +65,7 @@ export default function Lifes() {
                 setLoading(false)
             })
             .catch(error => {
-                if (error.status === 401) {
+                if (error?.status === 401) {
                     UserService.LogOut()
                     alertExpiredSession()
                 }
@@ -100,7 +100,7 @@ export default function Lifes() {
                         }).then(() => listLifes())
                     })
                     .catch(error => {
-                        if (error.status === 401) {
+                        if (error?.status === 401) {
                             UserService.LogOut()
                             alertExpiredSession()
 
@@ -146,7 +146,7 @@ export default function Lifes() {
                 })
                 .catch(error => {
                     setLoadingButton(false)
-                    if (error.status === 401) {
+                    if (error?.status === 401) {
                         UserService.LogOut()
                         alertExpiredSession()
 
