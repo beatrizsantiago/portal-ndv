@@ -34,17 +34,21 @@ export default function Lifes() {
 
     let navigate = useNavigate()
 
+    const alertExpiredSession = () => {
+        SweetAlert.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+            confirmButtonColor: Colors.yellow,
+        })
+            .then(() => navigate('/'))
+    }
+
     useEffect(() => {
         UserService.GetSession()
             .then(isAuth => {
                 if (isAuth === false) {
-                    SweetAlert.fire({
-                        icon: 'warning',
-                        title: 'Atenção!',
-                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
-                        confirmButtonColor: Colors.green,
-                    })
-                    .then(() => navigate('/'))
+                    alertExpiredSession()
                 }
             })
     })
@@ -59,6 +63,12 @@ export default function Lifes() {
             .then(resp => {
                 setAllLifes(resp)
                 setLoading(false)
+            })
+            .catch(error => {
+                if (error.status === 401) {
+                    UserService.LogOut()
+                    alertExpiredSession()
+                }
             })
     }
 
@@ -87,15 +97,21 @@ export default function Lifes() {
                             text: `Não desanime, vamos continuar orando por ${data.name}.`,
                             confirmButtonColor: Colors.yellow,
                             confirmButtonText: 'Tamo junto',
-                        })
+                        }).then(() => listLifes())
                     })
                     .catch(error => {
-                        SweetAlert.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Não foi possível declarar a vida como perdida. Tente novamente mais tarde!',
-                            confirmButtonColor: Colors.primary,
-                        })
+                        if (error.status === 401) {
+                            UserService.LogOut()
+                            alertExpiredSession()
+
+                        } else {
+                            SweetAlert.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Não foi possível declarar a vida como perdida. Tente novamente mais tarde!',
+                                confirmButtonColor: Colors.primary,
+                            })
+                        }
                     })
             }
         })
@@ -130,12 +146,18 @@ export default function Lifes() {
                 })
                 .catch(error => {
                     setLoadingButton(false)
-                    SweetAlert.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Não foi possível enviar este feedback. Tente novamente mais tarde!',
-                        confirmButtonColor: Colors.primary,
-                    })
+                    if (error.status === 401) {
+                        UserService.LogOut()
+                        alertExpiredSession()
+
+                    } else {
+                        SweetAlert.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Não foi possível enviar este feedback. Tente novamente mais tarde!',
+                            confirmButtonColor: Colors.primary,
+                        })
+                    }
                 })
         }
     }
@@ -189,7 +211,7 @@ export default function Lifes() {
                             colunsSize={['medium', 'small']}
                             alignColuns={['start', 'center']}
                             namesColumns={['Nome', 'Telefone']}
-                            datas={allLifes.map(life => ({ name: life.fullName, phone: life.phone, id: life.id, legend: 0 }))}
+                            datas={allLifes.map(life => ({ name: life.fullName, phone: life.phone, id: life.id, legend: life.legend }))}
                             buttons={data =>
                                 <RowButtons>
                                     <Button key={1} title={<OutlineFileSync />} onClick={() => openModal(data)} outlined color={Colors.green} width={38} />

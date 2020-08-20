@@ -42,7 +42,7 @@ export default function ManageIntegrators() {
                         icon: 'warning',
                         title: 'Atenção!',
                         text: 'Sua sessão expirou! É necessário fazer o login novamente.',
-                        confirmButtonColor: Colors.green,
+                        confirmButtonColor: Colors.yellow,
                     })
                     .then(() => navigate('/'))
                 }

@@ -25,7 +25,7 @@ import {
 
 import Colors from '../themes/Colors'
 
-export default function DetailsLife() {
+export default function DetailsLife(props) {
 
     const [currentLife, setCurrentLife] = useState('')
     const [details, setDetails] = useState({})
@@ -48,17 +48,21 @@ export default function DetailsLife() {
 
     let navigate = useNavigate()
 
+    const alertExpiredSession = () => {
+        SweetAlert.fire({
+            icon: 'warning',
+            title: 'Atenção!',
+            text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+            confirmButtonColor: Colors.green,
+        })
+            .then(() => navigate('/'))
+    }
+
     useEffect(() => {
         UserService.GetSession()
             .then(isAuth => {
                 if (isAuth === false) {
-                    SweetAlert.fire({
-                        icon: 'warning',
-                        title: 'Atenção!',
-                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
-                        confirmButtonColor: Colors.green,
-                    })
-                    .then(() => navigate('/'))
+                    alertExpiredSession()
                 }
             })
     })
@@ -78,6 +82,12 @@ export default function DetailsLife() {
             .then(resp => {
                 setDetails(resp)
                 setLoading(false)
+            })
+            .catch(error => {
+                if (error.status === 401) {
+                    UserService.LogOut()
+                    alertExpiredSession()
+                }
             })
     }
 
@@ -103,12 +113,18 @@ export default function DetailsLife() {
             })
             .catch(error => {
                 setLoadingButton(false)
-                SweetAlert.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Não foi possível realizar a alteração. Tente novamente mais tarde!',
-                    confirmButtonColor: Colors.primary,
-                })
+                if (error.status === 401) {
+                    UserService.LogOut()
+                    alertExpiredSession()
+
+                } else {
+                    SweetAlert.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Não foi possível realizar a alteração. Tente novamente mais tarde!',
+                        confirmButtonColor: Colors.primary,
+                    })
+                }
             })
     }
 
@@ -190,12 +206,18 @@ export default function DetailsLife() {
             })
             .catch(error => {
                 setLoadingButton(false)
-                SweetAlert.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Não foi possível inserir um novo passo. Tente novamente mais tarde!',
-                    confirmButtonColor: Colors.primary,
-                })
+                if (error.status === 401) {
+                    UserService.LogOut()
+                    alertExpiredSession()
+
+                } else {
+                    SweetAlert.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Não foi possível inserir um novo passo. Tente novamente mais tarde!',
+                        confirmButtonColor: Colors.primary,
+                    })
+                }
             })
     }
 

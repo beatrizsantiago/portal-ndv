@@ -101,8 +101,8 @@ export async function GetLifes() {
         return lifes.data
 
     } catch (error) {
-        console.log("Error GetLifes: ", error);
-        throw error
+        console.log("Error GetLifes: ", error.response);
+        throw error.response
     }
 }
 
@@ -113,8 +113,8 @@ export async function RegisterNewLife(fullName, phone, typeConversion, email, bi
         return true
 
     } catch (error) {
-        console.log("Error RegisterNewLife: ", error);
-        throw error
+        console.log("Error RegisterNewLife: ", error.response);
+        throw error.response
     }
 }
 
@@ -124,8 +124,8 @@ export async function SendNewFeedback(lifeId, content) {
         return true
 
     } catch (error) {
-        console.log("Error SendNewFeedback: ", error);
-        throw error
+        console.log("Error SendNewFeedback: ", error.response);
+        throw error.response
     }
 }
 
@@ -135,8 +135,8 @@ export async function LifeLost(lifeId) {
         return true
 
     } catch (error) {
-        console.log("Error LifeLost: ", error);
-        throw error
+        console.log("Error LifeLost: ", error.response);
+        throw error.response
     }
 }
 
@@ -146,19 +146,19 @@ export async function GetDetailsLife(lifeId) {
         return life.data
 
     } catch (error) {
-        console.log("Error GetDetailsLife: ", error);
-        throw error
+        console.log("Error GetDetailsLife: ", error.response);
+        throw error.response
     }
 }
 
 export async function NewStepLife(lifeId, step, date) {
     try {
-        await axios.put('lifes/add-life-step', { idLife: lifeId, step, date })
+        await axios.put('lifes/add-life-step', { lifeId, step, date })
         return true
 
     } catch (error) {
-        console.log("Error NewStepLife: ", error);
-        throw error
+        console.log("Error NewStepLife: ", error.response);
+        throw error.response
     }
 }
 
@@ -168,8 +168,8 @@ export async function AlterLife(lifeId, fullName, email, phone, birthday, integr
         return true
 
     } catch (error) {
-        console.log("Error AlterLife: ", error);
-        throw error
+        console.log("Error AlterLife: ", error.response);
+        throw error.response
     }
 }
 
