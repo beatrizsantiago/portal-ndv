@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SweetAlert from 'sweetalert2'
 import ReactExport from "react-export-excel"
@@ -53,11 +53,7 @@ export default function Lifes() {
             })
     })
 
-    useEffect(() => {
-        listLifes()
-    }, [])
-
-    const listLifes = () => {
+    const listLifes = useCallback(() => {
         setLoading(true)
         IntegrationService.GetLifes()
             .then(resp => {
@@ -67,10 +63,20 @@ export default function Lifes() {
             .catch(error => {
                 if (error?.status === 401) {
                     UserService.LogOut()
-                    alertExpiredSession()
+                    SweetAlert.fire({
+                        icon: 'warning',
+                        title: 'Atenção!',
+                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+                        confirmButtonColor: Colors.yellow,
+                    })
+                        .then(() => navigate('/'))
                 }
             })
-    }
+    }, [navigate])
+
+    useEffect(() => {
+        listLifes()
+    }, [listLifes])
 
     const detailsLife = data => {
         navigate(`/integration/lifes/details/${data.id}`)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import moment from 'moment'
 import SweetAlert from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
@@ -67,11 +67,7 @@ export default function DetailsLife(props) {
             })
     })
 
-    useEffect(() => {
-        listDetails()
-    }, [])
-
-    const listDetails = () => {
+    const listDetails = useCallback(() => {
         let url_string = window.location.href
         let splitUrl = url_string.split('/')
         let id = splitUrl[splitUrl.length - 1]
@@ -86,10 +82,20 @@ export default function DetailsLife(props) {
             .catch(error => {
                 if (error?.status === 401) {
                     UserService.LogOut()
-                    alertExpiredSession()
+                    SweetAlert.fire({
+                        icon: 'warning',
+                        title: 'Atenção!',
+                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+                        confirmButtonColor: Colors.green,
+                    })
+                        .then(() => navigate('/'))
                 }
             })
-    }
+    }, [navigate])
+
+    useEffect(() => {
+        listDetails()
+    }, [listDetails])
 
     const closeModalEdit = () => {
         setShowModalEdit(false)
@@ -97,7 +103,7 @@ export default function DetailsLife(props) {
     }
 
     const sendDatas = () => {
-        IntegrationService.AlterLife(parseInt(currentLife), newName, newEmail, newPhone, parseInt(newAge), newIntegrator)
+        IntegrationService.AlterLife(parseInt(currentLife), newName, newEmail, newPhone, newAge ? parseInt(newAge) : 0, newIntegrator)
             .then(() => {
                 setLoadingButton(false)
                 SweetAlert.fire({
@@ -215,7 +221,8 @@ export default function DetailsLife(props) {
         let past = moment(new Date()).subtract(30, 'days').format()
         let selectDate = moment(startDate).format()
 
-        let lastStep = details.historicPropheticWay[selectedStep.step - 1]
+        let lastStep = details.historicPropheticWay[selectedStep.step - 2]
+        console.log(moment(lastStep.date).format(), selectDate);
 
         setErrorDate(false)
         if (selectDate < past || selectDate > today) {

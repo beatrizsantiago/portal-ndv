@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import SweetAlert from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 
@@ -51,11 +51,7 @@ export default function RegisterVisitant() {
             })
     })
 
-    useEffect(() => {
-        listVititants()
-    }, [])
-
-    const listVititants = () => {
+    const listVititants = useCallback(() => {
         setLoadingList(true)
         IntegrationService.GetVisitants()
             .then(resp => {
@@ -65,10 +61,20 @@ export default function RegisterVisitant() {
             .catch(error => {
                 if (error?.status === 401) {
                     UserService.LogOut()
-                    alertExpiredSession()
+                    SweetAlert.fire({
+                        icon: 'warning',
+                        title: 'Atenção!',
+                        text: 'Sua sessão expirou! É necessário fazer o login novamente.',
+                        confirmButtonColor: Colors.yellow,
+                    })
+                        .then(() => navigate('/'))
                 }
             })
-    }
+    }, [navigate])
+
+    useEffect(() => {
+        listVititants()
+    }, [listVititants])
 
     const sendDatas = () => {
         setLoading(true)

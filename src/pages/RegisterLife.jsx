@@ -49,7 +49,7 @@ export default function RegisterLife() {
 
     const sendDatas = () => {
         setLoading(true)
-        IntegrationService.RegisterNewLife(fullName, phone, parseInt(typeConversion), email, parseInt(age), baptismOtherChurch === '0' ? false : true, baptismToday === '0' ? false : true, baptismMinister)
+        IntegrationService.RegisterNewLife(fullName, phone, parseInt(typeConversion), email, age ? parseInt(age) : 0, baptismOtherChurch === '0' ? false : true, baptismToday === '0' ? false : true, baptismMinister)
             .then(() => {
                 setLoading(false)
                 SweetAlert.fire({
