@@ -31,7 +31,7 @@ export const Graph = styled.div`
 
 export const BarGraph = styled(Bar).attrs(props => ({
     data: {
-        labels: ['Visitantes', 'Conversões/Reconciliações', 'Batismo', 'Experiência com Deus', 'Ativação da Paternidade', 'Classe Vida Cristã', 'Classe Líder de CAP'],
+        labels: props.labels,
         datasets: [{
             label: 'Vidas',
             data: props.data,
@@ -41,8 +41,9 @@ export const BarGraph = styled(Bar).attrs(props => ({
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(46, 46, 46, 0.2)'
+                'rgba(255, 79, 220, 0.2)',
+                'rgba(255, 133, 13, 0.2)',
+                'rgba(46, 46, 46, 0.2)',
             ],
             hoverBackgroundColor: [
                 'rgba(255, 99, 132, 0.4)',
@@ -50,8 +51,9 @@ export const BarGraph = styled(Bar).attrs(props => ({
                 'rgba(255, 206, 86, 0.4)',
                 'rgba(75, 192, 192, 0.4)',
                 'rgba(153, 102, 255, 0.4)',
-                'rgba(255, 159, 64, 0.4)',
-                'rgba(46, 46, 46, 0.4)'
+                'rgba(255, 79, 220, 0.4)',
+                'rgba(255, 133, 13, 0.4)',
+                'rgba(46, 46, 46, 0.4)',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -59,8 +61,9 @@ export const BarGraph = styled(Bar).attrs(props => ({
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(46, 46, 46, 1)'
+                'rgba(255, 79, 220, 1)',
+                'rgba(255, 133, 13, 1)',
+                'rgba(46, 46, 46, 1)',
             ],
             borderWidth: 1
         }]

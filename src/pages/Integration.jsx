@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SweetAlert from 'sweetalert2'
 
 import UserService from '../services/UserService'
+import IntegrationService from '../services/IntegrationService'
 
 import Header from '../components/Header'
 import NavigationMenu from '../components/NavigationMenu'
@@ -13,6 +14,9 @@ import { Container, Section } from './styles/MainStyled'
 import { AddressCard, HandHeart, UsersCog, Graph, BarGraph } from './styles/IntegrationStyled'
 
 export default function Integration() {
+
+    const [amountsReport, setAmountsReport] = useState([])
+    const [labelsReport, setLabelsReport] = useState([])
 
     let navigate = useNavigate()
 
@@ -31,6 +35,16 @@ export default function Integration() {
         })
     })
 
+    useEffect(() => {
+        IntegrationService.GetReport()
+            .then(datas => {
+                let amounts = datas.map(data => data.amoutStep)
+                let labels = datas.map(data => data.stepName)
+                setAmountsReport(amounts)
+                setLabelsReport(labels)
+            })
+    }, [])
+
     return (
         <Container>
             <Header />
@@ -45,7 +59,7 @@ export default function Integration() {
 
             <Section>
                 <Graph>
-                    <BarGraph data={[12, 19, 5, 10, 30, 20, 2]} />
+                    <BarGraph labels={labelsReport} data={amountsReport} />
                 </Graph>
             </Section>
         </Container>
