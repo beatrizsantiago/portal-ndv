@@ -3,7 +3,7 @@ import axios from 'axios'
 export async function RegisterNewVisitant(fullName, phone, frequentOtherChurch, companion) {
     try {
         console.log(fullName, phone, frequentOtherChurch, companion);
-        await axios.post('lifes/create-visitant', { fullName, phone, frequentOtherChurch, companion })
+        await axios.post('integration/visitants', { fullName, phone, frequentOtherChurch, companion })
         return true
 
     } catch (error) {
@@ -14,7 +14,7 @@ export async function RegisterNewVisitant(fullName, phone, frequentOtherChurch, 
 
 export async function GetVisitants() {
     try {
-        let visitants = await axios.get('lifes/list-visitants')
+        let visitants = await axios.get('integration/visitants')
         return visitants.data
 
     } catch (error) {
@@ -109,7 +109,7 @@ export async function AddIntegrator(email) {
 
 export async function GetLifes() {
     try {
-        let lifes = await axios.get('lifes')
+        let lifes = await axios.get('integration/lifes')
         return lifes.data
 
     } catch (error) {
@@ -120,7 +120,7 @@ export async function GetLifes() {
 
 export async function RegisterNewLife(fullName, phone, typeConversion, email, age, baptismOtherChurch, baptismToday, baptismMinister) {
     try {
-        await axios.post('lifes', { fullName, phone, typeConversion, email, age, baptismOtherChurch, baptismToday, baptismMinister })
+        await axios.post('integration/lifes', { fullName, phone, typeConversion, email, age, baptismOtherChurch, baptismToday, baptismMinister })
         return true
 
     } catch (error) {
@@ -131,7 +131,7 @@ export async function RegisterNewLife(fullName, phone, typeConversion, email, ag
 
 export async function SendNewFeedback(lifeId, content) {
     try {
-        await axios.post('lifes/new-feedback', { lifeId, content })
+        await axios.post('integration/lifes/feedbacks', { lifeId, content })
         return true
 
     } catch (error) {
@@ -142,7 +142,7 @@ export async function SendNewFeedback(lifeId, content) {
 
 export async function LifeLost(lifeId) {
     try {
-        await axios.post(`lifes/life-lost/${lifeId}`)
+        await axios.post(`integration/lifes/lost/${lifeId}`)
         return true
 
     } catch (error) {
@@ -153,7 +153,7 @@ export async function LifeLost(lifeId) {
 
 export async function GetDetailsLife(lifeId) {
     try {
-        let life = await axios.get(`lifes/${lifeId}`)
+        let life = await axios.get(`integration/lifes/${lifeId}`)
         return life.data
 
     } catch (error) {
@@ -164,7 +164,7 @@ export async function GetDetailsLife(lifeId) {
 
 export async function NewStepLife(lifeId, step, date) {
     try {
-        await axios.put('lifes/add-life-step', { lifeId, step, date })
+        await axios.put('integration/lifes/steps', { lifeId, step, date })
         return true
 
     } catch (error) {
@@ -175,7 +175,7 @@ export async function NewStepLife(lifeId, step, date) {
 
 export async function AlterLife(lifeId, fullName, email, phone, age, integratorId) {
     try {
-        await axios.put('lifes/add-life-step', { id: lifeId, fullName, email, phone, age, integratorId })
+        await axios.put('integration/lifes', { id: lifeId, fullName, email, phone, age, integratorId })
         return true
 
     } catch (error) {
