@@ -12,7 +12,7 @@ import Header from '../components/Header'
 import Colors from '../themes/Colors'
 
 import { Container, SectionWrap, Section } from './styles/MainStyled'
-import { Card, ImageIntegration, ImageProfile, Label } from './styles/HomeStyled'
+import { Card, ImageIntegration, ImageProfile, ImageEvent, Label } from './styles/HomeStyled'
 
 function Home({ setCurrentNavigation }) {
 
@@ -32,7 +32,7 @@ function Home({ setCurrentNavigation }) {
                         text: 'Sua sessão expirou! É necessário fazer o login novamente.',
                         confirmButtonColor: Colors.yellow,
                     })
-                    .then(() => navigate('/'))
+                        .then(() => navigate('/'))
                 }
             })
     })
@@ -52,14 +52,14 @@ function Home({ setCurrentNavigation }) {
                         <Label>Integração</Label>
                     </Card>
 
+                    <Card onClick={() => handlePress('events')}>
+                        <ImageEvent />
+                        <Label>Eventos</Label>
+                    </Card>
+
                     {/* <Card>
                         <ImageCap />
                         <Label>Casa de Paz</Label>
-                    </Card>
-
-                    <Card>
-                        <ImageEvent />
-                        <Label>Eventos</Label>
                     </Card>
 
                     <Card>

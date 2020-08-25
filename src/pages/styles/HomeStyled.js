@@ -6,7 +6,7 @@ import { MiddleCenterRow } from '../../themes/StyleConstants'
 import IconIntegration from '../../assets/icons/icon_integracao.png'
 import IconCap from '../../assets/icons/icon_cap.png'
 import IconProfile from '../../assets/icons/icon_woman_profile.png'
-import IconEvent from '../../assets/icons/icon_event.png'
+import IconEvent from '../../assets/icons/icon_events.png'
 import IconClass from '../../assets/icons/icon_class.png'
 
 const PropsIcon = css`

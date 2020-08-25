@@ -18,7 +18,7 @@ function Header({ currentNavigation, setCurrentNavigation }) {
         let query = window.location.href.split('/')
         let currentRoute = query[3]
 
-        let mainRoutes = ['home', 'integration']
+        let mainRoutes = ['home', 'integration', 'events']
 
         let findRoute = mainRoutes.includes(currentRoute)
 
@@ -57,10 +57,10 @@ function Header({ currentNavigation, setCurrentNavigation }) {
                     currentNavigation !== 'home' ?
                         <>
                             <Item onClick={() => handlePress('integration')} type={getType('integration')}>Integração</Item>
-                            <Item onClick={() => handlePress('integration')}>Casa de Paz</Item>
+                            {/* <Item onClick={() => handlePress('integration')}>Casa de Paz</Item> */}
                             <Spacing />
-                            <Item onClick={() => handlePress('integration')}>Eventos</Item>
-                            <Item onClick={() => handlePress('integration')}>Classes</Item>
+                            <Item onClick={() => handlePress('events')} type={getType('events')}>Eventos</Item>
+                            {/* <Item onClick={() => handlePress('integration')}>Classes</Item> */}
                         </> : null
                 }
             </Tab>
