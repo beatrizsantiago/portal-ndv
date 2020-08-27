@@ -10,6 +10,7 @@ import Header from '../components/Header'
 import BoxForm from '../components/BoxForm'
 import RowInputs from '../components/RowInputs'
 import Input from '../components/Input'
+import InputTextArea from '../components/InputTextArea'
 import Button from '../components/Button'
 import Select from '../components/Select'
 import MessageBox from '../components/MessageBox'
@@ -80,6 +81,14 @@ export default function RegisterLife() {
         sendDatas()
     }
 
+    const onChangeDaysEvent = (index, label) => event => {
+		const newDay = daysEvent.map((day, idx) => {
+			if (index !== idx) return day
+			return { ...day, [label]: event.target.value }
+        })
+        setDaysEvent(newDay)
+	}
+
     return (
         <Container>
             <Header />
@@ -112,13 +121,14 @@ export default function RegisterLife() {
                     {
                         daysEvent.map((day, index) => (
                             <RowInputs key={index} inputs={[
-                                <Input label="Data" value={daysEvent[index].date} onChange={event => setDaysEvent('')} disabled={loading} type="date" required />,
-                                <Input label="Hora de Início" value={day.initTime} onChange={event => setDaysEvent(event.target.value)} disabled={loading} type="time" required />,
-                                <Input label="Hora de Término" value={day.endTime} onChange={event => setDaysEvent(event.target.value)} disabled={loading} type="time" required />,
-                                <Input label="Preletor" value={title} onChange={event => setTitle(event.target.value)} disabled={loading} maxLength="200" required />
+                                <Input label="Data" value={daysEvent[index].date} onChange={onChangeDaysEvent(index, 'date')} disabled={loading} type="date" required />,
+                                <Input label="Hora de Início" value={daysEvent[index].initTime} onChange={onChangeDaysEvent(index, 'initTime')} disabled={loading} type="time" required />,
+                                <Input label="Hora de Término" value={daysEvent[index].endTime} onChange={onChangeDaysEvent(index, 'endTime')} disabled={loading} type="time" required />,
+                                <Input label="Preletor" value={daysEvent[index].preacher} onChange={onChangeDaysEvent(index, 'preacher')} disabled={loading} maxLength="200" />
                             ]} />
                         ))
                     }
+                    <InputTextArea label="Descrição" />
                 </BoxForm>
             </Section>
 
