@@ -21,6 +21,7 @@ import Colors from '../themes/Colors'
 export default function RegisterEvent() {
 
     const [title, setTitle] = useState('')
+    const [banner, setBanner] = useState('')
     const [organizer, setOrganizer] = useState('')
     const [typeTicket, setTypeTicket] = useState('0')
     const [valueTicket, setValueTicket] = useState('')
@@ -154,6 +155,7 @@ export default function RegisterEvent() {
                 >
                     {error ? <MessageBox text={messageError} /> : null}
                     <Input label="Título" value={title} onChange={event => setTitle(event.target.value)} disabled={loading} maxLength="200" required />
+                    <Input label="Banner" value={banner} onChange={event => setBanner(event.target.value)} disabled={loading} type="file" required />
                     <Input label="Organizador" value={organizer} onChange={event => setOrganizer(event.target.value)} disabled={loading} maxLength="200" />
                     <RowInputs inputs={[
                         <Select

@@ -11,6 +11,7 @@ import RegisterLife from './pages/RegisterLife'
 import DetailsLife from './pages/DetailsLife'
 import Events from './pages/Events'
 import UpdateSchedule from './pages/UpdateSchedule'
+import ListEvent from './pages/ListEvent'
 import RegisterEvent from './pages/RegisterEvent'
 import UserProfile from './pages/UserProfile'
 import NotFound from './pages/NotFound'
@@ -28,6 +29,7 @@ export default function MainRoutes() {
             <Route path="/integration/lifes/details/:lifeId" element={<DetailsLife />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events/schedule" element={<UpdateSchedule />} />
+            <Route path="/events/list" element={<ListEvent />} />
             <Route path="/events/register" element={<RegisterEvent />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="*" element={<NotFound />} />

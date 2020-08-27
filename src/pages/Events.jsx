@@ -38,7 +38,7 @@ export default function Events() {
 
     const getEvents = () => {
         setLoading(true)
-        EventService.ListEvents()
+        EventService.ListEventsMonth()
             .then(resp => {
                 setAllEvents(resp)
                 setLoading(false)
@@ -59,7 +59,7 @@ export default function Events() {
             <NavigationMenu
                 items={[
                     { icon: <UpdateSchedule />, title: 'Atualizar Agenda', link: '/events/schedule' },
-                    { icon: <ListEvent />, title: 'Listar Eventos', link: '/' },
+                    { icon: <ListEvent />, title: 'Listar Eventos', link: '/events/list' },
                     { icon: <AddEvent />, title: 'Criar Evento', link: '/events/register' },
                 ]}
             />

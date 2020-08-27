@@ -2,19 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Colors from '../themes/Colors'
-import { CenterRow, MiddleCenterColumn, MiddleCenterRow } from '../themes/StyleConstants'
+import { CenterRow, CenterColumn, MiddleCenterColumn, MiddleCenterRow } from '../themes/StyleConstants'
 
-export default function Card({ title, values = [], withPhoto, source, size = 'small', buttons = [] }) {
+export default function Card({ title, values = [], withPhoto, source, size = 'small', buttons = [], direction = 'row' }) {
     return (
-        <Content size={size}>
+        <Content size={size} direction={direction}>
             {
                 withPhoto ?
-                    <Profile size={size}>
+                    <Profile direction={direction} size={size}>
                         <Image source={source} />
                     </Profile>
                     : null
             }
-            <Body withPhoto={withPhoto} size={size}>
+            <Body withPhoto={withPhoto} size={size} direction={direction}>
                 <Title>{title}</Title>
                 {
                     values.map((value, index) => (
@@ -39,7 +39,7 @@ export default function Card({ title, values = [], withPhoto, source, size = 'sm
 }
 
 const Content = styled.div`
-    ${CenterRow}
+    ${props => props.direction === 'row' ? CenterRow : CenterColumn}
     width: ${props => props.size === 'small' ? 32 : (props.size === 'medium' ? 48 : 100)}%;
     min-width: 300px;
     /* height: ${props => props.size === 'small' ? 180 : 250}px; */
@@ -65,13 +65,13 @@ const Content = styled.div`
 
 const Profile = styled.div`
     ${CenterRow}
-    width: ${props => props.size === 'small' ? 28 : 32}%;
-    height: 100%;
-    padding-right: 10px;
+    width: ${props => props.direction === 'row' ? (props.size === 'small' ? 28 : 32) : 100}%;
+    height: ${props => props.direction === 'row' ? '100%' : '200px'};
+    padding-right: ${props => props.direction === 'row' ? '10' : '0'}px;
     box-sizing: border-box;
 
     @media (max-width: 520px) {
-        width: 40%;
+        width: ${props => props.direction === 'row' ? '40' : '100'}%;
     }
 `
 
@@ -87,12 +87,12 @@ const Image = styled.div`
 
 const Body = styled.div`
     ${MiddleCenterColumn}
-    width: ${props => props.withPhoto ? (props.size === 'small' ? 72 : 68) : 100}%;
+    width: ${props => props.withPhoto ? (props.direction === 'row' ? (props.size === 'small' ? 72 : 68) : 100) : 100}%;
     height: 100%;
     box-sizing: border-box;
 
     @media (max-width: 520px) {
-        width: ${props => props.withPhoto ? 60 : 100}%;
+        width: ${props => props.withPhoto ? (props.direction === 'row' ? 60 : 100) : 100}%;
     }
 `
 
