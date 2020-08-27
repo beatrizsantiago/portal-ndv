@@ -7,7 +7,7 @@ import { MiddleCenterRow } from '../themes/StyleConstants'
 export default function Input({ value, onChange, label, required, type, disabled, maxLength, placeholder, icon, error }) {
     return (
         <Container>
-            <Label>{label} {required ? <TextRed>*</TextRed> : null}</Label>
+            <Label disabled={disabled}>{label} {required  ? <TextRed disabled={disabled}>*</TextRed> : null}</Label>
             <Row>
                 {icon ? <BoxIcon>{icon}</BoxIcon> : null}
                 <DataInput value={value} onChange={onChange} type={type} placeholder={placeholder} disabled={disabled} maxLength={maxLength} icon={icon} error={error} />
@@ -24,7 +24,7 @@ const Container = styled.div`
 `
 
 const Label = styled.h2`
-    color: ${Colors.primary};
+    color: ${props => props.disabled === true ? Colors.lightGray : Colors.primary};
     font-size: 16px;
     margin-bottom: 5px;
 
@@ -34,7 +34,7 @@ const Label = styled.h2`
 `
 
 const TextRed = styled.span`
-    color: ${Colors.red};
+    color: ${props => props.disabled === true ? Colors.redTransparent4 : Colors.red};
 `
 
 const Row = styled.div`
