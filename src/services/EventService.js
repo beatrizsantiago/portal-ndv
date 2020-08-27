@@ -10,6 +10,17 @@ export async function RegisterNewEvent(title, organizer, typeTicket, valueTicket
     }
 }
 
+export async function ScheduleUpdate(title, dateSchedule, initHour, endHour, frequencyWeek) {
+    try {
+        console.log(title, dateSchedule, initHour, endHour, frequencyWeek);
+        return true
+
+    } catch (error) {
+        console.log("Error RegisterNewEvent: ", error);
+        throw error
+    }
+}
+
 export async function ListEvents() {
     try {
         let data = [
@@ -36,4 +47,4 @@ export async function ListEvents() {
     }
 }
 
-export default { ListEvents, RegisterNewEvent }
+export default { ListEvents, RegisterNewEvent, ScheduleUpdate }

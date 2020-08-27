@@ -47,7 +47,7 @@ export default function UpdateSchedule() {
 
     const sendDatas = () => {
         setLoading(true)
-        EventService.RegisterNewEvent(title)
+        EventService.ScheduleUpdate(title, moment(dateSchedule).format(), initHour, endHour, parseInt(frequencyWeek))
             .then(() => {
                 setLoading(false)
                 SweetAlert.fire({
@@ -78,7 +78,27 @@ export default function UpdateSchedule() {
         if (title.length < 3) {
             setMessageError('O campo Título precisa ter mais que 3 caracteres.')
             setError(true)
-
+            
+        } else if (dateSchedule === '') {
+            setMessageError('Preencha corretamente o campo data.')
+            setError(true)
+            
+        } else if (moment(dateSchedule).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD')) {
+            setMessageError('A data inserida não pode ser menor que a data de hoje.')
+            setError(true)
+            
+        } else if (initHour === '') {
+            setMessageError('Preencha o campo da Hora de Início.')
+            setError(true)
+            
+        } else if (endHour === '') {
+            setMessageError('Preencha o campo da Hora de Término.')
+            setError(true)
+            
+        } else if (frequencyWeek === '') {
+            setMessageError('Selecione a periodicidade do evento.')
+            setError(true)
+            
         } else {
             sendDatas()
         }
@@ -109,8 +129,8 @@ export default function UpdateSchedule() {
                         onChange={event => setFrequencyWeek(event.target.value)}
                         disabled={loading}
                         options={[
-                            { label: 'Apenas esta semana', value: '0' },
-                            { label: `Em toda ${moment(dateSchedule ? dateSchedule : new Date()).format('dddd')} deste mês`, value: '1' },
+                            { label: 'Apenas esta data', value: '0' },
+                            { label: `Em toda ${moment(dateSchedule ? dateSchedule : new Date()).format('dddd')} do mês de ${moment(dateSchedule ? dateSchedule : new Date()).format('MMMM')}`, value: '1' },
                         ]}
                         required
                     />
