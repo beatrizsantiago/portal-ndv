@@ -31,7 +31,7 @@ export default function Events() {
                         text: 'Sua sessão expirou! É necessário fazer o login novamente.',
                         confirmButtonColor: Colors.yellow,
                     })
-                        .then(() => navigate('/'))
+                    navigate('/')
                 }
             })
     })

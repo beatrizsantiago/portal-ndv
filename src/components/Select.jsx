@@ -6,7 +6,7 @@ import Colors from '../themes/Colors'
 export default function Select({ options = [], label, required, disabled, error, value, onChange }) {
     return (
         <Container>
-            <Label>{label} {required ? <TextRed>*</TextRed> : null}</Label>
+            <Label disabled={disabled}>{label} {required ? <TextRed>*</TextRed> : null}</Label>
             <Dropdown disabled={disabled} error={error} value={value} onChange={onChange}>
                 <option value="">Selecione...</option>
                 {
@@ -27,7 +27,7 @@ const Container = styled.div`
 `
 
 const Label = styled.h2`
-    color: ${Colors.primary};
+    color: ${props => props.disabled === true ? Colors.lightGray : Colors.primary};
     font-size: 16px;
     margin-bottom: 5px;
     

@@ -55,7 +55,7 @@ const DataInput = styled.input`
     font-size: 16px;
     padding: 4px 4px 4px ${props => props.icon ? 32 : 4}px;
     border: none;
-    border-bottom: ${props => props.error ? 2 : 1}px solid ${props => props.error ? Colors.red : Colors.primary};
+    border-bottom: ${props => props.error ? 2 : 1}px solid ${props => props.disabled ? Colors.smoothGray : (props.error ? Colors.red : Colors.primary)};
     box-sizing: border-box;
     background-color: ${Colors.iceWhite};
 

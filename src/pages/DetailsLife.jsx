@@ -88,7 +88,7 @@ export default function DetailsLife(props) {
                         text: 'Sua sessão expirou! É necessário fazer o login novamente.',
                         confirmButtonColor: Colors.green,
                     })
-                        .then(() => navigate('/'))
+                    navigate('/')
                 }
             })
     }, [navigate])

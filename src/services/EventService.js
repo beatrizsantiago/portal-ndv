@@ -1,3 +1,15 @@
+
+export async function RegisterNewEvent(title, organizer, typeTicket, valueTicket, daysEvent, description) {
+    try {
+        console.log(title, organizer, typeTicket, valueTicket, daysEvent, description);
+        return true
+
+    } catch (error) {
+        console.log("Error RegisterNewEvent: ", error);
+        throw error
+    }
+}
+
 export async function ListEvents() {
     try {
         let data = [
@@ -24,4 +36,4 @@ export async function ListEvents() {
     }
 }
 
-export default { ListEvents }
+export default { ListEvents, RegisterNewEvent }
