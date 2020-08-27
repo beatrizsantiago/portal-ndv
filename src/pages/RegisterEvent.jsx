@@ -18,7 +18,7 @@ import { Container, Section } from './styles/MainStyled'
 import { Title, Row, SmallRow, RemoveIcon, RemoveDay } from './styles/EventsStyled'
 import Colors from '../themes/Colors'
 
-export default function RegisterLife() {
+export default function RegisterEvent() {
 
     const [title, setTitle] = useState('')
     const [organizer, setOrganizer] = useState('')

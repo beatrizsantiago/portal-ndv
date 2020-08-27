@@ -58,7 +58,7 @@ export default function Events() {
 
             <NavigationMenu
                 items={[
-                    { icon: <UpdateSchedule />, title: 'Atualizar Agenda', link: '/' },
+                    { icon: <UpdateSchedule />, title: 'Atualizar Agenda', link: '/events/schedule' },
                     { icon: <ListEvent />, title: 'Listar Eventos', link: '/' },
                     { icon: <AddEvent />, title: 'Criar Evento', link: '/events/register' },
                 ]}
