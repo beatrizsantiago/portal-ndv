@@ -67,6 +67,7 @@ const Profile = styled.div`
     ${CenterRow}
     width: ${props => props.direction === 'row' ? (props.size === 'small' ? 28 : 32) : 100}%;
     height: ${props => props.direction === 'row' ? '100%' : '200px'};
+    margin-bottom: ${props => props.direction === 'row' ? '0' : '10'}px;
     padding-right: ${props => props.direction === 'row' ? '10' : '0'}px;
     box-sizing: border-box;
 
@@ -136,6 +137,10 @@ const RowButtons = styled.div`
     margin-top: ${props => props.hasButton > 0 ? 6 : 0}px;
     padding-top: ${props => props.hasButton > 0 ? 6 : 0}px;
     border-top: solid 1px ${props => props.hasButton > 0 ? Colors.lightGray : Colors.white};
+
+    @media (max-width: 400px) {
+        flex-wrap: wrap;
+    }
 `
 
 const Box = styled.div`

@@ -39,6 +39,10 @@ export const CalendarEvent = styled(Calendar).attrs({
     background-color: ${Colors.white};
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     z-index: 0;
+
+    @media (max-width: 600px) {
+        height: 420px;
+    }
 `
 
 export const Title = styled.h2`

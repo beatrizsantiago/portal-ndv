@@ -20,6 +20,7 @@ import Colors from '../themes/Colors'
 export default function UpdateSchedule() {
 
     const [title, setTitle] = useState('')
+    const [banner, setBanner] = useState('')
     const [dateSchedule, setDateSchedule] = useState('')
     const [initHour, setInitHour] = useState('')
     const [endHour, setEndHour] = useState('')
@@ -118,6 +119,7 @@ export default function UpdateSchedule() {
                 >
                     {error ? <MessageBox text={messageError} /> : null}
                     <Input label="Título" value={title} onChange={event => setTitle(event.target.value)} disabled={loading} maxLength="200" required />
+                    <Input label="Banner" value={banner} onChange={event => setBanner(event.target.value)} disabled={loading} type="file" />
                     <RowInputs inputs={[
                         <Input label="Data" value={dateSchedule} onChange={event => setDateSchedule(event.target.value)} disabled={loading} type="date" required />,
                         <Input label="Hora de Início" value={initHour} onChange={event => setInitHour(event.target.value)} disabled={loading} type="time" required />,
