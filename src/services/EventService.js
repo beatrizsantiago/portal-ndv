@@ -75,9 +75,23 @@ export async function ListEventsMonth() {
 
 export async function DetailsEvent(id) {
     try {
-        let data = [
-            
-        ]
+        let data = {
+            id: 1,
+            banner: 'https://http2.mlstatic.com/painel-banner-decoraco-frozen-200-x150-D_NQ_NP_981396-MLB40516247954_012020-F.jpg',
+            title: 'Long Event',
+            organizer: 'Annabeth Chase',
+            typeTicket: 1,
+            valueTicket: 10.00,
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+            schedule: [
+                {
+                    date: new Date(2020, 7, 7),
+                    initTime: '17:00',
+                    endTime: '19:00',
+                    preacher: 'Pregador'
+                },
+            ]
+        }
 
         return data
 

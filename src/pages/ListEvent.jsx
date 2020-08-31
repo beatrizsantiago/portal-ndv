@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import SweetAlert from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
 
 import UserService from '../services/UserService'
 import EventService from '../services/EventService'
@@ -12,12 +13,14 @@ import Loading from '../components/Loading'
 import BoxModal from '../components/BoxModal'
 
 import { Container, SectionWrap } from './styles/MainStyled'
+import { ImageBanner, BodyModal, Title, Description, Row, RowWrap, Label, Text, Subtitle, Column } from './styles/ListEventStyled'
 
 import Colors from '../themes/Colors'
 
 export default function ListEvent() {
 
     const [allEvents, setAllEvents] = useState([])
+    const [eventSelected, setEventSelected] = useState({})
     const [modalVisible, setModalVisible] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -43,7 +46,6 @@ export default function ListEvent() {
     }, [])
 
     const listEvents = () => {
-        console.log("List");
         setLoading(true)
         EventService.ListEventsMonth()
             .then(resp => {
@@ -88,6 +90,14 @@ export default function ListEvent() {
             })
     }
 
+    const openModalDetails = (event) => {
+        EventService.DetailsEvent(event.id)
+            .then(resp => {
+                setEventSelected(resp)
+                setModalVisible(true)
+            })
+    }
+
     const closeModal = () => {
         setModalVisible(false)
     }
@@ -115,15 +125,59 @@ export default function ListEvent() {
                                     buttons={[
                                         <Button title="Cancelar" onClick={() => handlePressCancel(event)} width={100} height={28} color={Colors.red} />,
                                         <Button title="Alterar" width={100} height={28} color={Colors.yellow} />,
-                                        <Button title="Detalhes" width={100} height={28} color={Colors.primary} />,
+                                        <Button title="Detalhes" onClick={() => openModalDetails(event)} width={100} height={28} color={Colors.primary} />,
                                     ]}
                                 />
                             ))
                         }
                     </SectionWrap>
             }
-            <BoxModal isOpen={modalVisible} closedPress={() => closeModal()}>
-
+            <BoxModal isOpen={modalVisible} closedPress={() => closeModal()} padding={false}>
+                <ImageBanner source={eventSelected?.banner} />
+                <BodyModal>
+                    <Title>{eventSelected?.title}</Title>
+                    <Description>{eventSelected?.description || ''}</Description>
+                    <Row>
+                        <Label>Organizador: </Label>
+                        <Text>{eventSelected?.organizer || 'Não informado'}</Text>
+                    </Row>
+                    <RowWrap>
+                        <Row type={1}>
+                            <Label>Tipo de Ingresso: </Label>
+                            <Text>{eventSelected?.typeTicket === 0 ? 'Gratuito' : 'Pago'}</Text>
+                        </Row>
+                        <Row type={1}>
+                            <Label>Valor: </Label>
+                            <Text>{eventSelected.valueTicket !== undefined ? `R$${eventSelected.valueTicket.toFixed(2).replace('.', ',')}` : ''}</Text>
+                        </Row>
+                    </RowWrap>
+                    <Subtitle>Programação</Subtitle>
+                    <RowWrap>
+                        {
+                            eventSelected.schedule !== undefined ?
+                                eventSelected.schedule.map((day, index) => (
+                                    <Column key={index} index={index} quantity={eventSelected.schedule.length}>
+                                        <Row>
+                                            <Label>Dia: </Label>
+                                            <Text>{moment(day.date).format('DD/MM/YYYY')}</Text>
+                                        </Row>
+                                        <Row>
+                                            <Label>Hora de Início: </Label>
+                                            <Text>{day.initTime}h</Text>
+                                        </Row>
+                                        <Row>
+                                            <Label>Hora de Término: </Label>
+                                            <Text>{day.endTime}h</Text>
+                                        </Row>
+                                        <Row>
+                                            <Label>Preletor: </Label>
+                                            <Text>{day.preacher}</Text>
+                                        </Row>
+                                    </Column>
+                                )) : null
+                        }
+                    </RowWrap>
+                </BodyModal>
             </BoxModal>
         </Container>
     )
