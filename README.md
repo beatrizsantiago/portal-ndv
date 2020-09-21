@@ -3,6 +3,8 @@
 ## Sobre
 Projeto desenvolvido com o objetivo de explorar novas tecnologias e formas organização dos componentes React.
 
+<img src="./src/assets/img/page-login.png"/>
+
 ## Tecnologias
 
 - [ReactJS](https://pt-br.reactjs.org/)
